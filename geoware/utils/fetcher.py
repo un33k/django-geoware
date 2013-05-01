@@ -101,15 +101,23 @@ def get_timezone_by_name_id(name):
     return timezone
 
 
-def get_country_list(cache_time=60*60):
+def get_country_list(cache_time=86400):
     site = Site.objects.get_current()
-    key = '{0}_portalware_country_cache_key'.format(site.domain)
+    key = '{0}_geoware_country_cache_key'.format(site.domain)
     countries = cache.get(key)
     if not countries:
         countries = Country.objects.filter(is_active=True).order_by('name')
         cache.set(key, list(countries), cache_time)
     return countries
 
+def get_continent_list(cache_time=86400):
+    site = Site.objects.get_current()
+    key = '{0}_geoware_continet_cache_key'.format(site.domain)
+    continents = cache.get(key)
+    if not continents:
+        continents = Continent.objects.filter(is_active=True).order_by('name')
+        cache.set(key, list(continents), cache_time)
+    return continents
 
 
 
