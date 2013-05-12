@@ -26,6 +26,7 @@ class LocationBase(models.Model):
     url = models.URLField(_("URL"), max_length=254, blank=True, null=True)
     geoname_id = models.CharField(max_length=50, db_index=True, null=True, blank=True)
     altnames = models.ManyToManyField('Altname', related_name='%(app_label)s_%(class)s_altnames', blank=True, null=True)
+    info = models.TextField(_('Information Details'), blank=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     objects = models.GeoManager() if defaults.GEOWARE_USING_GEO_DJANGO else models.Manager()

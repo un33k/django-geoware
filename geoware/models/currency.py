@@ -17,6 +17,7 @@ class Currency(models.Model):
     fractional_unit = models.CharField(_('Fractional Unit'), max_length=40, blank=True, null=True)
     fractional_ratio = models.PositiveIntegerField(_('Fractional Ratio'), default=0)
     url = models.URLField(_("URL"), max_length=254, blank=True, null=True)
+    info = models.TextField(_('Information Details'), blank=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     def __unicode__(self):

@@ -16,6 +16,7 @@ class Language(models.Model):
     percent = models.FloatField(_('Worldwide percentage'), blank=True, null=True)
     dialect = models.CharField(max_length=254, blank=True, null=True)
     url = models.URLField(_("URL"), max_length=254, blank=True, null=True)
+    info = models.TextField(_('Information Details'), blank=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     def __unicode__(self):

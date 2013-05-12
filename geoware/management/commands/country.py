@@ -80,14 +80,16 @@ class Command(GeoBaseCommand):
                 if lang:
                     lang_list.append(lang)
             if lang_list:
-                country.languages.add(*lang_list)
+                for language in lang_list:
+                    country.languages.add(language)
                 logger.debug("Added languages to {0}: {1} ({2})".format(self.cmd_name, country, ', '.join([l.name for l in lang_list])))
 
         if (country.neighbours.all().count() == 0 or self.overwrite) and data['neighbours']:
             country.neighbours.clear()
             neighbours = self._get_neighbours([c.strip() for c in data['neighbours'].split(',')])
             if neighbours:
-                country.neighbours.add(*neighbours)
+                for neighbour in neighbours:
+                    country.neighbours.add(neighbour)
 
     def entry_to_dict(self, item):
         """ Given a list of info for an entry, it returns a dict """

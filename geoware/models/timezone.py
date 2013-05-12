@@ -20,6 +20,7 @@ class Timezone(models.Model):
     country = models.ForeignKey('Country', related_name='%(app_label)s_%(class)s_country', null=True, blank=True)
     slug = models.CharField(_('Slug'), max_length=254, blank=True, null=True)
     url = models.URLField(_("URL"), max_length=254, blank=True, null=True)
+    info = models.TextField(_('Information Details'), blank=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:

@@ -14,7 +14,7 @@ class Country(LocationBase):
     iso_3 = models.CharField(_('ISO alpha-3'), max_length=3, blank=True, null=True)
     iso_n = models.CharField(_('ISO numeric'), max_length=40, blank=True, null=True)
     fips = models.CharField(_('FIPS code'), max_length=40, blank=True, null=True)
-    idc = models.CharField(_('Iternational dialing code'), max_length=40, null=True, blank=True)
+    idc = models.CharField(_('International dialing code'), max_length=40, null=True, blank=True)
     tld = models.CharField(_('Top level domain code'), max_length=2, null=True, blank=True)
     neighbours = models.ManyToManyField('self', help_text=_('Neighbouring countries'), related_name='%(app_label)s_%(class)s_neighbours', blank=True, null=True)
     languages = models.ManyToManyField('Language', help_text=_('Languages'),  related_name='%(app_label)s_%(class)s_languagues', blank=True, null=True)

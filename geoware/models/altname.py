@@ -17,6 +17,7 @@ class Altname(models.Model):
     is_preferred = models.BooleanField(_('Is Preferred Name'), default=True)
     is_short = models.BooleanField(_('Is Short Name'), default=True)
     geoname_id = models.CharField(max_length=50, db_index=True, null=True, blank=True)
+    ref_geoname_id = models.CharField(max_length=50, db_index=True, null=True, blank=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:

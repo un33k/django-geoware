@@ -4,6 +4,7 @@ class AltnameAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'geoname_id',
+        'ref_geoname_id',
         'name',
         'is_preferred', 
         'is_short',
@@ -14,6 +15,7 @@ class AltnameAdmin(admin.ModelAdmin):
     search_fields = [
         'id',
         'geoname_id',
+        'ref_geoname_id',
         'name',
         'language__name',
     ]

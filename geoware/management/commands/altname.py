@@ -19,7 +19,8 @@ class Command(GeoBaseCommand):
     cmd_name = "Altname"
 
     def is_altname_link(self, code, name):
-        if code.strip().lower() == 'link' or any(k in name for k in ['http', 'wikipedia']):
+        has_link_pattern = lambda x: any(k in name for k in ['http', 'wikipedia', '//'])
+        if code.strip().lower() == 'link' or has_link_pattern(name):
             return True
         return False
 
@@ -37,7 +38,7 @@ class Command(GeoBaseCommand):
         return True
 
     def get_query_kwargs(self, data):
-        return {'geoname_id': data['geoid']}
+        return {'geoname_id': data['geoid'], 'ref_geoname_id': data['entry_geoid']}
 
     def save_or_update_entry(self, item):
         """ Save or update a given entry into DB """
