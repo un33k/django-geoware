@@ -6,6 +6,7 @@ import progressbar
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
+from django.db import transaction, reset_queries, IntegrityError
 
 from ...models import *
 from ... import defaults
@@ -80,11 +81,17 @@ class Command(BaseCommand):
         data = klass.objects.all()
         if self.speed:
             data = list(data)
+
+        loop_counter = 0
         row_count = 0
         progress = progressbar.ProgressBar(maxval=total_rows, widgets=self.widgets)
         for instance in data:
             row_count += 1; progress.update(row_count)
             self.build_absolute_url(instance)
+            if loop_counter == 500:
+                loop_counter = 0
+                reset_queries()
+            loop_counter = loop_counter + 1
 
     def build_absolute_url(self, instance):
         if hasattr(instance, 'build_absolute_url'):
