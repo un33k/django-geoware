@@ -16,6 +16,7 @@ class CityAdmin(admin.ModelAdmin):
         'area', 
         'timezone', 
         'url', 
+        'absolute_url',
         'is_active',
         'updated_at',
         'created_at',

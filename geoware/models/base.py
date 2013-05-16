@@ -27,6 +27,7 @@ class LocationBase(models.Model):
     geoname_id = models.CharField(max_length=50, db_index=True, null=True, blank=True)
     altnames = models.ManyToManyField('Altname', related_name='%(app_label)s_%(class)s_altnames', blank=True, null=True)
     info = models.TextField(_('Information Details'), blank=True)
+    absolute_url = models.CharField(max_length=254, null=True, blank=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     objects = models.GeoManager() if defaults.GEOWARE_USING_GEO_DJANGO else models.Manager()
@@ -43,8 +44,17 @@ class LocationBase(models.Model):
     def __unicode__(self):
         return force_unicode(self.name)
 
+    def build_absolute_url(self, overwrite=False):
+        if not self.absolute_url or overwrite:
+            self.absolute_url = "/".join([l.slug for l in self.hierarchy])
+            self.save()
+        return self.absolute_url
+
     def get_absolute_url(self):
-        return "/".join([l.slug for l in self.hierarchy])
+        if not self.absolute_url:
+            self.absolute_url = self.build_absolute_url()
+            self.save()
+        return self.absolute_url
 
     def save(self, *args, **kwargs):
         self.slug = defaults.slugify(self.name)
