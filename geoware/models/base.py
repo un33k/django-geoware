@@ -56,6 +56,11 @@ class LocationBase(models.Model):
             self.build_absolute_url()
         return self.absolute_url
 
+    @property
+    def long_slug(self):
+        url = self.get_absolute_url()
+        return "-".join(url.split('/'))
+
     def save(self, *args, **kwargs):
         self.slug = defaults.slugify(self.name)
         self.build_absolute_url(overwrite=False)
