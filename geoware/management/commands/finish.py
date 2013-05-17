@@ -95,7 +95,7 @@ class Command(BaseCommand):
 
     def build_absolute_url(self, instance):
         if hasattr(instance, 'build_absolute_url'):
-            instance.build_absolute_url(overwrite=self.overwrite)
+            instance.build_absolute_url(overwrite=self.overwrite, commit=True)
 
 
 

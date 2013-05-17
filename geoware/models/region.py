@@ -18,5 +18,7 @@ class Region(LocationBase):
 
     @property
     def parent(self):
-        return self.country
+        if self.country:
+            return self.country
+        return None
 

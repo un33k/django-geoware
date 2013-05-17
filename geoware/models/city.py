@@ -23,8 +23,11 @@ class City(CityBase):
     def parent(self):
         if self.subregion and self.subregion.parent:
             return self.subregion
-        else:
+        elif self.region and self.region.parent:
             return self.region
+        elif self.country and self.country.parent:
+            return self.country
+        return None
 
 
 

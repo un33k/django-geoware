@@ -44,20 +44,21 @@ class LocationBase(models.Model):
     def __unicode__(self):
         return force_unicode(self.name)
 
-    def build_absolute_url(self, overwrite=False):
+    def build_absolute_url(self, overwrite=False, commit=True):
         if not self.absolute_url or overwrite:
             self.absolute_url = "/".join([l.slug for l in self.hierarchy])
-            self.save()
+            if commit:
+                self.save()
         return self.absolute_url
 
     def get_absolute_url(self):
         if not self.absolute_url:
-            self.absolute_url = self.build_absolute_url()
-            self.save()
+            self.build_absolute_url()
         return self.absolute_url
 
     def save(self, *args, **kwargs):
         self.slug = defaults.slugify(self.name)
+        self.build_absolute_url(overwrite=False)
         super(LocationBase, self).save(*args, **kwargs)
 
 

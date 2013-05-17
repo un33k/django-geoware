@@ -14,6 +14,8 @@ class District(CityBase):
 
     @property
     def parent(self):
-        return self.city
+        if self.city:
+            return self.city
+        return None
 
 
