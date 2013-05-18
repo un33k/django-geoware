@@ -46,7 +46,7 @@ class LocationBase(models.Model):
 
     def build_absolute_url(self, overwrite=False, commit=True):
         if not self.absolute_url or overwrite:
-            self.absolute_url = "/".join([l.slug for l in self.hierarchy])
+            self.absolute_url = "/".join([self.slug, self.parent.get_absolute_url()]) if self.parent else self.slug
             if commit:
                 self.save()
         return self.absolute_url
@@ -56,10 +56,18 @@ class LocationBase(models.Model):
             self.build_absolute_url()
         return self.absolute_url
 
+    def _long_slug(self, forward=True):
+        url = self.get_absolute_url()
+        tokens = url.split('/') if forward else reversed(url.split('/'))
+        return "-".join(tokens)
+
     @property
     def long_slug(self):
-        url = self.get_absolute_url()
-        return "-".join(url.split('/'))
+        return self._long_slug()
+
+    @property
+    def long_slug_reversed(self):
+        return self._long_slug(forward=False)
 
     def save(self, *args, **kwargs):
         self.slug = defaults.slugify(self.name)
