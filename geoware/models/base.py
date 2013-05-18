@@ -46,7 +46,7 @@ class LocationBase(models.Model):
 
     def build_absolute_url(self, overwrite=False, commit=True):
         if not self.absolute_url or overwrite:
-            self.absolute_url = "/".join([self.slug, self.parent.get_absolute_url()]) if self.parent else self.slug
+            self.absolute_url = "/".join([self.parent.get_absolute_url(), self.slug]) if self.parent else self.slug
             if commit:
                 self.save()
         return self.absolute_url
