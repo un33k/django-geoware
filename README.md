@@ -3,11 +3,19 @@ Django Geoware
 
 **A Django application for handling geo related data**
 
-**Author:** Val Neekman, [ info@neekware.com, @vneekman ]
+**Author:** Val Neekman, [ info@neekware.com, [@vneekman](twitter.com/vneekman) ]
 
 
 Changelog
 =========
+
+0.0.3
+-----
+* Verify GeoIP Results
+
+0.0.2
+-----
+* Added info fields to all models, added long_slug to model objects
 
 0.0.1
 -----
@@ -16,7 +24,7 @@ Changelog
 License
 =======
 
-Copyright © Val Neekman. ( Neekware Inc. )
+Copyright © Val Neekman. ( [Neekware Inc.](neekware.com) )
 
 All rights reserved.
 
