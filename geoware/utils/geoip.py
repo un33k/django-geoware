@@ -13,6 +13,12 @@ def get_fqdn_or_ip(request):
         fqdn_or_ip = get_ip_address_from_request(request)
     return fqdn_or_ip
 
+def is_valid_geoip(geoip_dict):
+    try:
+        return geoip_dict['country_code'] and len(geoip_dict['country_code']) == 2
+    except:
+        return False
+
 def get_geoip_info(request):
     """ Returns geoIP from C API  """
 
@@ -26,7 +32,7 @@ def get_geoip_info(request):
         'longitude': 0.0,
         'country_code3': '',
         'latitude': 0.0,
-        'postal_code': None,
+        'postal_code': '',
         'dma_code': 0,
         'country_code': '',
         'country_name': '',
@@ -36,11 +42,13 @@ def get_geoip_info(request):
         geoip = GeoIP(cache=defaults.GEOWARE_GEOIP_CACHE_METHOD)
         try:
             ginfo = geoip.city(fqdn_or_ip)
-            geoip_info.update(ginfo)
+            if is_valid_geoip(ginfo):
+                geoip_info.update(ginfo)
         except:
             try:
                 ginfo = geoip.country(fqdn_or_ip)
-                geoip_info.update(ginfo)
+                if is_valid_geoip(ginfo):
+                    geoip_info.update(ginfo)
             except:
                 pass
         geoip_info['fqdn_or_ip'] = fqdn_or_ip
@@ -48,7 +56,7 @@ def get_geoip_info(request):
 
 def get_geoip_info_api_or_cache(request):
     """ Returns geoIP from session, if not then from C API """
-
+    
     fqdn_or_ip = get_fqdn_or_ip(request)
     geoip_info = request.session.get('geoip_info', '')
     if geoip_info:
