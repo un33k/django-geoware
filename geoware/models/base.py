@@ -45,6 +45,8 @@ class LocationBase(models.Model):
         return force_unicode(self.name)
 
     def build_absolute_url(self, overwrite=False, commit=True):
+        if not self.slug:
+            return self.absolute_url
         if not self.absolute_url or overwrite:
             self.absolute_url = "/".join([self.parent.get_absolute_url(), self.slug]) if self.parent else self.slug
             if commit:
