@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 class CountryAdmin(admin.ModelAdmin):
+    filter_horizontal = ('altnames', 'neighbours', 'languages',)
     prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',

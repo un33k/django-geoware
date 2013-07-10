@@ -2,6 +2,7 @@ from django.contrib import admin
 from .. import defaults
 
 class DistrictAdmin(admin.ModelAdmin):
+    filter_horizontal = ('altnames',)
     prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',

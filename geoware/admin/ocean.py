@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 class OceanAdmin(admin.ModelAdmin):
+    filter_horizontal = ('altnames',)
     prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
