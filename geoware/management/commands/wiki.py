@@ -75,6 +75,7 @@ class Command(BaseCommand):
             self.fetch_info_for_type(klass[1])
     
     def fetch_info_for_type(self, klass):
+        import pdb; pdb.set_trace()
         name_q = Q()
         for name in self.search_names:
             name_q |= Q(**{"name__iexact": name})
@@ -91,9 +92,10 @@ class Command(BaseCommand):
     
     def fetch_wikipedia_summary(self, obj):
         summary = get_wiki_summary(title=obj.name)
-        if not summary and 'wikipedia' in obj.url:
-            title = obj.url.split('/')[-1]
-            summary = get_wiki_summary(title=title)
+        if not summary:
+            if obj.url and 'wikipedia' in obj.url:
+                title = obj.url.split('/')[-1]
+                summary = get_wiki_summary(title=title)
         print summary, "\n"
         return summary.strip()
 
