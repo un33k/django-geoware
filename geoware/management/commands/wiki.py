@@ -31,9 +31,6 @@ class Command(BaseCommand):
         ['Subregion', Subregion],
         ['City', City],
         ['District', District],
-        ['Language', Language],
-        ['Currency', Currency],
-        ['Timezone', Timezone],
     ]
     option_list = BaseCommand.option_list + (
         make_option('-o', '--overwrite', action='store_true', default=False,
