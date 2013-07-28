@@ -75,7 +75,6 @@ class Command(BaseCommand):
             self.fetch_info_for_type(klass[1])
     
     def fetch_info_for_type(self, klass):
-        import pdb; pdb.set_trace()
         name_q = Q()
         for name in self.search_names:
             name_q |= Q(**{"name__iexact": name})
