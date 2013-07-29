@@ -7,6 +7,7 @@ from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 from django.core.management import call_command
+from django.db import transaction, reset_queries, IntegrityError
 from django.db.models import Q
 
 from toolware.utils.query import get_null_or_blank_query
