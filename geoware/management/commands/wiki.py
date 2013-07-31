@@ -109,18 +109,22 @@ class Command(BaseCommand):
             items = search_klass.objects.filter(is_active=True).filter(query_url).filter(query_info).filter(name_q).order_by('name')
             total_rows = search_klass.objects.filter(is_active=True).filter(query_url).filter(query_info).filter(name_q).count()
 
+        if total_rows < 1:
+            return
         loop_counter = 0
         row_count = 0
         progress = progressbar.ProgressBar(maxval=total_rows, widgets=self._progress_widget(search_name))
         for item in items:
             row_count += 1; progress.update(row_count)
             try:
-                item.info = self.fetch_wikipedia_summary(item)
+                summary = self.fetch_wikipedia_summary(item)
+                if not summary:
+                    continue
             except:
                 logger.error(_("Failed to fetch. ({0})\n").format(item.name))
                 continue
-            else:
-                logger.debug(_("Fetched. ({0})\n").format(item.name))
+            logger.debug(_("Fetched. ({0})\n").format(item.name))
+            item.info = summary
             item.save()
             if loop_counter == 500:
                 loop_counter = 0
@@ -128,14 +132,14 @@ class Command(BaseCommand):
             loop_counter = loop_counter + 1
 
     def fetch_wikipedia_summary(self, obj):
-        summary = ''
+        summary = None
         if obj.url and 'wikipedia' in obj.url:
             title = obj.url.split('/')[-1]
             summary = get_wiki_summary(title=title)
         if not summary:
             summary = get_wiki_summary(title=obj.name)
         # print summary + "\n"
-        return summary.strip()
+        return summary
 
 
 

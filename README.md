@@ -9,6 +9,10 @@ Django Geoware
 Changelog
 =========
 
+0.0.6
+-----
+* Minor updates and bug fixes
+
 0.0.5
 -----
 * Added a wiki command
