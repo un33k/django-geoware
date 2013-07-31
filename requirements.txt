@@ -1,5 +1,8 @@
 Django>=1.5.1
 django-ipware>=0.0.1
+python-wikiware>=0.0.1
+
+
 
 
 

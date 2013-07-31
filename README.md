@@ -9,6 +9,14 @@ Django Geoware
 Changelog
 =========
 
+0.0.5
+-----
+* Added a wiki command
+
+0.0.4
+-----
+* Added reversed slugs
+
 0.0.3
 -----
 * Verify GeoIP Results
