@@ -14,7 +14,7 @@ url = 'https://github.com/un33k/django-geoware'
 author = 'Val Neekman'
 author_email = 'info@neekware.com'
 license = 'BSD'
-install_requires = ['django-ipware>=0.0.1', 'python-wikiware>=0.0.1',]
+install_requires = ['django-ipware>=0.0.1', 'python-wikiware>=0.0.2',]
 classifiers = [
     'Development Status :: 3 - Alpha',
     'Environment :: Web Environment',
