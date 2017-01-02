@@ -6,6 +6,4 @@ DATABASES = {
 }
 SECRET_KEY = "un33k"
 INSTALLED_APPS = ['geoware']
-
-
-
+MIDDLEWARE_CLASSES = []

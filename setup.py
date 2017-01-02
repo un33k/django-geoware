@@ -9,21 +9,24 @@ import sys
 
 name = 'django-geoware'
 package = 'geoware'
-description = 'A Django application for handling geo related data.'
+description = 'A Django application for handling GIS related data.'
 url = 'https://github.com/un33k/django-geoware'
 author = 'Val Neekman'
 author_email = 'info@neekware.com'
 license = 'BSD'
-install_requires = ['django-ipware>=0.0.1', 'python-wikiware>=0.0.2',]
+install_requires = ['django-ipware>=1.1.6', 'python-wikiware>=0.0.2',]
 classifiers = [
-    'Development Status :: 3 - Alpha',
+    'Development Status :: 4 - Beta',
     'Environment :: Web Environment',
     'Intended Audience :: Developers',
-    'License :: OSI Approved :: BSD License',
+    'License :: OSI Approved :: MIT License',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
     'Topic :: Utilities'
 ]
+
 
 def get_version(package):
     """
@@ -61,9 +64,8 @@ def get_package_data(package):
 if sys.argv[-1] == 'publish':
     os.system("python setup.py sdist upload")
     args = {'version': get_version(package)}
-    print "You probably want to also tag the version now:"
-    print "  git tag -a %(version)s -m 'version %(version)s'" % args
-    print "  git push --tags"
+    print("You probably want to also tag the version now:")
+    print("  git tag -a %(version)s -m 'version %(version)s' && git push --tags" % args)
     sys.exit()
 
 

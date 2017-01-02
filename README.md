@@ -1,66 +1,76 @@
 Django Geoware
 ====================
 
-**A Django application for handling geo related data**
+**A Django application for handling GIS related data**
 
-**Author:** Val Neekman, [ info@neekware.com, [@vneekman](twitter.com/vneekman) ]
+[![status-image]][status-link]
+[![version-image]][version-link]
+[![coverage-image]][coverage-link]
+
+Overview
+====================
+
+**Enables** Django-powered site to handle GIS related data while keeping it **DRY**.
 
 
-Changelog
-=========
+How to install
+====================
 
-0.0.6
------
-* Minor updates and bug fixes
+    1. easy_install django-geoware
+    2. pip install django-geoware
+    3. git clone http://github.com/un33k/django-geoware
+        a. cd django-geoware
+        b. run python setup.py
+    4. wget https://github.com/un33k/django-geoware/zipball/master
+        a. unzip the downloaded file
+        b. cd into django-geoware-* directory
+        c. run python setup.py
 
-0.0.5
------
-* Added a wiki command
 
-0.0.4
------
-* Added reversed slugs
+How to use
+====================
 
-0.0.3
------
-* Verify GeoIP Results
+   ```python
+    # Add `geoware` to your INSTALLED_APPS in the settings file.
+    # Run python manage.py migrate
+    # Read docs and populate your database with the provided utility commands
+   ```
 
-0.0.2
------
-* Added info fields to all models, added long_slug to model objects
 
-0.0.1
------
-* Initial Version
+Advanced users:
+====================
+
+
+Running the tests
+====================
+
+To run the tests against the current environment:
+
+    python manage.py test
+
 
 License
-=======
+====================
 
-Copyright © Val Neekman. ( [Neekware Inc.](neekware.com) )
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without 
-modification, are permitted provided that the following conditions are met:
-
-Redistributions of source code must retain the above copyright notice, this 
-list of conditions and the following disclaimer.
-Redistributions in binary form must reproduce the above copyright notice, this 
-list of conditions and the following disclaimer in the documentation and/or 
-other materials provided with the distribution.
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+Released under a ([MIT](LICENSE)) license.
 
 
-Note: Django is a registered trademark of the Django Software Foundation.
+Version
+====================
+X.Y.Z Version
 
+    `MAJOR` version -- when you make incompatible API changes,
+    `MINOR` version -- when you add functionality in a backwards-compatible manner, and
+    `PATCH` version -- when you make backwards-compatible bug fixes.
 
+[status-image]: https://secure.travis-ci.org/un33k/django-geoware.png?branch=master
+[status-link]: http://travis-ci.org/un33k/django-geoware?branch=master
 
+[version-image]: https://img.shields.io/pypi/v/django-geoware.svg
+[version-link]: https://pypi.python.org/pypi/django-geoware
+
+[coverage-image]: https://coveralls.io/repos/un33k/django-geoware/badge.svg
+[coverage-link]: https://coveralls.io/r/un33k/django-geoware
+
+[download-image]: https://img.shields.io/pypi/dm/django-geoware.svg
+[download-link]: https://pypi.python.org/pypi/django-geoware
