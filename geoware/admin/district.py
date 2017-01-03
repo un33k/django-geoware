@@ -18,10 +18,10 @@ class DistrictAdmin(admin.ModelAdmin):
         'updated_at',
         'created_at',
     )
-    if defaults.GEOWARE_USING_GEO_DJANGO:
-        list_display += ('point',) 
+    if defaults.GEOWARE_USING_GIS:
+        list_display += ('point',)
     else:
-        list_display += ('lng', 'lng',) 
+        list_display += ('lng', 'lng',)
 
     search_fields = [
         'id',

@@ -1,36 +1,98 @@
 
 from django.utils.encoding import force_unicode
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext_lazy as _
 
-from .. import defaults
+from .. import defaults as defs
 
-if defaults.GEOWARE_USING_GEO_DJANGO:
+if defs.GEOWARE_USING_GIS:
     from django.contrib.gis.db import models
     from django.contrib.gis.geos import Point
 else:
     from django.db import models
 
-__all__ = [ 'LocationBase', 'CityBase']
 
-class LocationBase(models.Model):
-
+class AbstractBaseLocation(models.Model):
+    """
+    Base Abstract Model for all location types.
+    """
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
-    name = models.CharField(_('Name'), max_length=254, db_index=True)
-    name_std = models.CharField(_('Standard name'), max_length=254, blank=True, null=True)
-    slug = models.CharField(_('Slug'), max_length=254, blank=True, null=True)
-    area = models.PositiveIntegerField(_('Area in square kilometers'), default=0)
-    population = models.PositiveIntegerField(_('Population'), default=0)
-    elevation = models.PositiveIntegerField(_('Elevation in meters'), default=0)
-    url = models.URLField(_("URL"), max_length=254, blank=True, null=True)
-    geoname_id = models.CharField(max_length=50, db_index=True, null=True, blank=True)
-    altnames = models.ManyToManyField('Altname', related_name='%(app_label)s_%(class)s_altnames', blank=True, null=True)
-    info = models.TextField(_('Information Details'), blank=True)
-    absolute_url = models.CharField(max_length=254, null=True, blank=True)
-    is_active = models.BooleanField(_('Active'), default=True)
+    name = models.CharField(
+        _('LOCATION.NAME'),
+        db_index=True,
+        max_length=254,
+    )
 
-    objects = models.GeoManager() if defaults.GEOWARE_USING_GEO_DJANGO else models.Manager()
+    slug = models.CharField(
+        _('LOCATION.SLUG'),
+        max_length=254,
+        blank=True,
+        null=True
+    )
+
+    name_std = models.CharField(
+        _('LOCATION.STANDARD.NAME'),
+        unique=True,
+        max_length=254,
+        blank=True,
+        null=True
+    )
+
+    area = models.PositiveIntegerField(
+        _('LOCATION.AREA.SQUARE.KM'),
+        default=0,
+    )
+
+    population = models.PositiveIntegerField(
+        _('LOCATION.POPULATION'),
+        default=0
+    )
+
+    elevation = models.PositiveIntegerField(
+        _('LOCATION.ELEVATION.METERS'),
+        default=0,
+    )
+
+    url = models.URLField(
+        _("LOCATION.URL"),
+        max_length=254,
+        blank=True,
+        null=True
+    )
+
+    geoname_id = models.CharField(
+        db_index=True,
+        unique=True,
+        max_length=50,
+        null=True,
+        blank=True,
+    )
+
+    altnames = models.ManyToManyField(
+        'Altname',
+        _('LOCATION.ALT.NAMES'),
+        related_name='%(app_label)s_%(class)s_altnames',
+        blank=True,
+        null=True,
+    )
+
+    info = models.TextField(
+        _('LOCATION.INFO'),
+        blank=True,
+    )
+
+    absolute_url = models.CharField(
+        _('LOCATION.ABS.URL'),
+        max_length=254,
+        null=True,
+        blank=True,
+    )
+
+    is_active = models.BooleanField(
+        _('LOCATION.ACTIVE'),
+        default=True,
+    )
 
     class Meta:
         abstract = True
@@ -41,8 +103,8 @@ class LocationBase(models.Model):
         tree.append(self)
         return tree
 
-    def __unicode__(self):
-        return force_unicode(self.name)
+    def __str__(self):
+        return self.name
 
     def build_absolute_url(self, overwrite=False, commit=True):
         if not self.slug:
@@ -72,23 +134,50 @@ class LocationBase(models.Model):
         return self._long_slug(forward=False)
 
     def save(self, *args, **kwargs):
-        self.slug = defaults.slugify(self.name)
+        self.slug = slugify(self.name)
         self.build_absolute_url(overwrite=False)
-        super(LocationBase, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
-class CityBase(LocationBase):
+if defs.GEOWARE_USING_GIS
+    class AbstractLocation(AbstractBaseLocation):
+        objects = models.GeoManager()
+        class Meta:
+            abstract = True
+else:
+    class AbstractLocation(AbstractBaseLocation):
+        objects = models.Manager()
+        class Meta:
+            abstract = True
 
-    # bounding box
-    bbw = models.FloatField(_("Bounding Box West"), default=0.0)
-    bbn = models.FloatField(_("Bounding Box North"), default=0.0)
-    bbe = models.FloatField(_("Bounding Box East"), default=0.0)
-    bbs = models.FloatField(_("Bounding Box South"), default=0.0)
 
-    if defaults.GEOWARE_USING_GEO_DJANGO:
+class AbstractBaseCity(AbstractLocation):
+    """
+    Base Abstract for all cities.
+    """
+    bbw = models.FloatField(
+        _("LOCATION.CITY.BOUNDING.BOX.WEST"),
+        default=0.0,
+    )
+
+    bbn = models.FloatField(
+        _("LOCATION.CITY.BOUNDING.BOX.NORTH"),
+        default=0.0,
+    )
+
+    bbe = models.FloatField(
+        _("LOCATION.CITY.BOUNDING.BOX.EAST"),
+        default=0.0,
+    )
+
+    bbs = models.FloatField(
+        _("LOCATION.CITY.BOUNDING.BOX.SOUTH"),
+        default=0.0,
+    )
+
+    if defaults.GEOWARE_USING_GIS:
         point = models.PointField(_('Point'), default='POINT(0.0 0.0)')
     else:
-        # lat/lng of location
         lat = models.FloatField(_('Latitude'), default=0.0)
         lng = models.FloatField(_('Longitude'), default=0.0)
 
@@ -96,7 +185,27 @@ class CityBase(LocationBase):
         abstract = True
 
 
+if defs.GEOWARE_USING_GIS
+    class AbstractCity(AbstractBaseCity):
+        point = models.PointField(
+            _('LOCATION.CITY.POINT'),
+            default='POINT(0.0 0.0)',
+        )
 
+        class Meta:
+            abstract = True
+else:
+    class AbstractCity(AbstractBaseCity):
+        lat = models.FloatField(
+            _('LOCATION.CITY.LATITUDE'),
+            default=0.0,
+        )
 
+        lng = models.FloatField(
+            _('LOCATION.CITY.LONGITUDE'),
+            default=0.0,
+        )
 
+        class Meta:
+            abstract = True
 

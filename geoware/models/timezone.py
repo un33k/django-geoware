@@ -3,9 +3,8 @@ from django.utils.encoding import force_unicode
 from django.db import models
 from django.utils.translation import gettext as _
 
-from .. import defaults
+from .. import defaults as defs
 
-__all__ = [ 'Timezone']
 
 class Timezone(models.Model):
 
@@ -34,7 +33,7 @@ class Timezone(models.Model):
         return self.slug
 
     def save(self, *args, **kwargs):
-        self.slug = defaults.slugify(self.name_id)
+        self.slug = defs.slugify(self.name_id)
         super(Timezone, self).save(*args, **kwargs)
 
 

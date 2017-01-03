@@ -3,9 +3,8 @@ from django.utils.encoding import force_unicode
 from django.db import models
 from django.utils.translation import gettext as _
 
-from .. import defaults
+from .. import defaults as defs
 
-__all__ = [ 'Altname']
 
 class Altname(models.Model):
 
@@ -28,6 +27,6 @@ class Altname(models.Model):
         return force_unicode(self.name)
 
     def get_absolute_url(self):
-        return defaults.slugify(self.name)
+        return defs.slugify(self.name)
 
 

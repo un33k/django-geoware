@@ -15,7 +15,7 @@ from ...utils.fixer import *
 from ...models import (City, Subregion, Region, Country)
 from ... import defaults
 
-if defaults.GEOWARE_USING_GEO_DJANGO:
+if defaults.GEOWARE_USING_GIS:
     from django.contrib.gis.geos import Point
 
 logger = logging.getLogger("geoware.cmd.city")
@@ -42,7 +42,7 @@ class Command(GeoBaseCommand):
 
     def save_or_update_entry(self, item):
         """ Save or update a given city entry into DB """
-        
+
         data = self.entry_to_dict(item)
         if not data:
             return
@@ -59,7 +59,7 @@ class Command(GeoBaseCommand):
         city.geoname_id = data['geoid']
         if (not city.name_std) or self.overwrite: city.name_std = data['name_std']
         if (not city.name) or self.overwrite: city.name = data['name']
-        if defaults.GEOWARE_USING_GEO_DJANGO:
+        if defaults.GEOWARE_USING_GIS:
             if (city.point.x == float(0) and city.point.y == float(0)) or self.overwrite: city.point = Point(data['latitude'], data['longitude'])
         else:
             if (not city.lat) or self.overwrite: city.lat = data['latitude']

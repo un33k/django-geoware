@@ -15,7 +15,7 @@ from ...utils.fixer import *
 from ...models import (District, City, Subregion, Region, Country)
 from ... import defaults
 
-if defaults.GEOWARE_USING_GEO_DJANGO:
+if defaults.GEOWARE_USING_GIS:
     from django.contrib.gis.geos import Point
 
 logger = logging.getLogger("geoware.cmd.district")
@@ -57,7 +57,7 @@ class Command(GeoBaseCommand):
         district.geoname_id = data['geoid']
         if (not district.name_std) or self.overwrite: district.name_std = data['name_std']
         if (not district.name) or self.overwrite: district.name = data['name']
-        if defaults.GEOWARE_USING_GEO_DJANGO:
+        if defaults.GEOWARE_USING_GIS:
             if (district.point.x == float(0) and district.point.y == float(0)) or self.overwrite: district.point = Point(data['latitude'], data['longitude'])
         else:
             if (not district.lat) or self.overwrite: district.lat = data['latitude']
@@ -144,7 +144,7 @@ class Command(GeoBaseCommand):
         """ Get a parnet city for a district """
 
         city = None
-        if defaults.GEOWARE_USING_GEO_DJANGO:
+        if defaults.GEOWARE_USING_GIS:
             try:
                 city = City.objects.filter(population__gt=city_pop_min).distance(Point(lat, lng)).order_by('distance')[0]
             except:

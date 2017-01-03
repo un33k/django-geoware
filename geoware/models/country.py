@@ -1,15 +1,45 @@
+from django.utils.translation import ugettext_lazy as _
 
-from django.db import models
-from django.utils.translation import gettext as _
-from base import LocationBase
+from .base import models
+from .base import AbstractLocation
 
-__all__ = ['Country']
 
 class Country(LocationBase):
-    continent = models.ForeignKey('Continent', related_name='%(app_label)s_%(class)s_continent', null=True, blank=True)
-    jurisdiction = models.ForeignKey('Country', help_text=_('Sovereignty'), related_name='%(app_label)s_%(class)s_jurisdiction', blank=True, null=True)
-    currency = models.ForeignKey('Currency', related_name='%(app_label)s_%(class)s_currency', blank=True, null=True)
-    capital = models.ForeignKey('City', related_name='%(app_label)s_%(class)s_capital', blank=True, null=True)
+    """
+    Country Model Class.
+    """
+    continent = models.ForeignKey(
+        'Continent',
+        _('LOCATION.COUNTRY.CONTINENT')
+        related_name='%(app_label)s_%(class)s_continent',
+        null=True,
+        blank=True,
+    )
+
+    jurisdiction = models.ForeignKey(
+        'Country',
+        _('LOCATION.COUNTRY.JURISDICTION')
+        related_name='%(app_label)s_%(class)s_jurisdiction',
+        blank=True,
+        null=True,
+        help_text=_('LOCATION.COUNTRY.SOVEREGNTY'),
+    )
+
+    currency = models.ForeignKey(
+        'Currency',
+        _('LOCATION.CURRENCY')
+        related_name='%(app_label)s_%(class)s_currency',
+        blank=True,
+        null=True,
+    )
+
+    capital = models.ForeignKey(
+        'City',
+        related_name='%(app_label)s_%(class)s_capital',
+        blank=True,
+        null=True,
+    )
+
     code = models.CharField(_('ISO alpha-2'), max_length=2, db_index=True)
     iso_3 = models.CharField(_('ISO alpha-3'), max_length=3, blank=True, null=True)
     iso_n = models.CharField(_('ISO numeric'), max_length=40, blank=True, null=True)
