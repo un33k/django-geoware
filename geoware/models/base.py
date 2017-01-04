@@ -141,7 +141,7 @@ class AbstractBaseLocation(models.Model):
         super().save(*args, **kwargs)
 
 
-if defs.GEOWARE_USING_GIS
+if defs.GEOWARE_USING_GIS:
     class AbstractLocation(AbstractBaseLocation):
         objects = models.GeoManager()
         class Meta:
@@ -181,7 +181,7 @@ class AbstractBaseCity(AbstractLocation):
         abstract = True
 
 
-if defs.GEOWARE_USING_GIS
+if defs.GEOWARE_USING_GIS:
     class AbstractCity(AbstractBaseCity):
         point = models.PointField(
             _('LOCATION.CITY.POINT'),
