@@ -4,7 +4,7 @@ from .base import models
 from .base import AbstractLocation
 
 
-class Country(LocationBase):
+class Country(AbstractLocation):
     """
     Country Model Class.
     """
@@ -22,7 +22,7 @@ class Country(LocationBase):
         related_name='%(app_label)s_%(class)s_jurisdiction',
         blank=True,
         null=True,
-        help_text=_('LOCATION.COUNTRY.SOVEREGNTY'),
+        help_text=_('LOCATION.COUNTRY.'),
     )
 
     currency = models.ForeignKey(
@@ -35,6 +35,7 @@ class Country(LocationBase):
 
     capital = models.ForeignKey(
         'City',
+        _('LOCATION.CAPTIAL')
         related_name='%(app_label)s_%(class)s_capital',
         blank=True,
         null=True,

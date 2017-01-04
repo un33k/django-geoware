@@ -19,9 +19,10 @@ class AbstractBaseLocation(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
 
     name = models.CharField(
-        _('LOCATION.NAME'),
+        _('FIELDS.NAME'),
         db_index=True,
         max_length=254,
+        help_text=_('LOCATION.NAME.DESC')
     )
 
     slug = models.CharField(
@@ -32,15 +33,16 @@ class AbstractBaseLocation(models.Model):
     )
 
     name_std = models.CharField(
-        _('LOCATION.STANDARD.NAME'),
+        _('LOCATION.NAME_STD.FIELD'),
         unique=True,
         max_length=254,
         blank=True,
-        null=True
+        null=True,
+        help_text=_('LOCATION.NAME_STD.DESC')
     )
 
     area = models.PositiveIntegerField(
-        _('LOCATION.AREA.SQUARE.KM'),
+        _('LOCATION.AREA_SQUARE_KM'),
         default=0,
     )
 
@@ -50,7 +52,7 @@ class AbstractBaseLocation(models.Model):
     )
 
     elevation = models.PositiveIntegerField(
-        _('LOCATION.ELEVATION.METERS'),
+        _('LOCATION.ELEVATION_METERS'),
         default=0,
     )
 
@@ -174,12 +176,6 @@ class AbstractBaseCity(AbstractLocation):
         _("LOCATION.CITY.BOUNDING.BOX.SOUTH"),
         default=0.0,
     )
-
-    if defaults.GEOWARE_USING_GIS:
-        point = models.PointField(_('Point'), default='POINT(0.0 0.0)')
-    else:
-        lat = models.FloatField(_('Latitude'), default=0.0)
-        lng = models.FloatField(_('Longitude'), default=0.0)
 
     class Meta:
         abstract = True
