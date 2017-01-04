@@ -13,15 +13,15 @@ class Altname(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
 
     language = models.ForeignKey(
-        _('LOCATION.ALTNAME.LAGUAGUE')
         'Language',
+        _('LOCATION.ALTNAME.LAGUAGUE'),
         related_name='%(app_label)s_%(class)s_language',
         null=True,
         blank=True,
     )
 
     name = models.CharField(
-        _('LOCATION.ALTNAME.NAME')
+        _('LOCATION.ALTNAME.NAME'),
         db_index=True,
         max_length=254,
     )

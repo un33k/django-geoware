@@ -10,7 +10,7 @@ class Country(AbstractLocation):
     """
     continent = models.ForeignKey(
         'Continent',
-        _('LOCATION.COUNTRY.CONTINENT')
+        _('LOCATION.COUNTRY.CONTINENT'),
         related_name='%(app_label)s_%(class)s_continent',
         null=True,
         blank=True,
@@ -18,7 +18,7 @@ class Country(AbstractLocation):
 
     jurisdiction = models.ForeignKey(
         'Country',
-        _('LOCATION.COUNTRY.JURISDICTION')
+        _('LOCATION.COUNTRY.JURISDICTION'),
         related_name='%(app_label)s_%(class)s_jurisdiction',
         blank=True,
         null=True,
@@ -27,7 +27,7 @@ class Country(AbstractLocation):
 
     currency = models.ForeignKey(
         'Currency',
-        _('LOCATION.CURRENCY')
+        _('LOCATION.CURRENCY'),
         related_name='%(app_label)s_%(class)s_currency',
         blank=True,
         null=True,
@@ -35,7 +35,7 @@ class Country(AbstractLocation):
 
     capital = models.ForeignKey(
         'City',
-        _('LOCATION.CAPTIAL')
+        _('LOCATION.CAPTIAL'),
         related_name='%(app_label)s_%(class)s_capital',
         blank=True,
         null=True,
@@ -82,7 +82,7 @@ class Country(AbstractLocation):
     neighbours = models.ManyToManyField(
         'self',
         _('LOCATION.COUNTRY.NEIGHBORS'),
-        related_name='%(app_label)s_%(class)s_neighbors',
+        # related_name='%(app_label)s_%(class)s_neighbors',
         blank=True,
         null=True,
     )
@@ -90,7 +90,7 @@ class Country(AbstractLocation):
     languages = models.ManyToManyField(
         'Language',
         _('LOCATION.LANGUAGUES'),
-        related_name='%(app_label)s_%(class)s_languagues',
+        # related_name='%(app_label)s_%(class)s_languagues',
         blank=True,
         null=True,
     )

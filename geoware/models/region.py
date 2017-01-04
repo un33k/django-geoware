@@ -10,7 +10,7 @@ class Region(AbstractLocation):
     """
     country = models.ForeignKey(
         'Country',
-        _('LOCATION.REGION.COUNTRY')
+        _('LOCATION.REGION.COUNTRY'),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
@@ -45,7 +45,7 @@ class Region(AbstractLocation):
         verbose_name_plural = _('LOCATION.REGION#plural')
         unique_together = [('name', 'country')]
 
-   @property
+    @property
     def parent(self):
         if self.country:
             return self.country

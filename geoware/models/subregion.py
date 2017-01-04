@@ -10,7 +10,7 @@ class Subregion(AbstractLocation):
     """
     region = models.ForeignKey(
         'Region',
-        _('LOCATION.SUBREGION.REGION')
+        _('LOCATION.SUBREGION.REGION'),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
@@ -45,6 +45,6 @@ class Subregion(AbstractLocation):
         verbose_name_plural = _('LOCATION.SUBREGION#plural')
         unique_together = [('name', 'region')]
 
-   @property
+    @property
     def parent(self):
         return self.region
