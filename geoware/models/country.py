@@ -84,7 +84,6 @@ class Country(AbstractLocation):
         _('LOCATION.COUNTRY.NEIGHBORS'),
         # related_name='%(app_label)s_%(class)s_neighbors',
         blank=True,
-        null=True,
     )
 
     languages = models.ManyToManyField(
@@ -92,7 +91,6 @@ class Country(AbstractLocation):
         _('LOCATION.LANGUAGUES'),
         # related_name='%(app_label)s_%(class)s_languagues',
         blank=True,
-        null=True,
     )
 
     class Meta:

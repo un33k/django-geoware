@@ -75,7 +75,6 @@ class AbstractBaseLocation(models.Model):
         _('LOCATION.ALT.NAMES'),
         # related_name='%(app_label)s_%(class)s_altnames',
         blank=True,
-        null=True,
     )
 
     info = models.TextField(
