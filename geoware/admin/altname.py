@@ -6,7 +6,7 @@ class AltnameAdmin(admin.ModelAdmin):
         'geoname_id',
         'ref_geoname_id',
         'name',
-        'is_preferred', 
+        'is_preferred',
         'is_short',
         'is_active',
         'updated_at',
@@ -20,5 +20,3 @@ class AltnameAdmin(admin.ModelAdmin):
         'language__name',
     ]
     list_per_page = 25
-
-

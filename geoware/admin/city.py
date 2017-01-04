@@ -3,7 +3,6 @@ from .. import defaults
 
 class CityAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
-    prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
         'geoname_id',
@@ -34,4 +33,5 @@ class CityAdmin(admin.ModelAdmin):
         'subregion__name',
         'country__name',
     ]
+    readonly_fields = ('altnames',)
     list_per_page = 25

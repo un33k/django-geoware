@@ -3,7 +3,6 @@ from .. import defaults
 
 class DistrictAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
-    prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
         'geoname_id',
@@ -29,4 +28,5 @@ class DistrictAdmin(admin.ModelAdmin):
         'city__name',
         'city__country__name',
     ]
+    readonly_fields = ('altnames',)
     list_per_page = 25

@@ -2,13 +2,12 @@ from django.contrib import admin
 
 class OceanAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
-    prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
-        'name', 
+        'name',
         'slug',
         'population',
-        'area', 
+        'area',
         'url',
         'absolute_url',
         'is_active',
@@ -19,4 +18,5 @@ class OceanAdmin(admin.ModelAdmin):
         'id',
         'name',
     ]
+    readonly_fields = ('altnames',)
     list_per_page = 25

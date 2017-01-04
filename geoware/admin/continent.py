@@ -2,18 +2,17 @@ from django.contrib import admin
 
 class ContinentAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
-    prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
         'geoname_id',
-        'name', 
+        'name',
         'slug',
         'code',
         'population',
-        'area', 
+        'area',
         'url',
         'absolute_url',
-        'is_active', 
+        'is_active',
         'updated_at',
         'created_at',
     )
@@ -23,4 +22,3 @@ class ContinentAdmin(admin.ModelAdmin):
         'code',
     ]
     list_per_page = 25
-
