@@ -1,15 +1,26 @@
-from django.db import models
-from django.utils.translation import gettext as _
-from base import CityBase
+from django.utils.translation import ugettext_lazy as _
 
-__all__ = ['District']
+from .base import models
+from .base import AbstractCity
 
-class District(CityBase):
-    city = models.ForeignKey('City', related_name='%(app_label)s_%(class)s_city', null=True, blank=True)
+
+class District(AbstractCity):
+    """
+    Continent Model Class.
+    """
+    city = models.ForeignKey(
+        'City',
+        _("LOCATION.DISTRICT"),
+        related_name='%(app_label)s_%(class)s_city',
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         app_label = 'geoware'
-        db_table = app_label + '-district'
+        db_table = '{app}-{type}'.format(app=app_label, type='district')
+        verbose_name = _('LOCATION.DISTRICT')
+        verbose_name_plural = _('LOCATION.DISTRICT#plural')
         unique_together = [('name', 'city')]
 
     @property
@@ -17,5 +28,3 @@ class District(CityBase):
         if self.city:
             return self.city
         return None
-
-

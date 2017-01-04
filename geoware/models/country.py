@@ -22,7 +22,7 @@ class Country(AbstractLocation):
         related_name='%(app_label)s_%(class)s_jurisdiction',
         blank=True,
         null=True,
-        help_text=_('LOCATION.COUNTRY.'),
+        help_text=_('LOCATION.COUNTRY.SOVEREIGNTY'),
     )
 
     currency = models.ForeignKey(
@@ -41,20 +41,65 @@ class Country(AbstractLocation):
         null=True,
     )
 
-    code = models.CharField(_('ISO alpha-2'), max_length=2, db_index=True)
-    iso_3 = models.CharField(_('ISO alpha-3'), max_length=3, blank=True, null=True)
-    iso_n = models.CharField(_('ISO numeric'), max_length=40, blank=True, null=True)
-    fips = models.CharField(_('FIPS code'), max_length=40, blank=True, null=True)
-    idc = models.CharField(_('International dialing code'), max_length=40, null=True, blank=True)
-    tld = models.CharField(_('Top level domain code'), max_length=2, null=True, blank=True)
-    neighbours = models.ManyToManyField('self', help_text=_('Neighbouring countries'), related_name='%(app_label)s_%(class)s_neighbours', blank=True, null=True)
-    languages = models.ManyToManyField('Language', help_text=_('Languages'),  related_name='%(app_label)s_%(class)s_languagues', blank=True, null=True)
+    code = models.CharField(
+        _('LOCATION.CODE.ISO_ALPHA_2'),
+        db_index=True,
+        max_length=2,
+    )
+
+    iso_3 = models.CharField(
+        _('LOCATION.CODE.ISO_ALPHA_3'),
+        db_index=True,
+        max_length=3,
+    )
+
+    iso_n = models.CharField(
+        _('LOCATION.CODE.ISO_NUMERIC'),
+        db_index=True,
+        max_length=40,
+    )
+
+    fips = models.CharField(
+        _('LOCATION.CODE.FIPS'),
+        db_index=True,
+        max_length=40,
+    )
+
+    idc = models.CharField(
+        _('LOCATION.CODE.INTERNATIONAL_DIALING'),
+        max_length=40,
+        null=True,
+        blank=True,
+    )
+
+    tld = models.CharField(
+        _('LOCATION.CODE.TOP_LEVEL_DOMAIN'),
+        max_length=2,
+        null=True,
+        blank=True,
+    )
+
+    neighbours = models.ManyToManyField(
+        'self',
+        _('LOCATION.COUNTRY.NEIGHBORS'),
+        related_name='%(app_label)s_%(class)s_neighbors',
+        blank=True,
+        null=True,
+    )
+
+    languages = models.ManyToManyField(
+        'Language',
+        _('LOCATION.LANGUAGUES'),
+        related_name='%(app_label)s_%(class)s_languagues',
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         app_label = 'geoware'
-        db_table = app_label + '-country'
-        verbose_name = _('country')
-        verbose_name_plural = _('countries')
+        db_table = '{app}-{type}'.format(app=app_label, type='country')
+        verbose_name = _('LOCATION.COUNTRY')
+        verbose_name_plural = _('LOCATION.COUNTRY#plural')
 
     @property
     def parent(self):
