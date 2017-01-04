@@ -84,12 +84,12 @@ class Command(GeoBaseCommand):
                     country.languages.add(language)
                 logger.debug("Added languages to {0}: {1} ({2})".format(self.cmd_name, country, ', '.join([l.name for l in lang_list])))
 
-        if (country.neighbours.all().count() == 0 or self.overwrite) and data['neighbours']:
-            country.neighbours.clear()
-            neighbours = self._get_neighbours([c.strip() for c in data['neighbours'].split(',')])
-            if neighbours:
-                for neighbour in neighbours:
-                    country.neighbours.add(neighbour)
+        if (country.neighbors.all().count() == 0 or self.overwrite) and data['neighbors']:
+            country.neighbors.clear()
+            neighbors = self._get_neighbors([c.strip() for c in data['neighbors'].split(',')])
+            if neighbors:
+                for neighbor in neighbors:
+                    country.neighbors.add(neighbor)
 
     def entry_to_dict(self, item):
         """ Given a list of info for an entry, it returns a dict """
@@ -119,28 +119,28 @@ class Command(GeoBaseCommand):
                 'postal_regex'    : get_field(item, 14),
                 'languages'       : get_field(item, 15),
                 'geoid'           : get_field(item, 16),
-                'neighbours'      : get_field(item, 17),
+                'neighbors'       : get_field(item, 17),
                 'altfips'         : get_field(item, 18),
             }
         except Exception, e:
             logger.warning("Failed to extract {0} data. {1} {2}".format(self.cmd_name, item, e))
         return dicts
 
-    def _get_neighbours(self, neighbours_country_code):
-        """ Given a country code and a lis to neighbouring country codes, it returns neighbours obj """
+    def _get_neighbors(self, neighbors_country_code):
+        """ Given a country code and a lis to neighboring country codes, it returns neighbors obj """
 
-        neighbours = []
-        for neighbour_code in neighbours_country_code:
+        neighbors = []
+        for neighbor_code in neighbors_country_code:
             try:
-                country = Country.objects.get(code__iexact=neighbour_code)
+                country = Country.objects.get(code__iexact=neighbor_code)
             except Country.DoesNotExist:
-                country = Country(code=neighbour_code)
+                country = Country(code=neighbor_code)
                 country.save()
             except:
                 continue
             if country:
-                neighbours.append(country)
-        return neighbours
+                neighbors.append(country)
+        return neighbors
 
 
     def post_load_call(self):

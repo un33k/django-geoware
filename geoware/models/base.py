@@ -21,7 +21,6 @@ class AbstractBaseLocation(models.Model):
         _('FIELDS.NAME'),
         db_index=True,
         max_length=254,
-        help_text=_('LOCATION.NAME.DESC')
     )
 
     slug = models.CharField(
@@ -37,7 +36,6 @@ class AbstractBaseLocation(models.Model):
         max_length=254,
         blank=True,
         null=True,
-        help_text=_('LOCATION.NAME_STD.DESC')
     )
 
     area = models.PositiveIntegerField(
@@ -72,6 +70,7 @@ class AbstractBaseLocation(models.Model):
 
     altnames = models.ManyToManyField(
         'Altname',
+        verbose_name=_('LOCATION.ALTNAME'),
         related_name='%(app_label)s_%(class)s_altnames',
         blank=True,
     )

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 class CountryAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames', 'neighbours', 'languages',)
+    filter_horizontal = ('altnames', 'neighbors', 'languages',)
     list_display = (
         'id',
         'geoname_id',

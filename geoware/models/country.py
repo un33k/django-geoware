@@ -79,14 +79,16 @@ class Country(AbstractLocation):
         blank=True,
     )
 
-    neighbours = models.ManyToManyField(
+    neighbors = models.ManyToManyField(
         'self',
+        verbose_name=_('LOCATION.NEIGHBORS'),
         related_name='%(app_label)s_%(class)s_neighbors',
         blank=True,
     )
 
     languages = models.ManyToManyField(
         'Language',
+        verbose_name=_('LOCATION.LANGUAGUES'),
         related_name='%(app_label)s_%(class)s_languagues',
         blank=True,
     )
