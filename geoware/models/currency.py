@@ -9,8 +9,8 @@ class Currency(models.Model):
     """
     Currency Model Class.
     """
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     name = models.CharField(
         _('LOCATION.CURRENCY.NAME'),
@@ -77,7 +77,7 @@ class Currency(models.Model):
         db_table = '{app}-{type}'.format(app=app_label, type='currency')
         verbose_name = _('LOCATION.CURRENCY')
         verbose_name_plural = _('LOCATION.CURRENCY#plural')
-        unique_together = (('name','code'), )
+        unique_together = (('name', 'code'), )
 
     def save(self, *args, **kwargs):
         self.slug = slugify('{name}-{code}'.format(name=self.name, code=self.code))

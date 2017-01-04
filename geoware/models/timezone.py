@@ -9,9 +9,8 @@ class Timezone(models.Model):
     """
     Timezone Model Class.
     """
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     country = models.ForeignKey(
         "Country",

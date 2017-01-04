@@ -15,6 +15,7 @@ from ...models import (Altname, District, City, Subregion, Region, Country)
 
 logger = logging.getLogger("geoware.cmd.altname")
 
+
 class Command(GeoBaseCommand):
     cmd_name = "Altname"
 

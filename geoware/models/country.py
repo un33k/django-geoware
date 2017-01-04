@@ -104,8 +104,3 @@ class Country(AbstractLocation):
         if self.continent:
             return self.continent
         return None
-
-
-
-
-

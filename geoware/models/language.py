@@ -9,8 +9,8 @@ class Language(models.Model):
     """
     Language Model Class.
     """
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     name = models.CharField(
         _("LOCATION.LANGUAGE.NAME"),
@@ -71,7 +71,7 @@ class Language(models.Model):
         db_table = '{app}-{type}'.format(app=app_label, type='language')
         verbose_name = _('LOCATION.LANGUAGE')
         verbose_name_plural = _('LOCATION.LANGUAGE#plural')
-        unique_together = (('name','code'), )
+        unique_together = (('name', 'code'), )
 
     def save(self, *args, **kwargs):
         self.slug = slugify('{name}-{code}'.format(name=self.name, code=self.code))

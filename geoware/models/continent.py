@@ -24,5 +24,3 @@ class Continent(AbstractLocation):
     @property
     def parent(self):
         return None
-
-

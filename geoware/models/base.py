@@ -14,8 +14,8 @@ class AbstractBaseLocation(models.Model):
     """
     Base Abstract Model for all location types.
     """
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     name = models.CharField(
         _('FIELDS.NAME'),
@@ -140,11 +140,13 @@ class AbstractBaseLocation(models.Model):
 if defs.GEOWARE_USING_GIS:
     class AbstractLocation(AbstractBaseLocation):
         objects = models.GeoManager()
+
         class Meta:
             abstract = True
 else:
     class AbstractLocation(AbstractBaseLocation):
         objects = models.Manager()
+
         class Meta:
             abstract = True
 
@@ -200,4 +202,3 @@ else:
 
         class Meta:
             abstract = True
-

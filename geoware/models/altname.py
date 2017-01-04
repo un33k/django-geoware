@@ -9,8 +9,8 @@ class Altname(models.Model):
     """
     Currency Model Class.
     """
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     language = models.ForeignKey(
         'Language',
@@ -59,7 +59,6 @@ class Altname(models.Model):
         blank=True,
     )
 
-
     is_active = models.BooleanField(
         _('LOCATION.ALTNAME.ACTIVE'),
         default=True,
@@ -80,4 +79,3 @@ class Altname(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-

@@ -60,6 +60,3 @@ class City(AbstractCity):
         elif self.country and self.country.parent:
             return self.country
         return None
-
-
-

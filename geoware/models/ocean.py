@@ -21,7 +21,6 @@ class Ocean(AbstractLocation):
         blank=True,
     )
 
-
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='ocean')
