@@ -97,7 +97,7 @@ class Command(GeoBaseCommand):
 
         get_field = lambda x,i: x[i] if len(x)>i else ''
         try:
-            item = [force_unicode(x) for x in item]
+            item = [smart_str(x) for x in item]
         except:
             pass
         dicts = {}

@@ -3,7 +3,6 @@ from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 from django.db import transaction
-from django.utils.encoding import force_unicode
 from django.utils.encoding import smart_str
 
 from ..base import GeoBaseCommand
@@ -85,7 +84,7 @@ class Command(GeoBaseCommand):
 
         get_field = lambda x,i: x[i] if len(x)>i else ''
         try:
-            item = [force_unicode(x) for x in item]
+            item = [smart_str(x) for x in item]
         except:
             pass
         dicts = {}
@@ -99,7 +98,7 @@ class Command(GeoBaseCommand):
                 'preferred'         : smart_str(get_field(item, 4)),
                 'short'             : smart_str(get_field(item, 5)),
             }
-        except Exception, e:
+        except Exception as e:
             logger.warning("Failed to extract {0} data. {1}".format(self.cmd_name, item))
         return dicts
 

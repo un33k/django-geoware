@@ -6,7 +6,6 @@ from .. import defaults as defs
 
 
 def import_continents(force=False):
-    import pdb; pdb.set_trace()
     if not Continent.objects.count():
         force = True
     for continent in defs.GEOWARE_CONTINENT_CHOICES:
