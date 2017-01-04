@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 class LanguageAdmin(admin.ModelAdmin):
     list_display = (
         'id',

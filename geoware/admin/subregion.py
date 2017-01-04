@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 class SubregionAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
     list_display = (

@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 class TimezoneAdmin(admin.ModelAdmin):
     list_display = (
         'id',

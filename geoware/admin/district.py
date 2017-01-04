@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .. import defaults
+from .. import defaults as defs
+
 
 class DistrictAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
@@ -17,7 +18,7 @@ class DistrictAdmin(admin.ModelAdmin):
         'updated_at',
         'created_at',
     )
-    if defaults.GEOWARE_USING_GIS:
+    if defs.GEOWARE_USING_GIS:
         list_display += ('point',)
     else:
         list_display += ('lng', 'lng',)

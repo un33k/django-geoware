@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 class AltnameAdmin(admin.ModelAdmin):
     list_display = (
         'id',

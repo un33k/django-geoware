@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 class ContinentAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
     list_display = (
