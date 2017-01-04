@@ -120,10 +120,11 @@ class Command(GeoBaseCommand):
 
         if not hasattr(self, '_hierarchy_cache'):
             self._hierarchy_cache = {}
-            data = open(self.local_file, 'rb').read().split('\n')
-            for item in parse_data(data):
-                parent, child = item[0], item[1]
-                self._hierarchy_cache[child] = parent
+            with open(self.local_file, encoding='utf-8') as afile:
+                data = afile.read().splitlines()
+                for item in parse_data(data):
+                    parent, child = item[0], item[1]
+                    self._hierarchy_cache[child] = parent
 
         self.rfile = defaults.GEOWARE_FILE_DICT[self.required_file.lower()]['url'].format(filename=defaults.GEOWARE_FILE_DICT[self.required_file.lower()]['filename'])
 
