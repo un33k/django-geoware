@@ -4,7 +4,6 @@ import os
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.core.exceptions import ImproperlyConfigured
-from django.contrib.gis.utils import GeoIP
 
 try:
     from uuslug import slugify
@@ -12,10 +11,6 @@ except:
     from django.template.defaultfilters import slugify
 
 GEOWARE_USING_GIS = getattr(settings, 'GEOWARE_USING_GIS', False)
-
-GEOWARE_INCLUDE_TEMPLATE_TAGS = getattr(settings, 'GEOWARE_INCLUDE_TEMPLATE_TAGS', True)
-GEOWARE_GEOIP_DEBUG_DOMAIN_OR_IP = getattr(settings, 'GEOWARE_GEOIP_DEBUG_DOMAIN_OR_IP', None)
-GEOWARE_GEOIP_CACHE_METHOD = getattr(settings, "GEOWARE_GEOIP_CACHE_METHOD", GeoIP.GEOIP_STANDARD | GeoIP.GEOIP_CHECK_CACHE)
 
 GEOWARE_DATA_DIR = getattr(settings, 'GEOWARE_DATA_DIR',
                 os.path.normpath(os.path.join(os.path.expanduser("~"), '.geoware_cache_dir')))
@@ -36,12 +31,6 @@ GEOWARE_BASE_URLS = {
     'geonames': {
         'dump': 'http://download.geonames.org/export/dump/',
         'zip': 'http://download.geonames.org/export/zip/',
-    },
-    'maxmind': {
-        'GeoIP.dat': 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz',
-        'GeoLiteCity.dat': 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz',
-        'GeoIPv6.dat': 'http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz',
-        'GeoLiteCityv6.dat': 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz',
     },
 }
 

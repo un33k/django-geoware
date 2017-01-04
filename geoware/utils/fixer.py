@@ -9,7 +9,7 @@ logger = logging.getLogger("geoware.utils.fixer")
 
 
 def get_canadian_provice_code(code_num):
-    """ Given a numeric canadian province, returns a alpha version """
+    """ Given a numeric Canadian province, returns a alpha version """
     code_alph = None
     try:
         code_alph = defaults.GEOWARE_CANADA_PROVINCE_CODES[code_num]
@@ -21,7 +21,7 @@ def get_canadian_provice_code(code_num):
 def region_pre_save_call(region):
     """ Given a region object, this performs any last minutes fixes """
 
-    ## FIX for Canadian Provice Codes
+    ## FIX for Canadian Province Codes
     if 'ca' in region.fips.split('.')[0].lower():
         code = get_canadian_provice_code(region.code)
         if code:

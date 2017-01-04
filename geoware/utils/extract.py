@@ -4,7 +4,7 @@ def between_tags_reverse(string, stag='', etag=''):
     """
     Finds the first substrings wrapped by stag and etag within a string (in reverse).
     Does not include start/end. Scans from the end of the string
-    
+
     @type string: str
     @param string: The string to search within.
     @type start: str
@@ -25,7 +25,7 @@ def between_tags(string, stag='', etag=''):
     """
     Finds the first substrings wrapped by stag and etag within a string.
     Does not include start/end. Scans from the start of string
-    
+
     @type string: str
     @param string: The string to search within.
     @type start: str
@@ -46,7 +46,7 @@ def between_tags_all(string, stag='', etag=''):
     """
     Iteratively find all substrings wrapped by stag and etag within a string.
     Does not include start/end. Scans from the start of string
-    
+
     @type string: str
     @param string: The string to search within.
     @type string: str
@@ -54,7 +54,7 @@ def between_tags_all(string, stag='', etag=''):
     @type end: str
     @param etag: The ending tag.
     @rtype: list
-    @return: A list of every occurence of start<>end in the string, or an an empty list
+    @return: A list of every occurrence of start<>end in the string, or an an empty list
     """
     result = []
     while True:
