@@ -10,7 +10,7 @@ class District(AbstractCity):
     """
     city = models.ForeignKey(
         'City',
-        _("LOCATION.DISTRICT"),
+        verbose_name=_("LOCATION.DISTRICT"),
         related_name='%(app_label)s_%(class)s_city',
         null=True,
         blank=True,

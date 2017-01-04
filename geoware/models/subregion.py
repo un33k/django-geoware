@@ -10,7 +10,7 @@ class Subregion(AbstractLocation):
     """
     region = models.ForeignKey(
         'Region',
-        _('LOCATION.SUBREGION.REGION'),
+        verbose_name=_('LOCATION.SUBREGION.REGION'),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
@@ -18,7 +18,7 @@ class Subregion(AbstractLocation):
 
     capital = models.ForeignKey(
         'City',
-        _("LOCATION.SUBREGION.CAPITAL"),
+        verbose_name=_("LOCATION.SUBREGION.CAPITAL"),
         related_name='%(app_label)s_%(class)s_capital',
         null=True,
         blank=True,

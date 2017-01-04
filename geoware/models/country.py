@@ -10,7 +10,7 @@ class Country(AbstractLocation):
     """
     continent = models.ForeignKey(
         'Continent',
-        _('LOCATION.COUNTRY.CONTINENT'),
+        verbose_name=_('LOCATION.COUNTRY.CONTINENT'),
         related_name='%(app_label)s_%(class)s_continent',
         null=True,
         blank=True,
@@ -18,7 +18,7 @@ class Country(AbstractLocation):
 
     jurisdiction = models.ForeignKey(
         'Country',
-        _('LOCATION.COUNTRY.JURISDICTION'),
+        verbose_name=_('LOCATION.COUNTRY.JURISDICTION'),
         related_name='%(app_label)s_%(class)s_jurisdiction',
         blank=True,
         null=True,
@@ -27,7 +27,7 @@ class Country(AbstractLocation):
 
     currency = models.ForeignKey(
         'Currency',
-        _('LOCATION.CURRENCY'),
+        verbose_name=_('LOCATION.CURRENCY'),
         related_name='%(app_label)s_%(class)s_currency',
         blank=True,
         null=True,
@@ -35,7 +35,7 @@ class Country(AbstractLocation):
 
     capital = models.ForeignKey(
         'City',
-        _('LOCATION.CAPTIAL'),
+        verbose_name=_('LOCATION.CAPTIAL'),
         related_name='%(app_label)s_%(class)s_capital',
         blank=True,
         null=True,

@@ -14,7 +14,7 @@ class Altname(models.Model):
 
     language = models.ForeignKey(
         'Language',
-        _('LOCATION.ALTNAME.LAGUAGUE'),
+        verbose_name=_('LOCATION.ALTNAME.LAGUAGUE'),
         related_name='%(app_label)s_%(class)s_language',
         null=True,
         blank=True,

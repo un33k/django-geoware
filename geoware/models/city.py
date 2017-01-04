@@ -8,7 +8,7 @@ class City(AbstractCity):
 
     country = models.ForeignKey(
         'Country',
-        _('LOCATION.CITY.COUNTRY'),
+        verbose_name=_('LOCATION.CITY.COUNTRY'),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
@@ -16,7 +16,7 @@ class City(AbstractCity):
 
     region = models.ForeignKey(
         'Region',
-        _('LOCATION.CITY.REGION'),
+        verbose_name=_('LOCATION.CITY.REGION'),
         related_name='%(app_label)s_%(class)s_region',
         blank=True,
         null=True,
@@ -24,7 +24,7 @@ class City(AbstractCity):
 
     subregion = models.ForeignKey(
         'Subregion',
-        _('LOCATION.CITY.SUBREGION'),
+        verbose_name=_('LOCATION.CITY.SUBREGION'),
         related_name='%(app_label)s_%(class)s_subregion',
         blank=True,
         null=True,
@@ -32,7 +32,7 @@ class City(AbstractCity):
 
     timezone = models.ForeignKey(
         'Timezone',
-        _('LOCATION.CITY.TIMEZONE'),
+        verbose_name=_('LOCATION.CITY.TIMEZONE'),
         related_name='%(app_label)s_%(class)s_timezone',
         blank=True,
         null=True,
@@ -40,7 +40,7 @@ class City(AbstractCity):
 
     sister = models.ForeignKey(
         'City',
-        _('LOCATION.CITY.SISTER'),
+        verbose_name=_('LOCATION.CITY.SISTER'),
         blank=True,
         null=True,
     )

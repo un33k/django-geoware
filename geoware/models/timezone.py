@@ -15,7 +15,7 @@ class Timezone(models.Model):
 
     country = models.ForeignKey(
         "Country",
-        _("LOCATION.TIMEZONE.COUNTRY"),
+        verbose_name=_("LOCATION.TIMEZONE.COUNTRY"),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
