@@ -146,7 +146,7 @@ class GeoBaseCommand(BaseCommand):
 
 
     def load_enteries(self):
-        """ Load enteries into in database """
+        """ Load entries into in database """
 
         if not self.updated:
             self.download()
@@ -157,11 +157,12 @@ class GeoBaseCommand(BaseCommand):
         logger.info(_("Loading {0} data".format(self.cmd_name)))
 
         if hasattr(self, '_data_cache'):
-            data = open(self.local_file, 'rb').read().split('\n')
-            total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
+            with open(self.local_file, encoding='utf-8') as afile:
+                data = afile.read().splitlines()
+                total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
         else:
-            data = open(self.local_file, 'rb')
-            total_rows = sum(1 for line in open(self.local_file, 'rb') if line and line.lstrip()[0] != '#')
+            data = open(self.local_file, encoding='utf-8')
+            total_rows = sum(1 for line in open(self.local_file, 'rb', encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0
