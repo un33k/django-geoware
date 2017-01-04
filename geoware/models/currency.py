@@ -3,7 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 from slugify import slugify
 
 from .base import models
-from .base import AbstractLocation
 
 
 class Currency(models.Model):

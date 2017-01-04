@@ -31,7 +31,7 @@ class Region(AbstractLocation):
         blank=True,
     )
 
-    code = models.CharField(
+    fips = models.CharField(
         _('LOCATION.REGION.CODE_FIPS'),
         max_length=40,
         null=True,

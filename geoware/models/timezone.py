@@ -1,41 +1,84 @@
+from django.utils.translation import ugettext_lazy as _
 
-from django.utils.encoding import force_unicode
-from django.db import models
-from django.utils.translation import gettext as _
+from slugify import slugify
 
-from .. import defaults as defs
+from .base import models
 
 
 class Timezone(models.Model):
-
+    """
+    Timezone Model Class.
+    """
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
-    name_id = models.CharField(_('Timezone ID'), max_length=254, db_index=True)
-    gmt_offset = models.FloatField(_('GMT offset 1. Janu'), default=0.0)
-    dst_offset = models.FloatField(_('DST offset 1. Jul'), default=0.0)
-    raw_offset = models.FloatField(_('RAW offset'), default=0.0)
 
-    country = models.ForeignKey('Country', related_name='%(app_label)s_%(class)s_country', null=True, blank=True)
-    slug = models.CharField(_('Slug'), max_length=254, blank=True, null=True)
-    url = models.URLField(_("URL"), max_length=254, blank=True, null=True)
-    info = models.TextField(_('Information Details'), blank=True)
-    is_active = models.BooleanField(_('Active'), default=True)
+    country = models.ForeignKey(
+        "Country",
+        _("LOCATION.TIMEZONE.COUNTRY"),
+        related_name='%(app_label)s_%(class)s_country',
+        null=True,
+        blank=True,
+    )
+
+    name_id = models.CharField(
+        _("LOCATION.TIMEZONE.ID"),
+        db_index=True,
+        max_length=254,
+    )
+
+    slug = models.CharField(
+        _('LOCATION.TIMEZONE.SLUG'),
+        max_length=254,
+        null=True,
+        blank=True,
+    )
+
+    gmt_offset = models.FloatField(
+        _("LOCATION.TIMEZONE.OFFSET_GMT_JAN_1"),
+        default=0.0,
+    )
+
+    dst_offset = models.FloatField(
+        _("LOCATION.TIMEZONE.OFFSET_DST_JUL_1"),
+        default=0.0,
+    )
+
+    raw_offset = models.FloatField(
+        _("LOCATION.TIMEZONE.OFFSET_RAW"),
+        default=0.0,
+    )
+
+    url = models.URLField(
+        _('LOCATION.TIMEZONE.URL'),
+        max_length=254,
+        null=True,
+        blank=True,
+    )
+
+    info = models.TextField(
+        _('LOCATION.TIMEZONE.INFO_DETAILS'),
+        null=True,
+        blank=True,
+    )
+
+    is_active = models.BooleanField(
+        _('LOCATION.TIMEZONE.ACTIVE'),
+        default=True,
+    )
+
+    def __str__(self):
+        return self.name_id
 
     class Meta:
         app_label = 'geoware'
-        db_table = app_label + '-timezone'
-
-    def __unicode__(self):
-        return force_unicode(self.name_id)
+        db_table = '{app}-{type}'.format(app=app_label, type='timezone')
+        verbose_name = _('LOCATION.TIMEZONE')
+        verbose_name_plural = _('LOCATION.TIMEZONE#plural')
 
     def get_absolute_url(self):
         return self.slug
 
     def save(self, *args, **kwargs):
-        self.slug = defs.slugify(self.name_id)
-        super(Timezone, self).save(*args, **kwargs)
-
-
-
-
+        self.slug = slugify('{name}'.format(name=self.name))
+        super().save(*args, **kwargs)
