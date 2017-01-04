@@ -81,15 +81,13 @@ class Country(AbstractLocation):
 
     neighbours = models.ManyToManyField(
         'self',
-        _('LOCATION.COUNTRY.NEIGHBORS'),
-        # related_name='%(app_label)s_%(class)s_neighbors',
+        related_name='%(app_label)s_%(class)s_neighbors',
         blank=True,
     )
 
     languages = models.ManyToManyField(
         'Language',
-        _('LOCATION.LANGUAGUES'),
-        # related_name='%(app_label)s_%(class)s_languagues',
+        related_name='%(app_label)s_%(class)s_languagues',
         blank=True,
     )
 

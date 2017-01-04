@@ -72,8 +72,7 @@ class AbstractBaseLocation(models.Model):
 
     altnames = models.ManyToManyField(
         'Altname',
-        _('LOCATION.ALT.NAMES'),
-        # related_name='%(app_label)s_%(class)s_altnames',
+        related_name='%(app_label)s_%(class)s_altnames',
         blank=True,
     )
 
