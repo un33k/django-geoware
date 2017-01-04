@@ -1,7 +1,7 @@
-import time
-import urllib
 import os
+import time
 import mmap
+import requests
 import zipfile
 import tarfile
 import logging
@@ -22,12 +22,12 @@ def file_download(url='', to_dir=defaults.GEOWARE_DATA_DIR, extract=False, force
     if not os.path.exists(to_dir):
         os.mkdir(to_dir)
     lfile = os.path.join(to_dir, os.path.basename(url))
-    rfile = urllib.urlopen(url)
-    if rfile.code != 200:
+    resp = requests.head(url)
+    if resp.status_code != requests.codes.ok:
         return False, {'name': '', 'type': '', 'updated': False}
-    rtime = time.strptime(rfile.headers['last-modified'].strip(), '%a, %d %b %Y %H:%M:%S %Z')
-    rsize = int(rfile.headers['content-length'].strip())
-    rtype = rfile.headers['content-type'].strip()
+    rtime = time.strptime(resp.headers['last-modified'].strip(), '%a, %d %b %Y %H:%M:%S %Z')
+    rsize = int(resp.headers['content-length'].strip())
+    rtype = resp.headers['content-type'].strip()
 
     if os.path.exists(lfile) and not force:
         ltime = time.gmtime(os.path.getmtime(lfile))
@@ -48,20 +48,22 @@ def file_download(url='', to_dir=defaults.GEOWARE_DATA_DIR, extract=False, force
         progressbar.Bar(),
     ]
 
+    resp = requests.get(url)
+    if resp.status_code != requests.codes.ok:
+        return True, {'name': lfile, 'type': rtype, 'updated': False}
+
     chunk_size=4096
     total_size = rsize
     size_so_far = 0
     progress = progressbar.ProgressBar(maxval=total_size, widgets=widgets)
-    fd = open(lfile, 'wb')
-    while True:
-        chunk = rfile.read(chunk_size)
-        size_so_far += len(chunk); progress.update(size_so_far)
-        if not chunk:
-            break
-        fd.write(chunk)
-    fd.close()
-    
-    logger.debug(_('Dowload complete. ({0})'.format(url, to_dir)))
+
+    with open(lfile, 'wb') as f:
+        for chunk in resp.iter_content(chunk_size=chunk_size):
+            size_so_far += len(chunk); progress.update(size_so_far)
+            if chunk:
+                f.write(chunk)
+
+    logger.debug(_('Download complete. ({0})'.format(url, to_dir)))
 
     if extract:
         file_extract(lfile)
@@ -79,7 +81,7 @@ def file_extract(filepath, to_dir=defaults.GEOWARE_DATA_DIR):
         extractor, mode = tarfile.open, 'r:gz'
     elif filetype.endswith('.tar.bz2') or filepath.endswith('.tbz'):
         extractor, mode = tarfile.open, 'r:bz2'
-    elif not filetype.endswith('.txt'): 
+    elif not filetype.endswith('.txt'):
         logger.warning(_("Could not extract unsupported file. ({0})".format(filepath)))
         return False
     else:

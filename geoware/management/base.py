@@ -79,13 +79,7 @@ class GeoBaseCommand(BaseCommand):
         import_currencies()
         import_languages()
 
-        class MemoryUsageWidget(progressbar.ProgressBarWidget):
-            def update(self, pbar):
-                return '{0} kB'.format(str(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss).rjust(8))
-
         self.widgets = [
-            '{0}|RAM usage:'.format("|Loading:  {0}".format((self.cmd_name[:10] + (self.cmd_name[10:] and '..')).rjust(12))),
-            MemoryUsageWidget(),
             '|',
             progressbar.ETA(),
             '|Done:',
