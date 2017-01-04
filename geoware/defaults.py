@@ -1,7 +1,7 @@
 import os
 
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 GEOWARE_USING_GIS = getattr(settings, 'GEOWARE_USING_GIS', False)
 

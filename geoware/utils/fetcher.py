@@ -30,8 +30,8 @@ def get_language_by_code(code):
         language = Language.objects.get(code__iexact=code.strip())
     except ObjectDoesNotExist:
         pass
-    except Exception, e:
-        logger.error("Error getting language by code: {0} - {1}".format(code, e))
+    except Exception as err:
+        logger.error("Error getting language by code: {0} - {1}".format(code, err))
         pass
     return language
 
@@ -56,8 +56,8 @@ def get_country_by_code(code):
         country = Country.objects.get(code__iexact=code.strip())
     except ObjectDoesNotExist:
         pass
-    except Exception, e:
-        logger.error("Error getting country by code: {0} - {1}".format(code, e))
+    except Exception as err:
+        logger.error("Error getting country by code: {0} - {1}".format(code, err))
         pass
     return country
 
@@ -69,8 +69,8 @@ def get_region_by_fips(fips):
         region = Region.objects.get(fips__iexact=fips.strip())
     except ObjectDoesNotExist:
         pass
-    except Exception, e:
-        logger.error("Error getting region by code: {0} - {1}".format(fips, e))
+    except Exception as e:
+        logger.error("Error getting region by code: {0} - {1}".format(fips, err))
         pass
     return region
 
@@ -82,8 +82,8 @@ def get_subregion_by_fips(fips):
         subregion = Subregion.objects.get(fips__iexact=fips.strip())
     except ObjectDoesNotExist:
         pass
-    except Exception, e:
-        logger.error("Error getting subregion by code: {0} - {1}".format(fips, e))
+    except Exception as err:
+        logger.error("Error getting subregion by code: {0} - {1}".format(fips, err))
         pass
     return subregion
 
@@ -95,8 +95,8 @@ def get_timezone_by_name_id(name):
         timezone = Timezone.objects.get(name_id__iexact=name.strip())
     except ObjectDoesNotExist:
         pass
-    except Exception, e:
-        logger.error("Error getting timezone by name id: {0} - {1}".format(name, e))
+    except Exception as err:
+        logger.error("Error getting timezone by name id: {0} - {1}".format(name, err))
         pass
     return timezone
 

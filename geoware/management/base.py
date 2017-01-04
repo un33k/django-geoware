@@ -3,6 +3,7 @@ import sys
 import logging
 import resource
 import progressbar
+
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
@@ -17,31 +18,59 @@ from .. import defaults
 logger = logging.getLogger("geoware.cmd.base")
 
 class GeoBaseCommand(BaseCommand):
- 
+
     help = "usage: %prog <--download> | <--load> [--force]"
     updated = False
     cmd_name = 'base'
 
-    option_list = BaseCommand.option_list + (
-        make_option('-d', '--download', action='store_true', default=False,
+    def add_arguments(self, parser):
+
+        parser.add_argument(
+            '-d',
+            '--download',
+            action='store_true',
+            default=False,
             help='Download the related files if newer files are available.'
-        ),
-        make_option('-l', '--load', action='store_true', default=False,
+        )
+
+        parser.add_argument(
+            '-l',
+            '--load',
+            action='store_true',
+            default=False,
             help='Load the info from the downloaded files into the DB'
-        ),
-        make_option('-f', '--force', action='store_true', default=False,
+        )
+        parser.add_argument(
+            '-f',
+            '--force',
+            action='store_true',
+            default=False,
             help='Force an action.'
-        ),
-        make_option('-m', '--memory', action='store_true', default=True,
+        )
+
+        parser.add_argument(
+            '-m',
+            '--memory',
+            action='store_true',
+            default=True,
             help='Optimize for systems with lower system memory. (default)'
-        ),
-        make_option('-s', '--speed', action='store_true', default=False,
+        )
+
+        parser.add_argument(
+            '-s',
+            '--speed',
+            action='store_true',
+            default=False,
             help='Optimize for systems with higher system memory.'
+        )
+
+        parser.add_argument(
+            '-o',
+            '--overwrite',
+            action='store_true',
+            default=False,
+            help='Overwrite any locally modified data with the new downloaded data.'
         ),
-        make_option('-o', '--overwrite', action='store_true', default=False,
-            help='Overwrite any locally modified data with the new dowloaded data.'
-        ),
-    )
 
     def __init__(self, *args, **kwargs):
         self.rfile = ''
@@ -90,7 +119,7 @@ class GeoBaseCommand(BaseCommand):
         if self.load:
             self.download()
             if self.updated or self.force:
-                self.load_enteries() 
+                self.load_enteries()
             else:
                 sys.stderr.write(_("{0} seems to be up2date. Use -f option to force a load.\n".format(self.cmd_name)))
         return
@@ -149,7 +178,7 @@ class GeoBaseCommand(BaseCommand):
                 if not self.is_entry_valid(item):
                     continue
                 self.save_or_update_entry(item)
-            except (UnicodeDecodeError, UnicodeEncodeError), e:
+            except (UnicodeDecodeError, UnicodeEncodeError) as e:
                 continue
             if loop_counter == 500:
                 loop_counter = 0
@@ -199,24 +228,23 @@ class GeoBaseCommand(BaseCommand):
                 obj = klass.objects.get(**kwargs)
             except klass.DoesNotExist:
                 obj = klass(**kwargs)
-            except Exception, e:
-                logger.error("Failed to add {0}: (kwargs={1}) [err={2}]".format(klass.__class__.__name__, kwargs, e))
+            except Exception as err:
+                logger.error("Failed to add {0}: (kwargs={1}) [err={2}]".format(klass.__class__.__name__, kwargs, err))
         return obj
 
-    @transaction.commit_on_success
     def save_to_db(self, obj):
-        """ Attemps to save an object to the database and rolls back if failed """
+        """ Attempt to save an object to the database """
         success = True
         reason = ''
         try:
             obj.save()
-        except IntegrityError, e:
+        except IntegrityError as err:
             transaction.rollback()
             success = False
-            reason = e
-        except Exception, e:
+            reason = err
+        except Exception as err:
             success = False
-            reason = e
+            reason = err
 
         return success, reason
 

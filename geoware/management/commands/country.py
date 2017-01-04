@@ -1,21 +1,22 @@
 import os
 import logging
-from optparse import make_option
-from django.core.management.base import BaseCommand
+
 from django.utils.translation import ugettext as _
-from django.utils.encoding import force_unicode
 from django.utils.encoding import smart_str
 
 from ..base import GeoBaseCommand
 from ...utils.downloader import *
 from ...utils.updater import *
 from ...utils.fetcher import *
-from ...models import (Country, Continent, Language, Currency)
+from ...models import Country
+from ...models import Continent
+from ...models import Language
+from ...models import Currency
 
 logger = logging.getLogger("geoware.cmd.country")
 
+
 class Command(GeoBaseCommand):
-    help = "usage: %prog <--download> | <--load> [--force]"
     cmd_name = "Country"
 
     def is_entry_valid(self, item):
@@ -41,7 +42,7 @@ class Command(GeoBaseCommand):
         if not country:
             return
 
-        logger.debug("\n****************>>>\n{0}".format(item))
+        logger.debug("\n****************>>>\n{item}".format(item=item))
 
         country.geoname_id = data['geoid']
         if (not country.code) or self.overwrite: country.code = data['code']
@@ -102,7 +103,7 @@ class Command(GeoBaseCommand):
         dicts = {}
         try:
             dicts = {
-                'code'           : get_field(item, 0),
+                'code'            : get_field(item, 0),
                 'iso_3'           : get_field(item, 1),
                 'iso_n'           : get_field(item, 2),
                 'fips'            : get_field(item, 3),
@@ -122,8 +123,8 @@ class Command(GeoBaseCommand):
                 'neighbors'       : get_field(item, 17),
                 'altfips'         : get_field(item, 18),
             }
-        except Exception, e:
-            logger.warning("Failed to extract {0} data. {1} {2}".format(self.cmd_name, item, e))
+        except Exception as err:
+            logger.warning("Failed to extract {0} data. {1} {2}".format(self.cmd_name, item, err))
         return dicts
 
     def _get_neighbors(self, neighbors_country_code):
@@ -150,6 +151,3 @@ class Command(GeoBaseCommand):
             Country.objects.filter(name__exact='').delete()
         except:
             pass
-
-
-
