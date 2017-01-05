@@ -162,7 +162,7 @@ class GeoBaseCommand(BaseCommand):
                 total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
         else:
             data = open(self.local_file, encoding='utf-8')
-            total_rows = sum(1 for line in open(self.local_file, 'rb', encoding='utf-8') if line and line.lstrip()[0] != '#')
+            total_rows = sum(1 for line in open(self.local_file, encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0

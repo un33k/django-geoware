@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _
 from django.core.management import call_command
 
 from ... import defaults as defs
+from ...utils.downloader import FileDownloader
 
 logger = logging.getLogger("geoware.cmd.geo")
 
@@ -63,8 +64,14 @@ class Command(BaseCommand):
         ),
 
     def handle(self, *args, **options):
-        if options['download'] or options['load']:
-            for cmd in defs.GEOWARE_LOADING_ORDER:
-                call_command(cmd.lower(), **options)
-        else:
-            self.print_help("", subcommand='geo')
+        # if options['download'] or options['load']:
+        #     for cmd in defs.GEOWARE_LOADING_ORDER:
+        #         call_command(cmd.lower(), **options)
+        # else:
+        #     self.print_help("", subcommand='geo')
+
+
+        dldr = FileDownloader('altname')
+        url = dldr.get_url()
+        file = dldr.download(url, options['force'])
+        dldr.extract(file)

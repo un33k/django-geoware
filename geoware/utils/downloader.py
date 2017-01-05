@@ -7,146 +7,212 @@ import tarfile
 import logging
 import resource
 import progressbar
+from urllib.parse import urljoin
+
 from django.utils.translation import ugettext as _
 
-from .. import defaults
+from .. import defaults as defs
 
 logger = logging.getLogger('geoware.downloader')
 
-__all__ = ["file_download", "file_extract", "parse_data", "parse_file", "load_file_mmap", "parse_data_mmap"]
+
+class FileDownloader(object):
+    """
+    Class to download files.
+    """
+    cache_dir = defs.GEOWARE_DATA_DIR
+    response_headers = None
+
+    def __init__(self, download_type=None):
+        if download_type is None:
+            raise Exception(_('Improperly Use! Download Type is required'))
+        self.download_type = download_type
+        if not os.path.exists(self.cache_dir):
+            os.mkdir(self.cache_dir)
+
+    def get_file_path(self, url):
+        """
+        Returns a local path of a file given a URL.
+        """
+        file_name = os.path.basename(url)
+        local_file_path = os.path.join(self.cache_dir, file_name)
+        return local_file_path
+
+    def get_url(self):
+        """
+        Return the related URL for download.
+        """
+        base_url = defs.GEOWARE_FILE_DICT[self.download_type]['url']
+        file_name = defs.GEOWARE_FILE_DICT[self.download_type]['filename']
+        url = urljoin(base_url, file_name)
+        return url
+
+    def is_file_up2date(self, url):
+        """
+        Returns True if local and remote files are not the same.
+        """
+        up2date = False
+        local_path = self.get_file_path(url)
+        if os.path.isfile(local_path):
+            response_headers = self.get_remote_file_info(url)
+            if response_headers:
+                ltime = time.gmtime(os.path.getmtime(local_path))
+                lsize = os.path.getsize(local_path)
+                rtime = time.strptime(response_headers['last-modified'].strip(), '%a, %d %b %Y %H:%M:%S %Z')
+                rsize = int(response_headers['content-length'].strip())
+                if ltime >= rtime or lsize == rsize:
+                    up2date = True
+        return up2date
+
+    def get_remote_file_info(self, url):
+        """
+        Returns the response headers for URL.
+        """
+        if not self.response_headers:
+            resp = requests.head(url)
+            if resp.status_code == requests.codes.ok:
+                self.response_headers = resp.headers
+        return self.response_headers
+
+    def get_remote_file_size(self, url):
+        """
+        Returns the remote file size.
+        """
+        headers = self.get_remote_file_info(url)
+        size = int(headers['content-length'].strip())
+        return size
+
+    def get_progress_widgets(self, url):
+        """
+        Returns the progress widgets for a file download.
+        """
+        widgets = [
+            progressbar.ETA(),
+            progressbar.Percentage(),
+            progressbar.Bar(),
+        ]
+
+    def download(self, url, force=False):
+        """
+        Returns the path to a newly downloaded, or an unchanged file.
+        """
+        file_path = self.get_file_path(url)
+        up2date = self.is_file_up2date(url)
+        if up2date and not force:
+            logger.info(_('DOWNLOAD.FILE.UP_TO_DATE'))
+            logger.info('{path}'.format(path=file_path))
+            return file_path
+
+        logger.info(_('DOWNLOAD.FILE.DOWNLOADING'))
+        logger.info('{path}'.format(path=file_path))
+
+        resp = requests.get(url, stream=True)
+        if resp.status_code != requests.codes.ok:
+            logger.error(_('DOWNLOAD.FILE.DOWNLOAD_FAILED'))
+            logger.error('({code})'.format(code=resp.status_code))
+            return None
+
+        size_so_far = 0
+        chunk_size = 4096
+        total_size = int(self.get_remote_file_info(url)['content-length'].strip())
+        widgets = self.get_progress_widgets(url)
+
+        progress = progressbar.ProgressBar(maxval=total_size, widgets=widgets).start()
+        with open(file_path, 'wb') as aFile:
+            for chunk in resp.iter_content(chunk_size=chunk_size):
+                size_so_far += len(chunk); progress.update(size_so_far)
+                if chunk:
+                    aFile.write(chunk)
+
+        logger.info(_('DOWNLOAD.FILE.DOWNLOAD_COMPLETED'))
+        logger.info('{path}'.format(path=file_path))
+
+        return file_path
+
+    def extract(self, file_path):
+        """
+        Extract a compressed file.
+        """
+        extracted = True
+        filetype = file_path.split('?')[0]
+        if filetype.endswith('.txt'):
+            return extracted
+
+        if filetype.endswith('.zip'):
+            extractor, mode = zipfile.ZipFile, 'r'
+        elif filetype.endswith('.tar.gz') or file_path.endswith('.tgz'):
+            extractor, mode = tarfile.open, 'r:gz'
+        elif filetype.endswith('.tar.bz2') or file_path.endswith('.tbz'):
+            extractor, mode = tarfile.open, 'r:bz2'
+        else:
+            logger.warning(_('DOWNLOAD.FILE.EXTRACT.UNSUPPORTED_FILE'))
+            logger.warning('{path}'.format(path=file_path))
+            extracted = False
+            return extracted
+
+        cwd = os.getcwd()
+        os.chdir(self.cache_dir)
+        try:
+            efile = extractor(file_path, mode)
+            try:
+                efile.extractall()
+            finally:
+                efile.close()
+        finally:
+            os.chdir(cwd)
+
+        logger.info(_('DOWNLOAD.FILE.EXTRACT.COMPLETE'))
+        logger.info('{path}'.format(path=file_path))
+
+        return extracted
+
+# def parse_file(filepath):
+#     """ Return a file one line at a time """
+
+#     for line in open(filepath, 'r'):
+#         line = line.strip()
+#         if len(line) < 1 or line.strip()[0] == '#':
+#             continue
+#         yield [e.strip() for e in line.split('\t')]
 
 
-def file_download(url='', to_dir=defaults.GEOWARE_DATA_DIR, extract=False, force=False):
-    """ Download a file if forced or newer found """
+# def parse_data(data):
+#     """ Return a file one line at a time """
 
-    if not os.path.exists(to_dir):
-        os.mkdir(to_dir)
-    lfile = os.path.join(to_dir, os.path.basename(url))
-    resp = requests.head(url)
-    if resp.status_code != requests.codes.ok:
-        return False, {'name': '', 'type': '', 'updated': False}
-    rtime = time.strptime(resp.headers['last-modified'].strip(), '%a, %d %b %Y %H:%M:%S %Z')
-    rsize = int(resp.headers['content-length'].strip())
-    rtype = resp.headers['content-type'].strip()
-
-    if os.path.exists(lfile) and not force:
-        ltime = time.gmtime(os.path.getmtime(lfile))
-        lsize = os.path.getsize(lfile)
-        if ltime >= rtime and lsize == rsize:
-            logger.debug(_('File up2date ({0})'.format(url)))
-            return True, {'name': lfile, 'type': rtype, 'updated': False}
-
-    logger.debug(_('File is being dowloaded. ({0})'.format(url, to_dir)))
-
-    fname = os.path.basename(url)
-    fname = (fname[:10] + (fname[10:] and '..'))
-    widgets = [
-        '{0}|File Size: {1} kB|'.format("|Fetching: {0}".format(fname.rjust(12)), str(rsize/1024).rjust(7)),
-        progressbar.ETA(),
-        '|Done:',
-        progressbar.Percentage(),
-        progressbar.Bar(),
-    ]
-
-    resp = requests.get(url)
-    if resp.status_code != requests.codes.ok:
-        return True, {'name': lfile, 'type': rtype, 'updated': False}
-
-    chunk_size=4096
-    total_size = rsize
-    size_so_far = 0
-    progress = progressbar.ProgressBar(maxval=total_size, widgets=widgets)
-
-    with open(lfile, 'wb') as f:
-        for chunk in resp.iter_content(chunk_size=chunk_size):
-            size_so_far += len(chunk); progress.update(size_so_far)
-            if chunk:
-                f.write(chunk)
-
-    logger.debug(_('Download complete. ({0})'.format(url, to_dir)))
-
-    if extract:
-        file_extract(lfile)
-        logger.debug(_('File extracted'))
-    return True, {'name': lfile, 'type': rtype, 'updated': True}
+#     for line in data:
+#         line = line.strip()
+#         if len(line) < 1 or line.strip()[0] == '#':
+#             continue
+#         yield [e.strip() for e in line.split('\t')]
 
 
-def file_extract(filepath, to_dir=defaults.GEOWARE_DATA_DIR):
-    """ Extract a compressed file """
+# def load_file_mmap(filepath, skip_char="#"):
+#     """ Using memory map, open and read a file """
 
-    filetype = filepath.split('?')[0]
-    if filetype.endswith('.zip'):
-        extractor, mode = zipfile.ZipFile, 'r'
-    elif filetype.endswith('.tar.gz') or filepath.endswith('.tgz'):
-        extractor, mode = tarfile.open, 'r:gz'
-    elif filetype.endswith('.tar.bz2') or filepath.endswith('.tbz'):
-        extractor, mode = tarfile.open, 'r:bz2'
-    elif not filetype.endswith('.txt'):
-        logger.warning(_("Could not extract unsupported file. ({0})".format(filepath)))
-        return False
-    else:
-        return True
-
-    cwd = os.getcwd()
-    os.chdir(to_dir)
-    try:
-        efile = extractor(filepath, mode)
-        try: efile.extractall()
-        finally: efile.close()
-    finally:
-        os.chdir(cwd)
-
-    logger.debug('Extracted ({0})'.format(filepath))
-    return True
+#     total_lines = 0
+#     data = []
+#     with open(filepath, "r") as f:
+#         m = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
+#         while True:
+#             line = m.readline()
+#             if line == "": break
+#             if line.lstrip()[0] == skip_char:
+#                 continue
+#             total_lines += 1
+#             data.append(line)
+#         m.close()
+#     return data, total_lines
 
 
-def parse_file(filepath):
-    """ Return a file one line at a time """
+# def parse_data_mmap(filepath, skip_char='#'):
+#     """ Return a file one line at a time using mmap """
 
-    for line in open(filepath, 'r'):
-        line = line.strip()
-        if len(line) < 1 or line.strip()[0] == '#':
-            continue
-        yield [e.strip() for e in line.split('\t')]
-
-
-def parse_data(data):
-    """ Return a file one line at a time """
-
-    for line in data:
-        line = line.strip()
-        if len(line) < 1 or line.strip()[0] == '#':
-            continue
-        yield [e.strip() for e in line.split('\t')]
-
-
-def load_file_mmap(filepath, skip_char="#"):
-    """ Using memory map, open and read a file """
-
-    total_lines = 0
-    data = []
-    with open(filepath, "r") as f:
-        m = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
-        while True:
-            line = m.readline()
-            if line == "": break
-            if line.lstrip()[0] == skip_char:
-                continue
-            total_lines += 1
-            data.append(line)
-        m.close()
-    return data, total_lines
-
-
-def parse_data_mmap(filepath, skip_char='#'):
-    """ Return a file one line at a time using mmap """
-
-    with open(filepath, "r") as f:
-        m = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
-        while True:
-            line = m.readline()
-            if line.lstrip()[0] == skip_char:
-                continue
-            yield [e.strip() for e in line.split('\t')]
+#     with open(filepath, "r") as f:
+#         m = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
+#         while True:
+#             line = m.readline()
+#             if line.lstrip()[0] == skip_char:
+#                 continue
+#             yield [e.strip() for e in line.split('\t')]
 
 

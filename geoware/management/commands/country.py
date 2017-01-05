@@ -34,6 +34,7 @@ class Command(GeoBaseCommand):
     def save_or_update_entry(self, item):
         """ Save or update a given entry into DB """
 
+        # import pdb; pdb.set_trace()
         data = self.entry_to_dict(item)
         if not data:
             return

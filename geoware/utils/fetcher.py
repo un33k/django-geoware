@@ -23,7 +23,7 @@ def get_language_objects(lang_list=[]):
 
 
 def get_language_by_code(code):
-    """ Given a valid language code, retunrs a language object """
+    """ Given a valid language code, returns a language object """
 
     language = None
     try:
@@ -63,7 +63,7 @@ def get_country_by_code(code):
 
 
 def get_region_by_fips(fips):
-    """ Given a valid region fips code, retunrs a region object """
+    """ Given a valid region fips code, returns a region object """
     region = None
     try:
         region = Region.objects.get(fips__iexact=fips.strip())
@@ -76,7 +76,7 @@ def get_region_by_fips(fips):
 
 
 def get_subregion_by_fips(fips):
-    """ Given a valid subregion fips code, retunrs a subregion object """
+    """ Given a valid subregion fips code, returns a subregion object """
     subregion = None
     try:
         subregion = Subregion.objects.get(fips__iexact=fips.strip())
@@ -89,7 +89,7 @@ def get_subregion_by_fips(fips):
 
 
 def get_timezone_by_name_id(name):
-    """ Given a valid timezone name, retunrs a timezone object """
+    """ Given a valid timezone name, returns a timezone object """
     timezone = None
     try:
         timezone = Timezone.objects.get(name_id__iexact=name.strip())
