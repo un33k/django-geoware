@@ -4,7 +4,6 @@ import logging
 import resource
 import progressbar
 
-from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 from django.db import transaction, reset_queries, IntegrityError
@@ -161,7 +160,7 @@ class GeoBaseCommand(BaseCommand):
             try:
                 if not self.is_entry_valid(item):
                     continue
-                self.save_or_update_entry(item)
+                self.create_or_update_entry(item)
             except (UnicodeDecodeError, UnicodeEncodeError) as e:
                 continue
             if loop_counter == 500:
@@ -181,12 +180,12 @@ class GeoBaseCommand(BaseCommand):
         return False
 
 
-    def save_or_update_entry(self, item):
+    def create_or_update_entry(self, item):
         """ Save or update a given entry """
         pass
 
 
-    def entry_to_dict(self, item):
+    def record_to_dict(self, item):
         """ Given a list of info for an entry, it returns a dict """
         return {}
 
@@ -205,16 +204,16 @@ class GeoBaseCommand(BaseCommand):
         pass
 
     def get_geo_object(self, klass, data):
-        obj = None
+        """
+        Get Geo object from database.
+        """
         kwargs = self.get_query_kwargs(data)
-        if kwargs:
-            try:
-                obj = klass.objects.get(**kwargs)
-            except klass.DoesNotExist:
-                obj = klass(**kwargs)
-            except Exception as err:
-                logger.error("Failed to add {0}: (kwargs={1}) [err={2}]".format(klass.__class__.__name__, kwargs, err))
-        return obj
+        try:
+            obj, created = klass.objects.get_or_create(**kwargs)
+        except klass.MultipleObjectsReturned:
+            klass.objects.filter(**kwargs).delete()
+            obj, created = klass.objects.get_or_create(**kwargs)
+        return (obj, created)
 
     def save_to_db(self, obj):
         """ Attempt to save an object to the database """

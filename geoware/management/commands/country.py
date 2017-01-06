@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
 from ..base import GeoBaseCommand
+from ...utils.common import *
 from ...utils.downloader import *
 from ...utils.updater import *
 from ...utils.fetcher import *
@@ -20,57 +21,93 @@ class Command(GeoBaseCommand):
     cmd_name = "country"
 
     def is_entry_valid(self, item):
+        """
+        Checks for minimum country requirements.
+        """
         try:
-            name = item[4]
+            name = str(item[4])
             geoid = int(item[16])
         except:
+            logger.warning("Invalid Record: ({item})".format(item=item))
             return False
         return True
 
     def get_query_kwargs(self, data):
+        """
+        Minimum unique data to identify record.
+        """
         kwargs = {'code': data['code']}
         return kwargs
 
-    def save_or_update_entry(self, item):
-        """ Save or update a given entry into DB """
+    def record_to_dict(self, item):
+        """
+        Given a country record, it returns a dictionary.
+        """
+        dicts = {}
+        try:
+            dicts = {
+                'code'            : get_str(item, 0),
+                'iso_3'           : get_str(item, 1),
+                'iso_n'           : get_str(item, 2),
+                'fips'            : get_str(item, 3),
+                'name'            : get_str(item, 4),
+                'captial'         : get_str(item, 5),
+                'area'            : get_float(item, 6),
+                'population'      : get_int(item, 7),
+                'continent_code'  : get_str(item, 8),
+                'tld'             : get_str(item, 9).strip('.'),
+                'currency_code'   : get_str(item, 10),
+                'currency_name'   : get_str(item, 11),
+                'idc'             : get_str(item, 12),
+                'postal_format'   : get_str(item, 13),
+                'postal_regex'    : get_str(item, 14),
+                'languages'       : get_str(item, 15),
+                'geoid'           : get_str(item, 16),
+                'neighbors'       : get_str(item, 17),
+                'altfips'         : get_str(item, 18),
+            }
+        except Exception as err:
+            logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
+        return dicts
 
-        # import pdb; pdb.set_trace()
-        data = self.entry_to_dict(item)
+    def create_or_update_entry(self, item):
+        """
+        Create or update a given entry into DB
+        """
+        data = self.record_to_dict(item)
         if not data:
             return
 
-        country = self.get_geo_object(Country, data)
-        if not country:
+        country, created = self.get_geo_object(Country, data)
+        if not created and not self.overwrite:
             return
 
         logger.debug("\n****************>>>\n{item}".format(item=item))
 
-        country.geoname_id = data['geoid']
-        if (not country.code) or self.overwrite: country.code = data['code']
-        if (not country.iso_3) or self.overwrite: country.iso_3 = data['iso_3']
-        if (not country.iso_n) or self.overwrite: country.iso_n = data['iso_n']
-        if (not country.fips) or self.overwrite: country.fips = data['fips']
-        if (not country.name) or self.overwrite: country.name = data['name']
-        if (not country.area) or self.overwrite: country.area = data['area'] if data['area'] > 0 else 0
-        if (not country.population) or self.overwrite: country.population = data['population'] if data['population'] > 0 else 0
-        if (not country.tld) or self.overwrite: country.tld = data['tld']
-        if (not country.idc) or self.overwrite: country.idc = data['idc']
+        country.name = data.get('name', country.name)
+        country.code = data.get('code', country.code)
+        country.iso_3 = data.get('iso_3', country.iso_3)
+        country.iso_n = data.get('iso_n', country.iso_n)
+        country.fips = data.get('fips', country.fips)
+        country.area = data.get('area', country.area)
+        country.population = data.get('population', country.population)
+        country.tld = data.get('tld', country.tld)
+        country.idc = data.get('idc', country.idc)
 
-        if data['continent_code']:
+        if data.get('continent_code'):
             cont = self._get_continent_cache(data['continent_code'])
             country.continent = cont
 
-        if ((not country.currency) or self.overwrite) and data['currency_code']:
+        if data.get('currency_code'):
             curr = self._get_currency_cache(data['currency_code'])
             country.currency = curr
 
-        country.save()
-
         if not country.jurisdiction:
             country.jurisdiction = country
-            country.save()
 
-        if (country.languages.all().count() == 0 or self.overwrite) and data['languages']:
+        country.save()
+
+        if data.get('languages'):
             country.languages.clear()
             lang_list = []
             for l in data['languages'].split(','):
@@ -81,69 +118,32 @@ class Command(GeoBaseCommand):
                 for language in lang_list:
                     country.languages.add(language)
 
-        if (country.neighbors.all().count() == 0 or self.overwrite) and data['neighbors']:
+        if data.get('neighbors'):
             country.neighbors.clear()
-            neighbors = self._get_neighbors([c.strip() for c in data['neighbors'].split(',')])
+            neighbors = self._get_neighbors(data['neighbors'])
             if neighbors:
                 for neighbor in neighbors:
                     country.neighbors.add(neighbor)
 
-    def entry_to_dict(self, item):
-        """ Given a list of info for an entry, it returns a dict """
 
-        get_field = lambda x,i: x[i] if len(x)>i else ''
-        try:
-            item = [smart_str(x) for x in item]
-        except:
-            pass
-        dicts = {}
-        try:
-            dicts = {
-                'code'            : get_field(item, 0),
-                'iso_3'           : get_field(item, 1),
-                'iso_n'           : get_field(item, 2),
-                'fips'            : get_field(item, 3),
-                'name'            : smart_str(get_field(item, 4)),
-                'captial'         : get_field(item, 5),
-                'area'            : float(get_field(item, 6)) if get_field(item, 6) else 0,
-                'population'      : float(get_field(item, 7)) if get_field(item, 7) else 0,
-                'continent_code'  : get_field(item, 8),
-                'tld'             : get_field(item, 9).strip('.'),
-                'currency_code'   : get_field(item, 10),
-                'currency_name'   : get_field(item, 11),
-                'idc'             : get_field(item, 12),
-                'postal_format'   : get_field(item, 13),
-                'postal_regex'    : get_field(item, 14),
-                'languages'       : get_field(item, 15),
-                'geoid'           : get_field(item, 16),
-                'neighbors'       : get_field(item, 17),
-                'altfips'         : get_field(item, 18),
-            }
-        except Exception as err:
-            logger.warning("Failed to extract {0} data. {1} {2}".format(self.cmd_name, item, err))
-        return dicts
-
-    def _get_neighbors(self, neighbors_country_code):
-        """ Given a country code and a lis to neighboring country codes, it returns neighbors obj """
-
+    def _get_neighbors(self, country_codes):
+        """
+        Given a `,` separated string of country codes, returns the a list of objects to all countries.
+        """
         neighbors = []
-        for neighbor_code in neighbors_country_code:
+        for neighbor_code in country_codes.split(','):
             try:
-                country = Country.objects.get(code__iexact=neighbor_code)
-            except Country.DoesNotExist:
-                country = Country(code=neighbor_code)
-                country.save()
-            except:
-                continue
-            if country:
-                neighbors.append(country)
+                country, created = Country.objects.get_or_create(code__iexact=neighbor_code)
+            except Country.MultipleObjectsReturned:
+                Country.objects.filter(code__iexact=neighbor_code).delete()
+                country, created = Country.objects.get_or_create(code__iexact=neighbor_code)
+            neighbors.append(country)
+
         return neighbors
 
 
     def post_load_call(self):
-        """ Clean up countries with empty names """
-
-        try:
-            Country.objects.filter(name__exact='').delete()
-        except:
-            pass
+        """
+        Clean up countries with empty names.
+        """
+        Country.objects.filter(name__exact='').delete()

@@ -1,6 +1,8 @@
 import os
 import sys
 
+from django.utils.encoding import smart_str
+
 
 def parse_file(filepath):
     """ Return a file one line at a time """
@@ -52,3 +54,37 @@ def parse_data_mmap(filepath, skip_char='#'):
             yield [e.strip() for e in line.split('\t')]
 
 
+def get_float(item, index):
+    """
+    Given an record list & an index, it returns a float or 0.0.
+    """
+    value = 0.0
+    try:
+        value = float(smart_str(item[index]))
+    except:
+        pass
+    return value
+
+
+def get_int(item, index):
+    """
+    Given an record list & an index, it returns an int or 0.
+    """
+    value = 0
+    try:
+        value = int(smart_str(item[index]))
+    except:
+        pass
+    return value
+
+
+def get_str(item, index):
+    """
+    Given an record list & an index, it returns a str or ''.
+    """
+    value = ''
+    try:
+        value = smart_str(item[index])
+    except:
+        pass
+    return value

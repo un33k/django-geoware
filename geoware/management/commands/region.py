@@ -32,10 +32,10 @@ class Command(GeoBaseCommand):
             return {'name': data['name'], 'country': country}
         return {}
 
-    def save_or_update_entry(self, item):
+    def create_or_update_entry(self, item):
         """ Save or update a given entry into DB """
 
-        data = self.entry_to_dict(item)
+        data = self.record_to_dict(item)
         if not data:
             return
 
@@ -65,7 +65,7 @@ class Command(GeoBaseCommand):
             logger.error("Failed to add {0}: {1} ({2}) [{3}]".format(self.cmd_name, region, region.fips, reason))
 
 
-    def entry_to_dict(self, item):
+    def record_to_dict(self, item):
         """ Given a list of info for an entry, it returns a dict """
 
         get_field = lambda x,i: x[i] if len(x)>i else ''
