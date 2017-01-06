@@ -120,7 +120,7 @@ class FileDownloader(object):
                     pbar.update(size_so_far)
 
         self.stdout.write("Fetched file from server ({file}).\n".format(file=self.downloaded_file_name))
-        return downloaded_file_path
+        return self.downloaded_file_path
 
     def extract(self):
         """
@@ -147,8 +147,14 @@ class FileDownloader(object):
             efile = extractor(file_path, mode)
             try:
                 efile.extractall()
+            except Exception as err:
+                self.stdout.write("File failed to extract fully.\n({file})\n".format(file=self.downloaded_file_path))
+                return
             finally:
                 efile.close()
+        except Exception as err:
+            self.stdout.write("Unable to extract. Bad or corrupted file.\n({file})\n".format(file=self.downloaded_file_path))
+            return
         finally:
             os.chdir(cwd)
 

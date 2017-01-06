@@ -67,7 +67,7 @@ GEOWARE_FILE_DICT = {
         'local': 'alternateNames.txt',
         'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
     },
-    'languages': {
+    'language': {
         'remote': 'alternateNames.zip',
         'local': 'iso-languagecodes.txt',
         'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
