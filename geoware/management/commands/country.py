@@ -17,7 +17,7 @@ logger = logging.getLogger("geoware.cmd.country")
 
 
 class Command(GeoBaseCommand):
-    cmd_name = "Country"
+    cmd_name = "country"
 
     def is_entry_valid(self, item):
         try:
@@ -64,15 +64,11 @@ class Command(GeoBaseCommand):
             curr = self._get_currency_cache(data['currency_code'])
             country.currency = curr
 
+        country.save()
+
         if not country.jurisdiction:
             country.jurisdiction = country
-
-        success, reason = self.save_to_db(country)
-        if success:
-            logger.debug("Added {0}: {1} ({2})".format(self.cmd_name, country, country.code))
-        else:
-            logger.error("Failed to add {0}: {1} ({2}) [{3}]".format(self.cmd_name, country, country.code, reason))
-            return
+            country.save()
 
         if (country.languages.all().count() == 0 or self.overwrite) and data['languages']:
             country.languages.clear()
@@ -84,7 +80,6 @@ class Command(GeoBaseCommand):
             if lang_list:
                 for language in lang_list:
                     country.languages.add(language)
-                logger.debug("Added languages to {0}: {1} ({2})".format(self.cmd_name, country, ', '.join([l.name for l in lang_list])))
 
         if (country.neighbors.all().count() == 0 or self.overwrite) and data['neighbors']:
             country.neighbors.clear()

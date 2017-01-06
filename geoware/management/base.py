@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 from django.db import transaction, reset_queries, IntegrityError
 
 from ..models import *
+from ..utils.common import *
 from ..utils.downloader import *
 from ..utils.updater import *
 from ..utils.importer import *
@@ -73,6 +74,8 @@ class GeoBaseCommand(BaseCommand):
         ),
 
     def __init__(self, *args, **kwargs):
+        self.dld = FileDownloader()
+        self.dld.stage(self.cmd_name)
         self.rfile = ''
         import_continents()
         import_oceans()
@@ -86,11 +89,11 @@ class GeoBaseCommand(BaseCommand):
             progressbar.Percentage(),
             progressbar.Bar(),
         ]
-        return super(GeoBaseCommand, self).__init__(*args, **kwargs)
+        return super().__init__(*args, **kwargs)
 
     def handle(self, *args, **options):
         self.options = options
-        self.fetch = self.options['download']
+        self.download = self.options['download']
         self.force = self.options['force']
         self.load = self.options['load']
         self.overwrite = self.options['overwrite']
@@ -98,25 +101,16 @@ class GeoBaseCommand(BaseCommand):
         if self.speed:
             self._data_cache = ''
 
-        if not self.fetch and not self.load:
+        if not self.download and not self.load:
             self.print_help("", subcommand=self.cmd_name.lower())
             return
 
-        if self.fetch:
-            if not self.file_exists or self.force:
-                self.download(force=self.force)
-                if self.updated:
-                    logger.debug(_("Download is complete. ({0})\n").format(self.local_file))
-            else:
-                sys.stderr.write(_("{0} seems to be up2date. Use -f option to force a download. ({1})\n").format(self.cmd_name, self.local_file))
+        if self.download:
+            self.dld.download(options['force'])
+            self.dld.extract()
 
         if self.load:
-            self.download()
-            if self.updated or self.force:
-                self.load_enteries()
-            else:
-                sys.stderr.write(_("{0} seems to be up2date. Use -f option to force a load.\n".format(self.cmd_name)))
-        return
+            self.load_enteries()
 
     @property
     def remote_file(self):
@@ -148,14 +142,9 @@ class GeoBaseCommand(BaseCommand):
     def load_enteries(self):
         """ Load entries into in database """
 
-        if not self.updated:
-            self.download()
-        if not self.updated and not self.force:
-            logger.info(_("{0} files are up2date".format(self.cmd_name)))
-            return
+        self.stdout.write("Loading {type} data".format(type=self.cmd_name))
 
-        logger.info(_("Loading {0} data".format(self.cmd_name)))
-
+        import pdb; pdb.set_trace()
         if hasattr(self, '_data_cache'):
             with open(self.local_file, encoding='utf-8') as afile:
                 data = afile.read().splitlines()
