@@ -7,7 +7,6 @@ from django.utils.encoding import smart_str
 
 from ..base import GeoBaseCommand
 from ...utils.common import *
-from ...utils.downloader import *
 from ...utils.updater import *
 from ...utils.fetcher import *
 from ...utils.fixer import *
@@ -20,7 +19,7 @@ class Command(GeoBaseCommand):
 
     def is_entry_valid(self, item):
         """
-        Checks for minimum country requirements.
+        Checks for minimum time zone requirements.
         """
         try:
             country_code = item[0]
@@ -39,7 +38,6 @@ class Command(GeoBaseCommand):
         if country:
             return {'name_id': data['name_id'], 'country': country}
         return {}
-
 
     def record_to_dict(self, item):
         """
