@@ -86,11 +86,17 @@ class FileDownloader(object):
         """
         Returns the progress widgets for a file download.
         """
+        format_custom_text = progressbar.FormatCustomText(
+            'Fetching [ %(file)s ] :: ', dict(file=os.path.basename(url)),
+        )
+
         widgets = [
+            format_custom_text,
             progressbar.ETA(),
             progressbar.Percentage(),
             progressbar.Bar(),
         ]
+        return widgets
 
     def download(self, url, force=False):
         """
@@ -117,12 +123,13 @@ class FileDownloader(object):
         total_size = int(self.get_remote_file_info(url)['content-length'].strip())
         widgets = self.get_progress_widgets(url)
 
-        progress = progressbar.ProgressBar(maxval=total_size, widgets=widgets).start()
-        with open(file_path, 'wb') as aFile:
-            for chunk in resp.iter_content(chunk_size=chunk_size):
-                size_so_far += len(chunk); progress.update(size_so_far)
-                if chunk:
-                    aFile.write(chunk)
+        with progressbar.ProgressBar(max_value=total_size, widgets=widgets) as pbar:
+            with open(file_path, 'wb') as aFile:
+                for chunk in resp.iter_content(chunk_size=chunk_size):
+                    size_so_far += len(chunk)
+                    if chunk:
+                        aFile.write(chunk)
+                    pbar.update(size_so_far)
 
         logger.info(_('DOWNLOAD.FILE.DOWNLOAD_COMPLETED'))
         logger.info('{path}'.format(path=file_path))
