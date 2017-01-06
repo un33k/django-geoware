@@ -43,7 +43,7 @@ class Subregion(AbstractLocation):
         db_table = '{app}-{type}'.format(app=app_label, type='subregion')
         verbose_name = _('LOCATION.SUBREGION')
         verbose_name_plural = _('LOCATION.SUBREGION#plural')
-        unique_together = [('name', 'region')]
+        unique_together = [('name', 'fips', 'region')]
 
     @property
     def parent(self):

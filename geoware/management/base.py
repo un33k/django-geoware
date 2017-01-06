@@ -111,6 +111,10 @@ class GeoBaseCommand(BaseCommand):
         """
         Save records to the database.
         """
+        if not os.path.isfile(self.dld.extracted_file_path):
+            self.stdout.write("Unable to find {type} file. Download it first.".format(type=self.cmd_name))
+            return
+
         self.stdout.write("Loading {type} data".format(type=self.cmd_name))
 
         if self.speed:
