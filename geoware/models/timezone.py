@@ -79,5 +79,5 @@ class Timezone(models.Model):
         return self.slug
 
     def save(self, *args, **kwargs):
-        self.slug = slugify('{name}'.format(name=self.name))
+        self.slug = slugify('{name}'.format(name=self.name_id))
         super().save(*args, **kwargs)

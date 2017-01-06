@@ -72,15 +72,15 @@ class GeoBaseCommand(BaseCommand):
         ),
 
     def __init__(self, *args, **kwargs):
-        self._dld = FileDownloader()
-        self._dld.stage(self.cmd_name)
+        self.dld = FileDownloader()
+        self.dld.stage(self.cmd_name)
 
         import_continents()
         import_oceans()
         import_currencies()
         import_languages()
 
-        self._widgets = [
+        self.widgets = [
             progressbar.ETA(),
             '| Done: ',
             progressbar.Percentage(),
@@ -101,8 +101,8 @@ class GeoBaseCommand(BaseCommand):
             return
 
         if self.download:
-            self._dld.download(options['force'])
-            self._dld.extract()
+            self.dld.download(options['force'])
+            self.dld.extract()
 
         if self.load:
             self.save_records_to_db()
@@ -114,12 +114,12 @@ class GeoBaseCommand(BaseCommand):
         self.stdout.write("Loading {type} data".format(type=self.cmd_name))
 
         if self.speed:
-            with open(self._dld.extracted_file_path, encoding='utf-8') as afile:
+            with open(self.dld.extracted_file_path, encoding='utf-8') as afile:
                 data = afile.read().splitlines()
                 total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
         else:
             data = open(self.extracted_file_name, encoding='utf-8')
-            total_rows = sum(1 for line in open(self._dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
+            total_rows = sum(1 for line in open(self.dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0

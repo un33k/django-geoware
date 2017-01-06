@@ -19,6 +19,7 @@ if defaults.GEOWARE_USING_GIS:
 
 logger = logging.getLogger("geoware.cmd.city")
 
+
 class Command(GeoBaseCommand):
     cmd_name = "City"
 
