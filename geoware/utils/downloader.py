@@ -9,6 +9,7 @@ import logging
 import resource
 import progressbar
 from urllib.parse import urljoin
+from urllib.parse import urlparse
 
 from django.utils.translation import ugettext as _
 
@@ -23,28 +24,18 @@ class FileDownloader(object):
     """
     cache_dir = defs.GEOWARE_DATA_DIR
     response_headers = None
-    url = None
-    file_name = None
 
     def __init__(self, stdout=None):
         self.stdout = stdout or sys.stdout
         if not os.path.exists(self.cache_dir):
             os.mkdir(self.cache_dir)
 
-    def _get_file_path(self):
-        """
-        Returns a local path of a file given a URL.
-        """
-        file_name = os.path.basename(self.url)
-        local_file_path = os.path.join(self.cache_dir, file_name)
-        return local_file_path
-
     def _is_file_up2date(self):
         """
         Returns True if local and remote files are not the same.
         """
         up2date = False
-        local_path = self._get_file_path()
+        local_path = self.downloaded_file_path
         if os.path.isfile(local_path):
             response_headers = self._get_remote_file_info()
             if response_headers:
@@ -61,7 +52,7 @@ class FileDownloader(object):
         Returns the response headers for URL.
         """
         if not self.response_headers:
-            resp = requests.head(self.url)
+            resp = requests.head(self.remote_file_path)
             if resp.status_code == requests.codes.ok:
                 self.response_headers = resp.headers
         return self.response_headers
@@ -79,7 +70,7 @@ class FileDownloader(object):
         Returns the progress widgets for a file download.
         """
         format_custom_text = progressbar.FormatCustomText(
-            'Fetching [ %(file)s ] :: ', dict(file=os.path.basename(self.url)),
+            'Fetching [ %(file)s ] :: ', dict(file=self.remote_file_name),
         )
 
         widgets = [
@@ -94,25 +85,23 @@ class FileDownloader(object):
         """
         Stage the next file download.
         """
-        file_info = defs.GEOWARE_FILE_DICT.get(file_type)
-        if not file_info:
+        self.file_info = defs.GEOWARE_FILE_DICT.get(file_type)
+        if not self.file_info:
             raise Exception("Invalid File Type {type}".format(type=file_type))
-        self.url = urljoin(file_info['url'], file_info['filename'])
-        self.file_name = os.path.basename(self.url)
 
     def download(self, force=False):
         """
         Returns the path to a newly downloaded, or an unchanged file.
         """
-        file_path = self._get_file_path()
         up2date = self._is_file_up2date()
         if up2date and not force:
-            self.stdout.write("Fetched file from cache ({file}).\n".format(file=self.file_name))
-            return file_path
+            self.stdout.write("Fetched file from cache ({file}).\n".format(file=self.downloaded_file_name))
+            return self.downloaded_file_path
 
-        self.stdout.write("Downloading file ({file}).\n".format(file=self.file_name))
+        self.stdout.write("Downloading file ({file}) from ({host}).\n".format(
+            file=self.remote_file_name, host=urlparse(self.remote_file_path).hostname))
 
-        resp = requests.get(self.url, stream=True)
+        resp = requests.get(self.remote_file_path, stream=True)
         if resp.status_code != requests.codes.ok:
             self.stdout.write("Download failed with ({status}).\n".format(code=resp.status_code))
             return None
@@ -123,21 +112,21 @@ class FileDownloader(object):
         widgets = self._get_progress_widgets()
 
         with progressbar.ProgressBar(max_value=total_size, widgets=widgets) as pbar:
-            with open(file_path, 'wb') as aFile:
+            with open(self.downloaded_file_path, 'wb') as aFile:
                 for chunk in resp.iter_content(chunk_size=chunk_size):
                     size_so_far += len(chunk)
                     if chunk:
                         aFile.write(chunk)
                     pbar.update(size_so_far)
 
-        self.stdout.write("Fetched file from server ({file}).\n".format(file=self.file_name))
-        return file_path
+        self.stdout.write("Fetched file from server ({file}).\n".format(file=self.downloaded_file_name))
+        return downloaded_file_path
 
     def extract(self):
         """
         Extract a compressed file.
         """
-        file_path = self._get_file_path()
+        file_path = self.downloaded_file_path
         filetype = file_path.split('?')[0]
         if filetype.endswith('.txt'):
             return file_path
@@ -149,7 +138,7 @@ class FileDownloader(object):
         elif filetype.endswith('.tar.bz2') or file_path.endswith('.tbz'):
             extractor, mode = tarfile.open, 'r:bz2'
         else:
-            self.stdout.write("Unable to extract file ({file}).\n".format(file=os.path.basename(self.url)))
+            self.stdout.write("Unable to extract file ({file}).\n".format(file=self.downloaded_file_name))
             return None
 
         cwd = os.getcwd()
@@ -163,5 +152,30 @@ class FileDownloader(object):
         finally:
             os.chdir(cwd)
 
-        self.stdout.write("Extracted file ({file}).\n".format(file=self.file_name))
-        return file_path
+        self.stdout.write("Extracted file ({file}).\n".format(file=self.extracted_file_name))
+        return self.extracted_file_path
+
+    @property
+    def remote_file_name(self):
+        return self.file_info['remote']
+
+    @property
+    def remote_file_path(self):
+        return urljoin(self.file_info['url'], self.file_info['remote'])
+
+    @property
+    def downloaded_file_name(self):
+        return self.remote_file_name
+
+    @property
+    def downloaded_file_path(self):
+        return os.path.abspath(os.path.join(self.cache_dir, self.remote_file_name))
+
+    @property
+    def extracted_file_name(self):
+        return self.file_info['local']
+
+    @property
+    def extracted_file_path(self):
+        return os.path.abspath(os.path.join(self.cache_dir, self.extracted_file_name))
+

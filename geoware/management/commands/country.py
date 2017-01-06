@@ -131,12 +131,12 @@ class Command(GeoBaseCommand):
         Given a `,` separated string of country codes, returns the a list of objects to all countries.
         """
         neighbors = []
-        for neighbor_code in country_codes.split(','):
+        for code in country_codes.split(','):
             try:
-                country, created = Country.objects.get_or_create(code__iexact=neighbor_code)
+                country, created = Country.objects.get_or_create(code__iexact=code)
             except Country.MultipleObjectsReturned:
-                Country.objects.filter(code__iexact=neighbor_code).delete()
-                country, created = Country.objects.get_or_create(code__iexact=neighbor_code)
+                Country.objects.filter(code__iexact=code).delete()
+                country, created = Country.objects.get_or_create(code__iexact=code)
             neighbors.append(country)
 
         return neighbors

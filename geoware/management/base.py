@@ -17,12 +17,11 @@ from .. import defaults
 
 logger = logging.getLogger("geoware.cmd.base")
 
+
 class GeoBaseCommand(BaseCommand):
-
-    help = "usage: %prog <--download> | <--load> [--force]"
-    updated = False
-    cmd_name = 'base'
-
+    """
+    Base command for Geo related operations.
+    """
     def add_arguments(self, parser):
 
         parser.add_argument(
@@ -52,16 +51,16 @@ class GeoBaseCommand(BaseCommand):
             '-m',
             '--memory',
             action='store_true',
-            default=True,
-            help='Optimize for systems with lower system memory. (default)'
+            default=False,
+            help='Optimize for systems with lower system memory.'
         )
 
         parser.add_argument(
             '-s',
             '--speed',
             action='store_true',
-            default=False,
-            help='Optimize for systems with higher system memory.'
+            default=True,
+            help='Optimize for systems with higher system memory. (default)'
         )
 
         parser.add_argument(
@@ -69,22 +68,21 @@ class GeoBaseCommand(BaseCommand):
             '--overwrite',
             action='store_true',
             default=False,
-            help='Overwrite any locally modified data with the new downloaded data.'
+            help='Overwrite any locally modified data with the newly downloaded data.'
         ),
 
     def __init__(self, *args, **kwargs):
-        self.dld = FileDownloader()
-        self.dld.stage(self.cmd_name)
-        self.rfile = ''
+        self._dld = FileDownloader()
+        self._dld.stage(self.cmd_name)
+
         import_continents()
         import_oceans()
         import_currencies()
         import_languages()
 
-        self.widgets = [
-            '|',
+        self._widgets = [
             progressbar.ETA(),
-            '|Done:',
+            '| Done: ',
             progressbar.Percentage(),
             progressbar.Bar(),
         ]
@@ -97,60 +95,31 @@ class GeoBaseCommand(BaseCommand):
         self.load = self.options['load']
         self.overwrite = self.options['overwrite']
         self.speed = self.options['speed']
-        if self.speed:
-            self._data_cache = ''
 
         if not self.download and not self.load:
             self.print_help("", subcommand=self.cmd_name.lower())
             return
 
         if self.download:
-            self.dld.download(options['force'])
-            self.dld.extract()
+            self._dld.download(options['force'])
+            self._dld.extract()
 
         if self.load:
-            self.load_enteries()
+            self.save_records_to_db()
 
-    @property
-    def remote_file(self):
-        if not self.rfile:
-            self.rfile = defaults.GEOWARE_FILE_DICT[self.cmd_name.lower()]['url'].format(filename=defaults.GEOWARE_FILE_DICT[self.cmd_name.lower()]['filename'])
-        return self.rfile
-
-    @property
-    def local_file(self):
-        self.lfile = os.path.join(defaults.GEOWARE_DATA_DIR, os.path.basename(self.remote_file.replace('.zip', '.txt')))
-        return self.lfile
-
-    @property
-    def file_exists(self):
-        return os.path.exists(self.local_file)
-
-    def download(self, force=False):
-        """ Download if the remote file is newer """
-
-        self.updated = False
-        success, fileinfo = file_download(url=self.remote_file, extract=True, force=force)
-        if success:
-            if fileinfo['updated']:
-                self.updated = True
-            self.post_download_call()
-        return self.updated
-
-
-    def load_enteries(self):
-        """ Load entries into in database """
-
+    def save_records_to_db(self):
+        """
+        Save records to the database.
+        """
         self.stdout.write("Loading {type} data".format(type=self.cmd_name))
 
-        import pdb; pdb.set_trace()
-        if hasattr(self, '_data_cache'):
-            with open(self.local_file, encoding='utf-8') as afile:
+        if self.speed:
+            with open(self._dld.extracted_file_path, encoding='utf-8') as afile:
                 data = afile.read().splitlines()
                 total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
         else:
-            data = open(self.local_file, encoding='utf-8')
-            total_rows = sum(1 for line in open(self.local_file, encoding='utf-8') if line and line.lstrip()[0] != '#')
+            data = open(self.extracted_file_name, encoding='utf-8')
+            total_rows = sum(1 for line in open(self._dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0
@@ -215,25 +184,8 @@ class GeoBaseCommand(BaseCommand):
             obj, created = klass.objects.get_or_create(**kwargs)
         return (obj, created)
 
-    def save_to_db(self, obj):
-        """ Attempt to save an object to the database """
-        success = True
-        reason = ''
-        try:
-            obj.save()
-        except IntegrityError as err:
-            transaction.rollback()
-            success = False
-            reason = err
-        except Exception as err:
-            success = False
-            reason = err
-
-        return success, reason
-
-
     def _get_continent_cache(self, code):
-        """ Gets continent objobj from the cache or database """
+        """ Gets continent obj from the cache or database """
 
         if not hasattr(self, '_continent_cache'):
             self._continent_cache = {}

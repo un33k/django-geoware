@@ -60,7 +60,7 @@ def get_float(item, index):
     """
     value = 0.0
     try:
-        value = float(smart_str(item[index]))
+        value = float(smart_str(item[index].strip()))
     except:
         pass
     return value
@@ -72,7 +72,7 @@ def get_int(item, index):
     """
     value = 0
     try:
-        value = int(smart_str(item[index]))
+        value = int(smart_str(item[index].strip()))
     except:
         pass
     return value
@@ -84,7 +84,7 @@ def get_str(item, index):
     """
     value = ''
     try:
-        value = smart_str(item[index])
+        value = smart_str(item[index].strip())
     except:
         pass
     return value

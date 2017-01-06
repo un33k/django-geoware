@@ -16,7 +16,7 @@ logger = logging.getLogger("geoware.cmd.altname")
 
 
 class Command(GeoBaseCommand):
-    cmd_name = "Altname"
+    cmd_name = "altname"
 
     def is_altname_link(self, code, name):
         has_link_pattern = lambda x: any(k in name for k in ['http', 'wikipedia', '//'])
