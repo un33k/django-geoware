@@ -71,7 +71,7 @@ class Command(BaseCommand):
         #     self.print_help("", subcommand='geo')
 
 
-        dldr = FileDownloader('altname')
-        url = dldr.get_url()
-        file = dldr.download(url, options['force'])
-        dldr.extract(file)
+        dldr = FileDownloader()
+        url = dldr.stage('altname')
+        file = dldr.download(options['force'])
+        file = dldr.extract()
