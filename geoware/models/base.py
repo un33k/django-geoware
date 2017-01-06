@@ -34,7 +34,6 @@ class AbstractBaseLocation(models.Model):
 
     name_std = models.CharField(
         _('LOCATION.NAME_STD.FIELD'),
-        unique=True,
         max_length=254,
         blank=True,
         null=True,

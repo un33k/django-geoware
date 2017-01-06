@@ -22,20 +22,24 @@ class Command(GeoBaseCommand):
         """
         Checks for minimum region requirements.
         """
+        is_valid = True
         try:
             fips = item[0]
             name = item[2]
             geoid = int(item[3])
         except:
-            logger.warning("Invalid Record: ({item})".format(item=item))
-            return False
-        return True
+            is_valid = False
 
+        if is_valid and fips and name:
+            return is_valid
+
+        logger.warning("Invalid Record: ({item})".format(item=item))
+        return False
 
     def get_query_kwargs(self, data):
         country = self._get_country_cache(data['country_code'])
         if country:
-            return {'name': data['name'], 'country': country}
+            return {'fips': data['fips'], 'name_std': data['name_std'], 'country': country}
         return {}
 
     def record_to_dict(self, item):
@@ -56,7 +60,6 @@ class Command(GeoBaseCommand):
             logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
         return dicts
 
-
     def create_or_update_entry(self, item):
         """
         Create or update a given entry into DB
@@ -71,7 +74,7 @@ class Command(GeoBaseCommand):
 
         logger.debug("\n****************>>>\n{item}".format(item=item))
 
-        region.geoname_id = region.geoname_id
+        region.geoname_id = data.get('geoid')
         region.code = data.get('code', region.code)
         region.name = data.get('name', region.name)
         region.fips = data.get('fips', region.fips)

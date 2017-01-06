@@ -83,6 +83,7 @@ class Command(GeoBaseCommand):
 
         logger.debug("\n****************>>>\n{item}".format(item=item))
 
+        country.geoname_id = data.get('geoid')
         country.name = data.get('name', country.name)
         country.code = data.get('code', country.code)
         country.iso_3 = data.get('iso_3', country.iso_3)

@@ -43,7 +43,7 @@ class Region(AbstractLocation):
         db_table = '{app}-{type}'.format(app=app_label, type='region')
         verbose_name = _('LOCATION.REGION')
         verbose_name_plural = _('LOCATION.REGION#plural')
-        unique_together = [('name', 'country')]
+        unique_together = [('fips', 'name_std', 'country')]
 
     @property
     def parent(self):
