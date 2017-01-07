@@ -37,7 +37,7 @@ class Command(GeoBaseCommand):
         return {'name': data['name'], 'geoname_id': data['geoid']}
         return {}
 
-    def create_or_update_entry(self, item):
+    def create_or_update_record(self, item):
         """ Save or update a given entry into DB """
 
         data = self.record_to_dict(item)

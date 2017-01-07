@@ -133,7 +133,7 @@ class GeoBaseCommand(BaseCommand):
             try:
                 if not self.is_entry_valid(item):
                     continue
-                self.create_or_update_entry(item)
+                self.create_or_update_record(item)
             except (UnicodeDecodeError, UnicodeEncodeError) as e:
                 continue
             if loop_counter == 500:
@@ -153,7 +153,7 @@ class GeoBaseCommand(BaseCommand):
         return False
 
 
-    def create_or_update_entry(self, item):
+    def create_or_update_record(self, item):
         """ Save or update a given entry """
         pass
 

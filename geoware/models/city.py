@@ -50,6 +50,7 @@ class City(AbstractCity):
         db_table = '{app}-{type}'.format(app=app_label, type='city')
         verbose_name = _('LOCATION.CITY')
         verbose_name_plural = _('LOCATION.CITY#plural')
+        unique_together = (('name', 'region', 'country'), )
 
     @property
     def parent(self):

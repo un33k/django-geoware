@@ -40,7 +40,7 @@ class Command(GeoBaseCommand):
     def get_query_kwargs(self, data):
         return {'geoname_id': data['geoid'], 'ref_geoname_id': data['entry_geoid']}
 
-    def create_or_update_entry(self, item):
+    def create_or_update_record(self, item):
         """ Save or update a given entry into DB """
 
         data = self.record_to_dict(item)

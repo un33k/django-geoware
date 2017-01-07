@@ -73,7 +73,7 @@ class Command(GeoBaseCommand):
             logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
         return dicts
 
-    def create_or_update_entry(self, item):
+    def create_or_update_record(self, item):
         """
         Create or update a given entry into DB
         """
@@ -89,6 +89,7 @@ class Command(GeoBaseCommand):
             if not country:
                 return
 
+        import pdb; pdb.set_trace()
         city, created = self.get_geo_object(City, data)
         if not created and not self.overwrite:
             return

@@ -60,7 +60,7 @@ class Command(GeoBaseCommand):
             logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
         return dicts
 
-    def create_or_update_entry(self, item):
+    def create_or_update_record(self, item):
         """
         Create or update a given entry into DB
         """
