@@ -181,6 +181,8 @@ class GeoBaseCommand(BaseCommand):
         Get Geo object from database.
         """
         kwargs = self.get_query_kwargs(data)
+        if not kwargs:
+            return (None, False)
         try:
             obj, created = klass.objects.get_or_create(**kwargs)
         except klass.MultipleObjectsReturned:

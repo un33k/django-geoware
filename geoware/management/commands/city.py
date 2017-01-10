@@ -89,7 +89,6 @@ class Command(GeoBaseCommand):
             if not country:
                 return
 
-        import pdb; pdb.set_trace()
         city, created = self.get_geo_object(City, data)
         if not created and not self.overwrite:
             return

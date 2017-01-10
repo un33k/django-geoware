@@ -23,13 +23,19 @@ class Command(GeoBaseCommand):
         """
         Checks for minimum country requirements.
         """
+        is_valid = True
         try:
-            name = str(item[4])
+            code = item[0]
+            name = item[4]
             geoid = int(item[16])
         except:
-            logger.warning("Invalid Record: ({item})".format(item=item))
-            return False
-        return True
+            is_valid = False
+
+        if is_valid and code and name:
+            return is_valid
+
+        logger.warning("Invalid Record: ({item})".format(item=item))
+        return False
 
     def get_query_kwargs(self, data):
         """
@@ -78,7 +84,7 @@ class Command(GeoBaseCommand):
             return
 
         country, created = self.get_geo_object(Country, data)
-        if not created and not self.overwrite:
+        if not country or (not created and not self.overwrite):
             return
 
         logger.debug("\n****************>>>\n{item}".format(item=item))
@@ -125,19 +131,19 @@ class Command(GeoBaseCommand):
                 for neighbor in neighbors:
                     country.neighbors.add(neighbor)
 
-
     def _get_neighbors(self, country_codes):
         """
         Given a `,` separated string of country codes, returns the a list of objects to all countries.
         """
         neighbors = []
         for code in country_codes.split(','):
-            try:
-                country, created = Country.objects.get_or_create(code__iexact=code)
-            except Country.MultipleObjectsReturned:
-                Country.objects.filter(code__iexact=code).delete()
-                country, created = Country.objects.get_or_create(code__iexact=code)
-            neighbors.append(country)
+            if code:
+                try:
+                    country, created = Country.objects.get_or_create(code__iexact=code)
+                except Country.MultipleObjectsReturned:
+                    Country.objects.filter(code__iexact=code).delete()
+                    country, created = Country.objects.get_or_create(code__iexact=code)
+                neighbors.append(country)
 
         return neighbors
 

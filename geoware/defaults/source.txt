@@ -1,0 +1,13 @@
+
+Source:
+    - http://download.geonames.org/export/dump/
+        - Countries:            countryInfo.txt
+        - Regions:              admin1CodesASCII.txt
+        - Subregions:           admin2Codes.txt
+        - Cities:               cities{population}.zip (population = 1000, 5000, 15000)
+        - Timezones:            timeZones.txt
+        - Districts:            hierarchy.zip
+        - Localization:         alternateNames.zip
+
+    -http://download.geonames.org/export/zip/
+        - Postal Codes:         allCountries.zip
