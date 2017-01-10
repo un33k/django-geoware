@@ -70,7 +70,6 @@ class Command(GeoBaseCommand):
 
         logger.debug("\n****************>>>\n{item}".format(item=item))
 
-        timezone.name_id    = data.get('name_id', timezone.name_id)
         timezone.gmt_offset = data.get('gmt_offset', timezone.gmt_offset)
         timezone.dst_offset = data.get('dst_offset', timezone.dst_offset)
         timezone.raw_offset = data.get('raw_offset', timezone.raw_offset)

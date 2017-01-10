@@ -183,12 +183,19 @@ class GeoBaseCommand(BaseCommand):
         kwargs = self.get_query_kwargs(data)
         if not kwargs:
             return (None, False)
+
+        instance = None
+        created = False
         try:
-            obj, created = klass.objects.get_or_create(**kwargs)
+            instance = klass.objects.get(**kwargs)
         except klass.MultipleObjectsReturned:
             klass.objects.filter(**kwargs).delete()
-            obj, created = klass.objects.get_or_create(**kwargs)
-        return (obj, created)
+        except klass.DoesNotExist:
+            pass
+        if instance is None:
+            instance = klass(**kwargs).save()
+            created = True
+        return (instance, created)
 
     def _get_continent_cache(self, code):
         """ Gets continent obj from the cache or database """
