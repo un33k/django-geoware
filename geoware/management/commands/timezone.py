@@ -19,19 +19,22 @@ class Command(GeoBaseCommand):
 
     def is_entry_valid(self, item):
         """
-        Checks for minimum time zone requirements.
+        Checks for minimum timezone requirements.
         """
+        is_valid = True
         try:
-            country_code = item[0]
-            if len(country_code) != 2:
-                return False
+            country = item[0]
             name = item[1]
             gmt = item[2]
             dst = item[3]
         except:
-            logger.warning("Invalid Record: ({item})".format(item=item))
-            return False
-        return True
+            is_valid = False
+
+        if is_valid and name and gmt and dst and len(country) == 2:
+            return is_valid
+
+        logger.warning("Invalid Record: ({item})".format(item=item))
+        return False
 
     def get_query_kwargs(self, data):
         country = self._get_country_cache(data['country_code'])
@@ -65,7 +68,7 @@ class Command(GeoBaseCommand):
             return
 
         timezone, created = self.get_geo_object(Timezone, data)
-        if not created and not self.overwrite:
+        if not timezone or (not created and not self.overwrite):
             return
 
         logger.debug("\n****************>>>\n{item}".format(item=item))
