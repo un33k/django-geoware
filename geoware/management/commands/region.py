@@ -72,10 +72,10 @@ class Command(GeoBaseCommand):
             return
 
         region, created = self.get_geo_object(Region, data)
-        if not created and not self.overwrite:
+        if not region or (not created and not self.overwrite):
             return
 
-        logger.debug("\n****************>>>\n{item}".format(item=item))
+        logger.debug("{action} Region: {item}".format(action="Added" if created else "Updated", item=item))
 
         region.geoname_id = data.get('geoid')
         region.code = data.get('code', region.code)

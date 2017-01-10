@@ -74,7 +74,7 @@ class Command(GeoBaseCommand):
         if not timezone or (not created and not self.overwrite):
             return
 
-        logger.debug("\n****************>>>\n{item}".format(item=item))
+        logger.debug("{action} Timezone: {item}".format(action="Added" if created else "Updated", item=item))
 
         timezone.gmt_offset = data.get('gmt_offset', timezone.gmt_offset)
         timezone.dst_offset = data.get('dst_offset', timezone.dst_offset)

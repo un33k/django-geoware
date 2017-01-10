@@ -87,7 +87,7 @@ class Command(GeoBaseCommand):
         if not country or (not created and not self.overwrite):
             return
 
-        logger.debug("\n****************>>>\n{item}".format(item=item))
+        logger.debug("{action} Country: {item}".format(action="Added" if created else "Updated", item=item))
 
         country.geoname_id = data.get('geoid')
         country.name = data.get('name', country.name)
