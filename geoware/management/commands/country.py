@@ -31,18 +31,18 @@ class Command(GeoBaseCommand):
         except:
             is_valid = False
 
-        if is_valid and code and name:
+        if is_valid and name and len(code) == 2:
             return is_valid
 
         logger.warning("Invalid Record: ({item})".format(item=item))
         return False
 
-    def get_query_kwargs(self, data):
+    def get_query_fields(self, data):
         """
-        Minimum unique data to identify record.
+        Fields to identify a country record.
         """
-        kwargs = {'code': data['code']}
-        return kwargs
+        fields = {'code': data['code'], 'name': data['name']}
+        return fields
 
     def record_to_dict(self, item):
         """
@@ -146,10 +146,3 @@ class Command(GeoBaseCommand):
                 neighbors.append(country)
 
         return neighbors
-
-
-    def post_load_call(self):
-        """
-        Clean up countries with empty names.
-        """
-        Country.objects.filter(name__exact='').delete()

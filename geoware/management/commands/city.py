@@ -43,7 +43,7 @@ class Command(GeoBaseCommand):
         logger.warning("Invalid Record: ({item})".format(item=item))
         return False
 
-    def get_query_kwargs(self, data):
+    def get_query_fields(self, data):
         country = self._get_country_cache(data['country_code'])
         if country:
             return {'name': data['name'], 'name_std': data['name_std'], 'country': country}

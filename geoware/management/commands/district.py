@@ -33,7 +33,7 @@ class Command(GeoBaseCommand):
             return False
         return True
 
-    def get_query_kwargs(self, data):
+    def get_query_fields(self, data):
         return {'name': data['name'], 'geoname_id': data['geoid']}
         return {}
 

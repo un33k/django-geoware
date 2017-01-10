@@ -37,7 +37,7 @@ class Command(GeoBaseCommand):
             return False
         return True
 
-    def get_query_kwargs(self, data):
+    def get_query_fields(self, data):
         return {'geoname_id': data['geoid'], 'ref_geoname_id': data['entry_geoid']}
 
     def create_or_update_record(self, item):

@@ -35,7 +35,7 @@ class Command(GeoBaseCommand):
         logger.warning("Invalid Record: ({item})".format(item=item))
         return False
 
-    def get_query_kwargs(self, data):
+    def get_query_fields(self, data):
         region = self._get_region_cache(data['region_fips'])
         if region:
             return {'fips': data['fips'], 'name_std': data['name_std'], 'region': region}

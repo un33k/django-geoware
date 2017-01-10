@@ -163,7 +163,7 @@ class GeoBaseCommand(BaseCommand):
         return {}
 
 
-    def get_query_kwargs(self):
+    def get_query_fields(self):
         """ Returns query keyword args for object """
         return {}
 
@@ -180,21 +180,20 @@ class GeoBaseCommand(BaseCommand):
         """
         Get Geo object from database.
         """
-        kwargs = self.get_query_kwargs(data)
-        if not kwargs:
+        fields = self.get_query_fields(data)
+        if not fields:
             return (None, False)
 
-        instance = None
-        created = False
         try:
-            instance = klass.objects.get(**kwargs)
+            instance, created = klass.objects.get_or_create(**fields)
         except klass.MultipleObjectsReturned:
-            klass.objects.filter(**kwargs).delete()
-        except klass.DoesNotExist:
-            pass
-        if instance is None:
-            instance = klass(**kwargs).save()
-            created = True
+            klass.objects.filter(**fields).delete()
+            instance, created = klass.objects.get_or_create(**fields)
+        except Exceptions as err:
+            logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(klass=klass.__class__.__name__,
+                fields=fields, err=err))
+            return (None, False)
+
         return (instance, created)
 
     def _get_continent_cache(self, code):
