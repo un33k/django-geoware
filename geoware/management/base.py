@@ -189,7 +189,7 @@ class GeoBaseCommand(BaseCommand):
         except klass.MultipleObjectsReturned:
             klass.objects.filter(**fields).delete()
             instance, created = klass.objects.get_or_create(**fields)
-        except Exceptions as err:
+        except Exception as err:
             logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(klass=klass.__class__.__name__,
                 fields=fields, err=err))
             return (None, False)

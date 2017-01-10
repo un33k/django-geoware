@@ -36,6 +36,9 @@ class Command(GeoBaseCommand):
         return False
 
     def get_query_fields(self, data):
+        """
+        Fields to identify a subregion record.
+        """
         region = self._get_region_cache(data['region_fips'])
         if region:
             return {'fips': data['fips'], 'name_std': data['name_std'], 'region': region}
@@ -69,14 +72,14 @@ class Command(GeoBaseCommand):
 
         if data.get('region_fips'):
             region = self._get_region_cache(data['region_fips'])
-        if not region:
-            return
+            if not region:
+                return
 
         subregion, created = self.get_geo_object(Subregion, data)
-        if not created and not self.overwrite:
+        if not subregion or (not created and not self.overwrite):
             return
 
-        logger.debug("\n****************>>>\n{item}".format(item=item))
+        logger.debug("{action} Subregion: {item}".format(action="Added" if created else "Updated", item=item))
 
         subregion.geoname_id = data.get('geoid')
         subregion.code = data.get('code', subregion.code)
