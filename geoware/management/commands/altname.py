@@ -104,8 +104,9 @@ class Command(GeoBaseCommand):
 
 
     def post_download_call(self):
-        """ Load into the cache anything that has a geoname_id """
-
+        """
+        Load into the cache anything that has a geoname_id.
+        """
         if not hasattr(self, '_generic_entries_cache'):
             self._generic_entries_cache = {}
             for klass in (District, City, Subregion, Region, Country):

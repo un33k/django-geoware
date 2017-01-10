@@ -23,47 +23,48 @@ GEOWARE_FILE_DICT = {
     'country': {
         'remote': 'countryInfo.txt',
         'local': 'countryInfo.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
     'region': {
         'remote': 'admin1CodesASCII.txt',
         'local': 'admin1CodesASCII.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
     'subregion': {
         'remote': 'admin2Codes.txt',
         'local': 'admin2Codes.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
     'city': {
         'remote': 'cities{population}.zip'.format(population=GEOWARE_CITY_FILE_POPULATION_MIN),
         'local': 'cities{population}.txt'.format(population=GEOWARE_CITY_FILE_POPULATION_MIN),
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
     'timezone': {
         'remote': 'timeZones.txt',
         'local': 'timeZones.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
     'district': {
         'remote': 'hierarchy.zip',
         'local': 'hierarchy.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
+        'dependency': 'city',
     },
     'altname': {
         'remote': 'alternateNames.zip',
         'local': 'alternateNames.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
     'language': {
         'remote': 'alternateNames.zip',
         'local': 'iso-languagecodes.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
     'postalcode': {
         'remote': 'allCountries.zip',
         'local': 'allCountries.txt',
-        'url': GEOWARE_BASE_URLS['geonames']['zip'] + '{filename}'
+        'url': GEOWARE_BASE_URLS['geonames']['zip'] + '{filename}',
     },
 }
 
