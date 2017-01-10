@@ -23,14 +23,14 @@ class Command(GeoBaseCommand):
         """
         is_valid = True
         try:
-            country = item[0]
+            country_code = item[0]
             name = item[1]
             gmt = item[2]
             dst = item[3]
         except:
             is_valid = False
 
-        if is_valid and name and gmt and dst and len(country) == 2:
+        if is_valid and name and gmt and dst and len(country_code) == 2:
             return is_valid
 
         logger.warning("Invalid Record: ({item})".format(item=item))

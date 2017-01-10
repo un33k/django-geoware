@@ -82,7 +82,9 @@ class GeoBaseCommand(BaseCommand):
 
         self.widgets = [
             progressbar.ETA(),
-            '| Done: ',
+            ' |Processed: ',
+            progressbar.Counter(),
+            ' |Done: ',
             progressbar.Percentage(),
             progressbar.Bar(),
         ]

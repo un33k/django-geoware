@@ -33,20 +33,24 @@ class Command(GeoBaseCommand):
             name = item[2]
             lat = item[4]
             lng = item[5]
+            city_code = item[7]
             country_code = item[8]
         except:
             is_valid = False
 
-        if is_valid and lat and lng and name:
+        if is_valid and name and lat and lng and city_code and len(country_code) == 2:
             return is_valid
 
         logger.warning("Invalid Record: ({item})".format(item=item))
         return False
 
     def get_query_fields(self, data):
+        """
+        Fields to identify a city record.
+        """
         country = self._get_country_cache(data['country_code'])
         if country:
-            return {'name': data['name'], 'name_std': data['name_std'], 'country': country}
+            return {'name': data['name'], 'city_code': data['city_code'], 'country': country}
         return {}
 
     def record_to_dict(self, item):
@@ -90,10 +94,10 @@ class Command(GeoBaseCommand):
                 return
 
         city, created = self.get_geo_object(City, data)
-        if not created and not self.overwrite:
+        if not city or (not created and not self.overwrite):
             return
 
-        logger.debug("\n****************>>>\n{item}".format(item=item))
+        logger.debug("{action} City: {item}".format(action="Added" if created else "Updated", item=item))
 
         city.geoname_id = data.get('geoid')
         city.name = data.get('name', city.name)
