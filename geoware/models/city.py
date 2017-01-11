@@ -38,9 +38,9 @@ class City(AbstractCity):
         null=True,
     )
 
-    sister = models.ForeignKey(
-        'City',
-        verbose_name=_('LOCATION.CITY.SISTER'),
+    district_of = models.ForeignKey(
+        'self',
+        verbose_name=_('LOCATION.CITY.DISTRICT_OF'),
         blank=True,
         null=True,
     )
@@ -54,7 +54,9 @@ class City(AbstractCity):
 
     @property
     def parent(self):
-        if self.subregion and self.subregion.parent:
+        if self.district_of and self.district_of.parent:
+            return self.district_of
+        elif self.subregion and self.subregion.parent:
             return self.subregion
         elif self.region and self.region.parent:
             return self.region

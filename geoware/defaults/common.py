@@ -45,11 +45,10 @@ GEOWARE_FILE_DICT = {
         'local': 'timeZones.txt',
         'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
-    'district': {
+    'hierarchy': {
         'remote': 'hierarchy.zip',
         'local': 'hierarchy.txt',
         'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
-        'dependency': 'city',
     },
     'altname': {
         'remote': 'alternateNames.zip',
