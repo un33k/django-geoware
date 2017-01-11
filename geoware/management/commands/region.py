@@ -1,16 +1,16 @@
 import os
 import logging
-from optparse import make_option
-from django.core.management.base import BaseCommand
+
 from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.common import *
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
-from ...models import (Region, Country)
+from ...models import Country
+from ...models import Region
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.updater import *
+from ..utils.fetcher import *
 
 logger = logging.getLogger("geoware.cmd.region")
 
