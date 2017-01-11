@@ -1,18 +1,19 @@
 import os
-from optparse import make_option
-from django.core.management.base import BaseCommand
+import logging
+
 from django.utils.translation import ugettext as _
-from django.db import transaction
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.common import *
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
-from ...models import (Timezone, Country)
+from ...models import Country
+from ...models import Timezone
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.updater import *
+from ..utils.fetcher import *
 
 logger = logging.getLogger("geoware.cmd.timezone")
+
 
 class Command(GeoBaseCommand):
     cmd_name = "timezone"
