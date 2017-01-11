@@ -11,8 +11,7 @@ from ...models import Currency
 
 from ..utils.base import GeoBaseCommand
 from ..utils.common import *
-from ..utils.updater import *
-from ..utils.fetcher import *
+from ..utils.handler import *
 
 logger = logging.getLogger("geoware.cmd.country")
 
@@ -125,7 +124,26 @@ class Command(GeoBaseCommand):
 
         if data.get('neighbors'):
             country.neighbors.clear()
-            neighbors = get_countries_by_codes(data['neighbors'])
+            neighbors = _get_countries_by_codes(data['neighbors'])
             if neighbors:
                 for neighbor in neighbors:
                     country.neighbors.add(neighbor)
+
+
+    def _get_countries_by_codes(self, code_list):
+        """
+        Given a `,` separated string of country codes,
+        Returns: a list of objects to all countries.
+        If country is not found, it creates it.
+        """
+        countries = []
+        for code in code_list.split(','):
+            if code:
+                try:
+                    country, created = Country.objects.get_or_create(code__iexact=code)
+                except Country.MultipleObjectsReturned:
+                    Country.objects.filter(code__iexact=code).delete()
+                    country, created = Country.objects.get_or_create(code__iexact=code)
+                countries.append(country)
+
+        return countries

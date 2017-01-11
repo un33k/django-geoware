@@ -13,8 +13,7 @@ from ... import defaults as defs
 
 from ..utils.base import GeoBaseCommand
 from ..utils.common import *
-from ..utils.updater import *
-from ..utils.fetcher import *
+from ..utils.handler import *
 
 if defs.GEOWARE_USING_GIS:
     from django.contrib.gis.geos import Point

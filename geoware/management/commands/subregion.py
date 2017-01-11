@@ -10,9 +10,7 @@ from ...models import Subregion
 
 from ..utils.base import GeoBaseCommand
 from ..utils.common import *
-from ..utils.updater import *
-from ..utils.fetcher import *
-from ..utils.fixer import *
+from ..utils.handler import *
 
 logger = logging.getLogger("geoware.cmd.subregion")
 

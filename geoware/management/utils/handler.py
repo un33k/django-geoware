@@ -20,7 +20,7 @@ def region_custom_handler(region):
 
     ## FIX for Canadian Province Codes
     if 'ca' in region.fips.split('.')[0].lower():
-        code = defs.defaults.GEOWARE_CANADA_PROVINCE_CODES.get('region.code')
+        code = defs.GEOWARE_CANADA_PROVINCE_CODES.get('region.code')
         if code:
             region.code = code
 

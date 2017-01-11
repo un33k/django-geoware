@@ -5,12 +5,10 @@ from django.utils.translation import ugettext as _
 from django.db import transaction
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.downloader import *
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
 from ...models import (Altname, District, City, Subregion, Region, Country)
+
+from ..base import GeoBaseCommand
+from ...utils.handler import *
 
 logger = logging.getLogger("geoware.cmd.altname")
 

@@ -11,7 +11,6 @@ from django.db import transaction, reset_queries, IntegrityError
 from ...models import *
 from .common import *
 from .downloader import *
-from .updater import *
 from .loaders import *
 
 logger = logging.getLogger("geoware.cmd.base")
@@ -185,7 +184,6 @@ class GeoBaseCommand(BaseCommand):
         """
         Get Geo object from database.
         """
-        import pdb; pdb.set_trace()
         fields = self.get_query_fields(data)
         if not fields:
             return (None, False)
