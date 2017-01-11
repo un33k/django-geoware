@@ -1,20 +1,22 @@
 import os
 import logging
-from optparse import make_option
-from django.core.management.base import BaseCommand
+
 from django.utils.translation import ugettext as _
-from django.db import transaction
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.common import *
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
-from ...models import (City, Subregion, Region, Country)
-from ... import defaults
+from ...models import Country
+from ...models import Region
+from ...models import Subregion
+from ...models import City
 
-if defaults.GEOWARE_USING_GIS:
+from ... import defaults as defs
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.updater import *
+from ..utils.fetcher import *
+
+if defs.GEOWARE_USING_GIS:
     from django.contrib.gis.geos import Point
 
 logger = logging.getLogger("geoware.cmd.city")
@@ -33,12 +35,12 @@ class Command(GeoBaseCommand):
             name = item[2]
             lat = item[4]
             lng = item[5]
-            city_code = item[7]
+            code = item[7]
             country_code = item[8]
         except:
             is_valid = False
 
-        if is_valid and name and lat and lng and city_code and len(country_code) == 2:
+        if is_valid and name and lat and lng and code and len(country_code) == 2:
             return is_valid
 
         logger.warning("Invalid Record: ({item})".format(item=item))
@@ -48,9 +50,10 @@ class Command(GeoBaseCommand):
         """
         Fields to identify a city record.
         """
+        fileds = {'name': data['name']}
         country = self._get_country_cache(data['country_code'])
         if country:
-            return {'name': data['name'], 'city_code': data['city_code'], 'country': country}
+            fileds = {'name': data['name'], 'country': country}
         return {}
 
     def record_to_dict(self, item):
@@ -85,7 +88,7 @@ class Command(GeoBaseCommand):
         if not data:
             return
 
-        if data.get('city_code') not in defaults.GEOWARE_CITY_TYPES:
+        if data.get('city_code') not in defs.GEOWARE_CITY_TYPES:
             return
 
         if data.get('country_code'):
@@ -106,7 +109,7 @@ class Command(GeoBaseCommand):
         city.population = data.get('population', city.population)
         city.country = country
 
-        if defaults.GEOWARE_USING_GIS:
+        if defs.GEOWARE_USING_GIS:
             city.point = Point(data['latitude'], data['longitude'])
         else:
             city.lat = data.get('lat', city.lat)
@@ -129,9 +132,9 @@ class Command(GeoBaseCommand):
             if timezone:
                 city.timezone = timezone
 
-        city_pre_save_call(city)
+        city_custom_handler(city)
         city.save()
 
-        if data['city_code'] in defaults.GEOWARE_CAPITAL_TYPES:
+        if data['city_code'] in defs.GEOWARE_CAPITAL_TYPES:
             city.country.capital = city
             city.country.save()

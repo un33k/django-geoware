@@ -86,4 +86,5 @@ class Command(GeoBaseCommand):
             if country:
                 timezone.country = country
 
+        timezone_custom_handler(timezone)
         timezone.save()

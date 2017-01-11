@@ -1,6 +1,6 @@
 import logging
 from django.utils.translation import ugettext as _
-from django.core.exceptions import ObjectDoesNotExist
+
 from django.core.cache import cache
 from django.contrib.sites.models import Site
 
@@ -28,7 +28,7 @@ def get_language_by_code(code):
     language = None
     try:
         language = Language.objects.get(code__iexact=code.strip())
-    except ObjectDoesNotExist:
+    except Language.DoesNotExist:
         pass
     except Exception as err:
         logger.error("Error getting language by code: {0} - {1}".format(code, err))
