@@ -4,37 +4,37 @@ GEOWARE_GEONAME_CONTINENT_DATA = [
     {
         'code': 'AF',
         'name': 'Africa',
-        'geonameId': '6255146'
+        'geoname_id': '6255146'
     },
     {
         'code': 'AS',
         'name': 'Asia',
-        'geonameId': '6255147'
+        'geoname_id': '6255147'
     },
     {
         'code': 'EU',
         'name': 'Europe',
-        'geonameId': '6255148'
+        'geoname_id': '6255148'
     },
     {
         'code': 'NA',
         'name': 'North America ',
-        'geonameId': '6255149'
+        'geoname_id': '6255149'
     },
     {
         'code': 'OC',
         'name': 'Oceania',
-        'geonameId': '6255151'
+        'geoname_id': '6255151'
     },
     {
         'code': 'SA',
         'name': 'South America ',
-        'geonameId': '6255150'
+        'geoname_id': '6255150'
     },
     {
         'code': 'AN',
         'name': 'Antarctica',
-        'geonameId': '6255152'
+        'geoname_id': '6255152'
     },
 ]
 
