@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
 from django.contrib.sites.models import Site
 
-from ..models import *
+from ...models import *
 
 logger = logging.getLogger("geoware.utils.fetcher")
 

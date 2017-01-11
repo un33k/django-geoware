@@ -1,7 +1,7 @@
 import logging
 from django.utils.translation import ugettext as _
 
-from ..models import *
+from ...models import *
 
 
 logger = logging.getLogger("geoware.utils.updater")

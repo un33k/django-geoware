@@ -2,8 +2,8 @@ import logging
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ObjectDoesNotExist
 
-from .. import defaults
-from ..models import *
+from ... import defaults
+from ...models import *
 
 logger = logging.getLogger("geoware.utils.fixer")
 

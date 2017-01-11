@@ -8,12 +8,11 @@ from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 from django.db import transaction, reset_queries, IntegrityError
 
-from ..models import *
-from ..utils.common import *
-from ..utils.downloader import *
-from ..utils.updater import *
-from ..utils.importer import *
-from .. import defaults
+from ...models import *
+from .common import *
+from .downloader import *
+from .updater import *
+from .loaders import *
 
 logger = logging.getLogger("geoware.cmd.base")
 
@@ -75,10 +74,10 @@ class GeoBaseCommand(BaseCommand):
         self.dld = FileDownloader()
         self.dld.stage(self.cmd_name)
 
-        import_continents()
-        import_oceans()
-        import_currencies()
-        import_languages()
+        load_continents()
+        load_oceans()
+        load_currencies()
+        load_languages()
 
         self.widgets = [
             progressbar.ETA(),

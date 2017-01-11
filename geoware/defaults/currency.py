@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext as _
 
-GEOWARE_CURRENCY_CHOICES = {
+GEOWARE_CURRENCY_DATA = {
     "AED": {
         "code": "AED",
         "fractional_ratio": "100",

@@ -4,14 +4,15 @@ import logging
 from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.common import *
-from ...utils.updater import *
-from ...utils.fetcher import *
 from ...models import Country
 from ...models import Continent
 from ...models import Language
 from ...models import Currency
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.updater import *
+from ..utils.fetcher import *
 
 logger = logging.getLogger("geoware.cmd.country")
 

@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 
 from django.utils.translation import ugettext as _
 
-from .. import defaults as defs
+from ... import defaults as defs
 
 logger = logging.getLogger('geoware.downloader')
 
