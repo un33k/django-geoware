@@ -1,14 +1,15 @@
 import os
 import logging
 
-from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
 from ...models import City
-from ...utils.common import *
-from ... import defaults as defs
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.updater import *
+from ..utils.fetcher import *
 
 logger = logging.getLogger("geoware.cmd.hierarchy")
 

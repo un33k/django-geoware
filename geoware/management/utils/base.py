@@ -291,7 +291,7 @@ class GeoBaseCommand(BaseCommand):
 
         return subregion
 
-    def _get_city_cache(self, geonames_id):
+    def _get_city_cache(self, geoname_id):
         """
         Gets city obj from the cache or database.
         """
@@ -301,15 +301,15 @@ class GeoBaseCommand(BaseCommand):
             if self.speed:
                 entries = City.objects.all()
                 for entry in entries:
-                    if entry.geonames_id:
-                        self._city_cache[entry.geonames_id] = entry
+                    if entry.geoname_id:
+                        self._city_cache[entry.geoname_id] = entry
 
         try:
-            city = self._city_cache[geonames_id]
+            city = self._city_cache[geoname_id]
         except KeyError:
             try:
-                self._city_cache[geonames_id] = City.objects.get(geonames_id=geonames_id)
-                city = self._city_cache[geonames_id]
+                self._city_cache[geoname_id] = City.objects.get(geoname_id=geoname_id)
+                city = self._city_cache[geoname_id]
             except City.DoesNotExist:
                 pass
 
