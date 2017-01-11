@@ -47,11 +47,11 @@ class GeoBaseCommand(BaseCommand):
         )
 
         parser.add_argument(
-            '-m',
-            '--memory',
+            '-s',
+            '--speed',
             action='store_true',
             default=False,
-            help='Optimize for systems with memory constrains.'
+            help='Optimize for systems with no memory constrains.'
         )
 
         parser.add_argument(
@@ -87,7 +87,7 @@ class GeoBaseCommand(BaseCommand):
         self.force = self.options['force']
         self.load = self.options['load']
         self.overwrite = self.options['overwrite']
-        self.memory = self.options['memory']
+        self.speed = self.options['speed']
 
         if not self.download and not self.load:
             self.print_help("", subcommand=self.cmd_name.lower())
@@ -110,13 +110,13 @@ class GeoBaseCommand(BaseCommand):
 
         self.stdout.write("Loading {type} data".format(type=self.cmd_name))
 
-        if self.memory:
-            data = open(self.extracted_file_name, encoding='utf-8')
-            total_rows = sum(1 for line in open(self.dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
-        else:
+        if self.speed:
             with open(self.dld.extracted_file_path, encoding='utf-8') as afile:
                 data = afile.read().splitlines()
                 total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
+        else:
+            data = open(self.extracted_file_name, encoding='utf-8')
+            total_rows = sum(1 for line in open(self.dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0
@@ -208,7 +208,7 @@ class GeoBaseCommand(BaseCommand):
         continent = None
         if not hasattr(self, '_continent_cache'):
             self._continent_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = Continent.objects.all()
                 for entry in entries:
                     self._continent_cache[entry.code] = entry
@@ -231,7 +231,7 @@ class GeoBaseCommand(BaseCommand):
         country = None
         if not hasattr(self, '_country_cache'):
             self._country_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = Country.objects.all()
                 for entry in entries:
                     self._country_cache[entry.code] = entry
@@ -254,7 +254,7 @@ class GeoBaseCommand(BaseCommand):
         region = None
         if not hasattr(self, '_region_cache'):
             self._region_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = Region.objects.all()
                 for entry in entries:
                     self._region_cache[entry.fips] = entry
@@ -276,7 +276,7 @@ class GeoBaseCommand(BaseCommand):
         subregion = None
         if not hasattr(self, '_subregion_cache'):
             self._subregion_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = Subregion.objects.all()
                 for entry in entries:
                     self._subregion_cache[entry.fips] = entry
@@ -298,7 +298,7 @@ class GeoBaseCommand(BaseCommand):
         city = None
         if not hasattr(self, '_city_cache'):
             self._city_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = City.objects.all()
                 for entry in entries:
                     if entry.geonames_id:
@@ -328,7 +328,7 @@ class GeoBaseCommand(BaseCommand):
         currency = None
         if not hasattr(self, '_currency_cache'):
             self._currency_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = Currency.objects.all()
                 for entry in entries:
                     if entry.code:
@@ -351,7 +351,7 @@ class GeoBaseCommand(BaseCommand):
         language = None
         if not hasattr(self, '_language_cache'):
             self._language_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = Language.objects.all()
                 for entry in entries:
                     if entry.code:
@@ -375,7 +375,7 @@ class GeoBaseCommand(BaseCommand):
         timezone = None
         if not hasattr(self, '_timezone_cache'):
             self._timezone_cache = {}
-            if not self.memory:
+            if self.speed:
                 entries = Timezone.objects.all()
                 for entry in entries:
                     if entry.name_id:
