@@ -51,15 +51,7 @@ class GeoBaseCommand(BaseCommand):
             '--memory',
             action='store_true',
             default=False,
-            help='Optimize for systems with lower system memory.'
-        )
-
-        parser.add_argument(
-            '-s',
-            '--speed',
-            action='store_true',
-            default=True,
-            help='Optimize for systems with higher system memory. (default)'
+            help='Optimize for systems with memory constrains.'
         )
 
         parser.add_argument(
@@ -95,7 +87,7 @@ class GeoBaseCommand(BaseCommand):
         self.force = self.options['force']
         self.load = self.options['load']
         self.overwrite = self.options['overwrite']
-        self.speed = self.options['speed']
+        self.memory = self.options['memory']
 
         if not self.download and not self.load:
             self.print_help("", subcommand=self.cmd_name.lower())
@@ -118,13 +110,13 @@ class GeoBaseCommand(BaseCommand):
 
         self.stdout.write("Loading {type} data".format(type=self.cmd_name))
 
-        if self.speed:
+        if self.memory:
+            data = open(self.extracted_file_name, encoding='utf-8')
+            total_rows = sum(1 for line in open(self.dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
+        else:
             with open(self.dld.extracted_file_path, encoding='utf-8') as afile:
                 data = afile.read().splitlines()
                 total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
-        else:
-            data = open(self.extracted_file_name, encoding='utf-8')
-            total_rows = sum(1 for line in open(self.dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0
@@ -147,34 +139,46 @@ class GeoBaseCommand(BaseCommand):
             del data
         except:
             pass
-        self.post_load_call()
+        self.post_load_handler()
 
     def is_entry_valid(self, item):
-        """ Tells if an item (row) is valid """
+        """
+        Tells if a row (data) is valid.
+        """
         return False
 
 
     def create_or_update_record(self, item):
-        """ Save or update a given entry """
+        """
+        Saves or updates an object that corresponds to a row (item).
+        """
         pass
 
 
     def record_to_dict(self, item):
-        """ Given a list of info for an entry, it returns a dict """
+        """
+        Given a row (data), it returns converts it to a digestible dictionary.
+        """
         return {}
 
 
     def get_query_fields(self):
-        """ Returns query keyword args for object """
+        """
+        Returns query fields for object type.
+        """
         return {}
 
 
-    def post_download_call(self):
-        """ Performs any post download and pre process manipulations """
+    def post_download_handler(self):
+        """
+        Performs any `post` download and `pre` process operations.
+        """
         pass
 
-    def post_load_call(self):
-        """ Performs any post loading and manipulations """
+    def post_load_handler(self):
+        """
+        Performs any post loading and operations.
+        """
         pass
 
     def get_geo_object(self, klass, data):
@@ -191,172 +195,202 @@ class GeoBaseCommand(BaseCommand):
             klass.objects.filter(**fields).delete()
             instance, created = klass.objects.get_or_create(**fields)
         except Exception as err:
-            logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(klass=klass.__class__.__name__,
-                fields=fields, err=err))
+            logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(
+                klass=klass.__class__.__name__, fields=fields, err=err))
             return (None, False)
 
         return (instance, created)
 
     def _get_continent_cache(self, code):
-        """ Gets continent obj from the cache or database """
-
+        """
+        Gets continent obj from the cache or database.
+        """
+        continent = None
         if not hasattr(self, '_continent_cache'):
             self._continent_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = Continent.objects.all()
                 for entry in entries:
                     self._continent_cache[entry.code] = entry
+
         try:
-            return self._continent_cache[code]
-        except:
+            continent = self._continent_cache[code]
+        except KeyError:
             try:
                 self._continent_cache[code] = Continent.objects.get(code=code)
-                return self._continent_cache[code]
-            except:
-                return None
+                continent = self._continent_cache[code]
+            except Continent.DoesNotExist:
+                pass
+
+        return continent
 
     def _get_country_cache(self, code):
-        """ Gets country obj from the cache or database """
-
+        """
+        Gets country obj from the cache or database.
+        """
+        country = None
         if not hasattr(self, '_country_cache'):
             self._country_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = Country.objects.all()
                 for entry in entries:
                     self._country_cache[entry.code] = entry
+
         try:
-            return self._country_cache[code]
-        except:
+            country = self._country_cache[code]
+        except KeyError:
             try:
                 self._country_cache[code] = Country.objects.get(code=code)
-                return self._country_cache[code]
-            except:
-                return None
+                country = self._country_cache[code]
+            except Country.DoesNotExist:
+                pass
+
+        return country
 
     def _get_region_cache(self, fips):
-        """ Gets region obj from the cache or database """
-
+        """
+        Gets region obj from the cache or database.
+        """
+        region = None
         if not hasattr(self, '_region_cache'):
             self._region_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = Region.objects.all()
                 for entry in entries:
                     self._region_cache[entry.fips] = entry
         try:
-            return self._region_cache[fips]
-        except:
+            region = self._region_cache[fips]
+        except KeyError:
             try:
                 self._region_cache[fips] = Region.objects.get(fips=fips)
-                return self._region_cache[fips]
-            except:
-                return None
+                region = self._region_cache[fips]
+            except Region.DoesNotExist:
+                pass
+
+        return region
 
     def _get_subregion_cache(self, fips):
-        """ Gets subregion obj from the cache or database """
-
+        """
+        Gets subregion obj from the cache or database.
+        """
+        subregion = None
         if not hasattr(self, '_subregion_cache'):
             self._subregion_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = Subregion.objects.all()
                 for entry in entries:
                     self._subregion_cache[entry.fips] = entry
         try:
-            return self._subregion_cache[fips]
-        except:
+            subregion = self._subregion_cache[fips]
+        except KeyError:
             try:
                 self._subregion_cache[fips] = Subregion.objects.get(fips=fips)
-                return self._subregion_cache[fips]
-            except:
-                return None
+                subregion = self._subregion_cache[fips]
+            except Subregion.DoesNotExist:
+                pass
+
+        return subregion
 
     def _get_city_cache(self, geonames_id):
-        """ Gets city obj from the cache or database """
-
+        """
+        Gets city obj from the cache or database.
+        """
+        city = None
         if not hasattr(self, '_city_cache'):
             self._city_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = City.objects.all()
                 for entry in entries:
-                    try:
+                    if entry.geonames_id:
                         self._city_cache[entry.geonames_id] = entry
-                    except:
-                        continue
+
         try:
-            return self._city_cache[geonames_id]
-        except:
+            city = self._city_cache[geonames_id]
+        except KeyError:
             try:
                 self._city_cache[geonames_id] = City.objects.get(geonames_id=geonames_id)
-                return self._city_cache[geonames_id]
-            except:
-                return None
+                city = self._city_cache[geonames_id]
+            except City.DoesNotExist:
+                pass
 
-    def _get_hierarchy_cache(self, geonames_id):
-        """ Given a geoname ID of a child, it returns a goename ID of parent from cache """
+        return City
 
+    def _get_hierarchy_cache(self, child_geoname_id, parent_geoname_id):
+        """
+        Given a child and parent geoname ids, it return child & parents from cache or database.
+        """
         return None
 
     def _get_currency_cache(self, code):
-        """ Gets currency obj from the cache or database """
-
+        """
+        Gets currency obj from the cache or database.
+        """
+        currency = None
         if not hasattr(self, '_currency_cache'):
             self._currency_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = Currency.objects.all()
                 for entry in entries:
-                    try:
+                    if entry.code:
                         self._currency_cache[entry.code] = entry
-                    except:
-                        continue
         try:
-            return self._currency_cache[code]
-        except:
+            currency = self._currency_cache[code]
+        except KeyError:
             try:
                 self._currency_cache[code] = Currency.objects.get(code=code)
-                return self._currency_cache[code]
-            except:
-                return None
+                currency = self._currency_cache[code]
+            except Currency.DoesNotExist:
+                pass
+
+        return currency
 
     def _get_language_cache(self, code):
-        """ Gets language obj from the cache or database """
-
+        """
+        Gets language obj from the cache or database.
+        """
+        language = None
         if not hasattr(self, '_language_cache'):
             self._language_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = Language.objects.all()
                 for entry in entries:
-                    try:
+                    if entry.code:
                         self._language_cache[entry.code] = entry
-                    except:
-                        continue
+
         try:
-            return self._language_cache[code]
-        except:
+            language = self._language_cache[code]
+        except KeyError:
             try:
                 self._language_cache[code] = Language.objects.get(code=code)
-                return self._language_cache[code]
-            except:
-                return None
+                language = self._language_cache[code]
+            except Language.DoesNotExist:
+                pass
+
+        return language
 
     def _get_timezone_cache(self, code):
-        """ Gets timezone obj from the cache or database """
-
+        """
+        Gets timezone obj from the cache or database.
+        """
+        timezone = None
         if not hasattr(self, '_timezone_cache'):
             self._timezone_cache = {}
-            if self.speed:
+            if not self.memory:
                 entries = Timezone.objects.all()
                 for entry in entries:
-                    try:
+                    if entry.name_id:
                         self._timezone_cache[entry.name_id] = entry
-                    except:
-                        continue
+
         try:
-            return self._timezone_cache[code]
-        except:
+            timezone = self._timezone_cache[code]
+        except KeyError:
             try:
                 self._timezone_cache[code] = Timezone.objects.get(name_id=code)
-                return self._timezone_cache[code]
-            except:
-                return None
+                timezone = self._timezone_cache[code]
+            except Timezone.DoesNotExist:
+                pass
+
+        return timezone
 
 
 
