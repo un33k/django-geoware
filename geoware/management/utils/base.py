@@ -315,11 +315,16 @@ class GeoBaseCommand(BaseCommand):
 
         return City
 
-    def _get_hierarchy_cache(self, child_geoname_id, parent_geoname_id):
+    def _get_hierarchy_cache(self, parent_geoname_id, child_geoname_id):
         """
-        Given a child and parent geoname ids, it return child & parents from cache or database.
+        Given parent,child geoname ids, it returns both objects from cache or database.
         """
-        return None
+        parent = self._get_city_cache(parent_geoname_id)
+        if parent:
+            child = self._get_city_cache(child_geoname_id)
+            if child:
+                return (parent, child)
+        return (None, None)
 
     def _get_currency_cache(self, code):
         """

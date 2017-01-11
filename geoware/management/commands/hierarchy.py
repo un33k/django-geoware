@@ -38,21 +38,8 @@ class Command(GeoBaseCommand):
         Update parent, child hierarchy for district & city.
         """
         parent_id, child_id = [get_int(item, 0), get_int(item, 1)]
-        cities = City.objects.filter(geoname_id__in=[parent_id, child_id])
-        if len(cities) != 2:
-            return
-
-        parent, child = [None, None]
-        for city in cities:
-            if city.geoname_id == parent_id:
-                parent = city
-            elif city.geoname_id == child_id:
-                child = city
-
+        parent, child = self._get_hierarchy_cache(parent_id, child_id)
         if parent and child:
-            parent.district_of = None
-            parent.save()
             child.district_of = parent
             child.save()
-
             logger.debug("Updated Hierarchy: {item}".format(item=item))
