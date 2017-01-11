@@ -50,19 +50,22 @@ class Command(GeoBaseCommand):
         """
         Fields to identify a city record.
         """
-        fileds = {'name': data['name']}
+        fields = {'name': data['name']}
         country = self._get_country_cache(data['country_code'])
         if country:
-            fileds = {'name': data['name'], 'country': country}
-        return {}
+            fields['country'] = country
+            region = self._get_country_cache(data['region_code'])
+            if region:
+                fields['region'] = region
+        return fields
 
     def record_to_dict(self, item):
         """
         Given a city record, it returns a dictionary.
         """
-        dicts = {}
+        data = {}
         try:
-            dicts = {
+            data = {
                 'geoid'             : get_str(item, 0),
                 'name_std'          : get_str(item, 1),
                 'name'              : get_str(item, 2),
@@ -78,7 +81,13 @@ class Command(GeoBaseCommand):
             }
         except Exception as err:
             logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
-        return dicts
+
+        code = data.get('city_code')
+        if not code or code in defs.GEOWARE_INVALID_CITY_TYPES:
+            logger.warning("Invalid {code} {cmd} data. {record}".format(code=code, cmd=self.cmd_name, record=item))
+            data = {}
+
+        return data
 
     def create_or_update_record(self, item):
         """
@@ -87,14 +96,6 @@ class Command(GeoBaseCommand):
         data = self.record_to_dict(item)
         if not data:
             return
-
-        if data.get('city_code') not in defs.GEOWARE_CITY_TYPES:
-            return
-
-        if data.get('country_code'):
-            country = self._get_country_cache(data['country_code'])
-            if not country:
-                return
 
         city, created = self.get_geo_object(City, data)
         if not city or (not created and not self.overwrite):

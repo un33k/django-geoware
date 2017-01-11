@@ -185,6 +185,7 @@ class GeoBaseCommand(BaseCommand):
         """
         Get Geo object from database.
         """
+        import pdb; pdb.set_trace()
         fields = self.get_query_fields(data)
         if not fields:
             return (None, False)
@@ -196,7 +197,7 @@ class GeoBaseCommand(BaseCommand):
             instance, created = klass.objects.get_or_create(**fields)
         except Exception as err:
             logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(
-                klass=klass.__class__.__name__, fields=fields, err=err))
+                klass=klass, fields=fields, err=err))
             return (None, False)
 
         return (instance, created)

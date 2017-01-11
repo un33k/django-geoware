@@ -49,9 +49,9 @@ class Command(GeoBaseCommand):
         """
         Given a country record, it returns a dictionary.
         """
-        dicts = {}
+        data = {}
         try:
-            dicts = {
+            data = {
                 'code'            : get_str(item, 0),
                 'iso_3'           : get_str(item, 1),
                 'iso_n'           : get_str(item, 2),
@@ -74,7 +74,7 @@ class Command(GeoBaseCommand):
             }
         except Exception as err:
             logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
-        return dicts
+        return data
 
     def create_or_update_record(self, item):
         """

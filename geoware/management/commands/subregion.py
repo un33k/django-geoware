@@ -51,9 +51,9 @@ class Command(GeoBaseCommand):
         """
         Given a region record, it returns a dictionary.
         """
-        dicts = {}
+        data = {}
         try:
-            dicts = {
+            data = {
                 'region_fips'   : '.'.join(get_str(item, 0).split('.')[:2]),
                 'code'          : get_str(item, 0).split('.')[2],
                 'fips'          : get_str(item, 0),
@@ -63,7 +63,7 @@ class Command(GeoBaseCommand):
             }
         except Exception as err:
             logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
-        return dicts
+        return data
 
     def create_or_update_record(self, item):
         """
