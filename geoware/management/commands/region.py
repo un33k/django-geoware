@@ -88,5 +88,5 @@ class Command(GeoBaseCommand):
             if country:
                 region.country = country
 
-        region_pre_save_call(region)
+        region_custom_handler(region)
         region.save()

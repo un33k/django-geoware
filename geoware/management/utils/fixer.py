@@ -1,53 +1,59 @@
 import logging
-from django.utils.translation import ugettext as _
-from django.core.exceptions import ObjectDoesNotExist
 
-from ... import defaults
-from ...models import *
+from ... import defaults as defs
 
 logger = logging.getLogger("geoware.utils.fixer")
 
 
-def get_canadian_provice_code(code_num):
-    """ Given a numeric Canadian province, returns a alpha version """
-    code_alph = None
-    try:
-        code_alph = defaults.GEOWARE_CANADA_PROVINCE_CODES[code_num]
-    except:
-        pass
-    return code_alph
+def country_custom_handler(country):
+    """
+    Manages special cases on a country object.
+    """
+    if not country.jurisdiction:
+        country.jurisdiction = country
 
 
-def region_pre_save_call(region):
-    """ Given a region object, this performs any last minutes fixes """
+def region_custom_handler(region):
+    """
+    Manages special cases on a region object.
+    """
 
     ## FIX for Canadian Province Codes
     if 'ca' in region.fips.split('.')[0].lower():
-        code = get_canadian_provice_code(region.code)
+        code = defs.defaults.GEOWARE_CANADA_PROVINCE_CODES.get('region.code')
         if code:
             region.code = code
 
 
-def subregion_pre_save_call(region):
-    """ Given a subregion object, this performs any last minutes fixes """
+def subregion_custom_handler(subregion):
+    """
+    Manages special cases on a subregion object.
+    """
     pass
 
 
-def city_pre_save_call(region):
-    """ Given a city object, this performs any last minutes fixes """
+def city_custom_handler(city):
+    """
+    Manages special cases on a city object.
+    """
     pass
 
-def district_pre_save_call(region):
-    """ Given a district object, this performs any last minutes fixes """
-    pass
-
-
-def fix_timezone_pre_save(timezone):
-    """ Given a timezone object, this performs any last minutes fixes """
-    pass
-
-def fix_altname_pre_save(altname):
-    """ Given an altname object, this performs any last minutes fixes """
+def language_custom_handler(language):
+    """
+    Manages special cases on a language object.
+    """
     pass
 
 
+def timezone_custom_handler(timezone):
+    """
+    Manages special cases on a timezone object.
+    """
+    pass
+
+
+def currency_custom_handler(currency):
+    """
+    Manages special cases on a currency object.
+    """
+    pass

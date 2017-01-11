@@ -1,15 +1,18 @@
 import os
-from optparse import make_option
-from django.core.management.base import BaseCommand
+import logging
+
 from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.common import *
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
-from ...models import (Subregion, Region, Country)
+from ...models import Country
+from ...models import Region
+from ...models import Subregion
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.updater import *
+from ..utils.fetcher import *
+from ..utils.fixer import *
 
 logger = logging.getLogger("geoware.cmd.subregion")
 
@@ -88,5 +91,5 @@ class Command(GeoBaseCommand):
         subregion.name_std = data.get('name_std', region.name_std)
         subregion.region = region
 
-        subregion_pre_save_call(subregion)
+        subregion_custom_handler(subregion)
         subregion.save()

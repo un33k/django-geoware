@@ -110,6 +110,7 @@ def get_country_list(cache_time=86400):
         cache.set(key, list(countries), cache_time)
     return countries
 
+
 def get_continent_list(cache_time=86400):
     site = Site.objects.get_current()
     key = '{0}_geoware_continet_cache_key'.format(site.domain)
@@ -121,5 +122,22 @@ def get_continent_list(cache_time=86400):
 
 
 
+def get_countries_by_codes(self, code_list):
+    """
+    Given a `,` separated string of country codes,
+    Returns: a list of objects to all countries.
+    If country is not found, it creates it.
+    """
+    countries = []
+    for code in code_list.split(','):
+        if code:
+            try:
+                country, created = Country.objects.get_or_create(code__iexact=code)
+            except Country.MultipleObjectsReturned:
+                Country.objects.filter(code__iexact=code).delete()
+                country, created = Country.objects.get_or_create(code__iexact=code)
+            countries.append(country)
+
+    return countries
 
 

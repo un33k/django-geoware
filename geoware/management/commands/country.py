@@ -109,9 +109,7 @@ class Command(GeoBaseCommand):
             curr = self._get_currency_cache(data['currency_code'])
             country.currency = curr
 
-        if not country.jurisdiction:
-            country.jurisdiction = country
-
+        country_custom_handler(country)
         country.save()
 
         if data.get('languages'):
@@ -127,23 +125,7 @@ class Command(GeoBaseCommand):
 
         if data.get('neighbors'):
             country.neighbors.clear()
-            neighbors = self._get_neighbors(data['neighbors'])
+            neighbors = get_countries_by_codes(data['neighbors'])
             if neighbors:
                 for neighbor in neighbors:
                     country.neighbors.add(neighbor)
-
-    def _get_neighbors(self, country_codes):
-        """
-        Given a `,` separated string of country codes, returns the a list of objects to all countries.
-        """
-        neighbors = []
-        for code in country_codes.split(','):
-            if code:
-                try:
-                    country, created = Country.objects.get_or_create(code__iexact=code)
-                except Country.MultipleObjectsReturned:
-                    Country.objects.filter(code__iexact=code).delete()
-                    country, created = Country.objects.get_or_create(code__iexact=code)
-                neighbors.append(country)
-
-        return neighbors
