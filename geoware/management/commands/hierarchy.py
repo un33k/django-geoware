@@ -39,7 +39,7 @@ class Command(GeoBaseCommand):
         Update parent, child hierarchy for district & city.
         """
         parent_id, child_id = [get_int(item, 0), get_int(item, 1)]
-        parent, child = self._get_hierarchy_cache(parent_id, child_id)
+        parent, child = self._get_city_hierarchy_cache(parent_id, child_id)
         if parent and child:
             child.district_of = parent
             child.save()

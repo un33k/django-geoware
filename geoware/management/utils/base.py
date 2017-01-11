@@ -313,18 +313,7 @@ class GeoBaseCommand(BaseCommand):
             except City.DoesNotExist:
                 pass
 
-        return City
-
-    def _get_hierarchy_cache(self, parent_geoname_id, child_geoname_id):
-        """
-        Given parent,child geoname ids, it returns both objects from cache or database.
-        """
-        parent = self._get_city_cache(parent_geoname_id)
-        if parent:
-            child = self._get_city_cache(child_geoname_id)
-            if child:
-                return (parent, child)
-        return (None, None)
+        return city
 
     def _get_currency_cache(self, code):
         """
@@ -398,4 +387,13 @@ class GeoBaseCommand(BaseCommand):
         return timezone
 
 
-
+    def _get_city_hierarchy_cache(self, parent_geoname_id, child_geoname_id):
+        """
+        Given parent,child geoname ids, it returns both objects from cache or database.
+        """
+        parent = self._get_city_cache(parent_geoname_id)
+        if parent:
+            child = self._get_city_cache(child_geoname_id)
+            if child:
+                return (parent, child)
+        return (None, None)
