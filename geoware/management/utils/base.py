@@ -115,8 +115,8 @@ class GeoBaseCommand(BaseCommand):
                 data = afile.read().splitlines()
                 total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
         else:
-            data = open(self.extracted_file_name, encoding='utf-8')
-            total_rows = sum(1 for line in open(self.dld.extracted_file_name, encoding='utf-8') if line and line.lstrip()[0] != '#')
+            data = open(self.dld.extracted_file_path, encoding='utf-8')
+            total_rows = sum(1 for line in open(self.dld.extracted_file_path, encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0
