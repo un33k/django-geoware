@@ -140,46 +140,6 @@ class GeoBaseCommand(BaseCommand):
             pass
         self.post_load_handler()
 
-    def is_entry_valid(self, item):
-        """
-        Tells if a row (data) is valid.
-        """
-        return False
-
-
-    def create_or_update_record(self, item):
-        """
-        Saves or updates an object that corresponds to a row (item).
-        """
-        pass
-
-
-    def record_to_dict(self, item):
-        """
-        Given a row (data), it returns converts it to a digestible dictionary.
-        """
-        return {}
-
-
-    def get_query_fields(self):
-        """
-        Returns query fields for object type.
-        """
-        return {}
-
-
-    def post_download_handler(self):
-        """
-        Performs any `post` download and `pre` process operations.
-        """
-        pass
-
-    def post_load_handler(self):
-        """
-        Performs any post loading and operations.
-        """
-        pass
-
     def get_geo_object(self, klass, data):
         """
         Get Geo object from database.
@@ -385,7 +345,6 @@ class GeoBaseCommand(BaseCommand):
 
         return timezone
 
-
     def _get_city_hierarchy_cache(self, parent_geoname_id, child_geoname_id):
         """
         Given parent,child geoname ids, it returns both objects from cache or database.
@@ -396,3 +355,43 @@ class GeoBaseCommand(BaseCommand):
             if child:
                 return (parent, child)
         return (None, None)
+
+    def is_entry_valid(self, item):
+        """
+        Tells if a row (data) is valid.
+        """
+        return False
+
+
+    def create_or_update_record(self, item):
+        """
+        Saves or updates an object that corresponds to a row (item).
+        """
+        pass
+
+
+    def record_to_dict(self, item):
+        """
+        Given a row (data), it returns converts it to a digestible dictionary.
+        """
+        return {}
+
+
+    def get_query_fields(self):
+        """
+        Returns query fields for object type.
+        """
+        return {}
+
+
+    def post_download_handler(self):
+        """
+        Performs any `post` download and `pre` process operations.
+        """
+        pass
+
+    def post_load_handler(self):
+        """
+        Performs any post loading and operations.
+        """
+        pass
