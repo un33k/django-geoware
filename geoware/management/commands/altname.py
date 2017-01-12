@@ -63,8 +63,8 @@ class Command(GeoBaseCommand):
                 'code'              : get_str(item, 2),
                 'name'              : get_str(item, 3),
                 'link'              : get_str(item, 3),
-                'preferred'         : get_str(item, 4),
-                'short'             : get_str(item, 5),
+                # 'preferred'         : get_str(item, 4),
+                # 'short'             : get_str(item, 5),
             }
         except Exception as err:
             logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
@@ -89,8 +89,6 @@ class Command(GeoBaseCommand):
 
         altname.language = data.get('language', altname.language)
         altname.name = data.get('name', altname.name)
-        altname.is_preferred = data.get('preferred', altname.is_preferred)
-        altname.is_short = data.get('short', altname.is_short)
 
         if data.get('country_code'):
             country = self._get_country_cache(data['country_code'])
