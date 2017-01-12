@@ -3,6 +3,8 @@ import logging
 
 from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
+from django.db import transaction
+from django.db import IntegrityError
 
 from ...models import Country
 from ...models import Continent
@@ -140,10 +142,14 @@ class Command(GeoBaseCommand):
         for code in code_list.split(','):
             if code:
                 try:
-                    country, created = Country.objects.get_or_create(code__iexact=code)
-                except Country.MultipleObjectsReturned:
-                    Country.objects.filter(code__iexact=code).delete()
-                    country, created = Country.objects.get_or_create(code__iexact=code)
+                    with transaction.atomic():
+                        instance, created = Country.objects.get_or_create(code=code)
+                except IntegrityError:
+                    try:
+                        instance, created = Country(code=code).save(), True
+                    except Exception as err:
+                        logger.warning("Unable to create country with code {code}".format(code=code))
+                        continue
                 countries.append(country)
 
         return countries

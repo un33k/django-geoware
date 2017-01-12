@@ -6,7 +6,8 @@ import progressbar
 
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
-from django.db import transaction, reset_queries, IntegrityError
+from django.db import transaction
+from django.db import IntegrityError
 
 from ...models import *
 from .common import *
@@ -155,7 +156,7 @@ class GeoBaseCommand(BaseCommand):
             try:
                 instance, created = klass(**fields).save(), True
             except Exception as err:
-                logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(
+                logger.warning("Unable to add {klass}: (fields={fields}) [err={err}]".format(
                     klass=klass, fields=fields, err=err))
                 return (None, False)
 
