@@ -53,7 +53,7 @@ class Command(GeoBaseCommand):
         country = self._get_country_cache(data['country_code'])
         if country:
             fields['country'] = country
-            region = self._get_country_cache(data['region_code'])
+            region = self._get_region_cache(data['region_code'])
             if region:
                 fields['region'] = region
         return fields

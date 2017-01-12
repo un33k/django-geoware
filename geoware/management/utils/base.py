@@ -160,6 +160,10 @@ class GeoBaseCommand(BaseCommand):
                 logger.warning("Unable to add {klass}: (fields={fields}) [err={err}]".format(
                     klass=klass, fields=fields, err=err))
                 return (None, False)
+        except Exception as err:
+            logger.warning("Unable to create {klass}: (fields={fields}) [err={err}]".format(
+                klass=klass, fields=fields, err=err))
+            return (None, False)
 
         return (instance, created)
 
