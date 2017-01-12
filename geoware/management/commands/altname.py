@@ -49,7 +49,7 @@ class Command(GeoBaseCommand):
         """
         Fields to identify a alt record.
         """
-        return {'geoname_id': data['geoid'], 'ref_geoname_id': data['ref_geoid'], 'country': country}
+        return {'geoname_id': data['geoid'], 'ref_geoname_id': data['ref_geoid']}
 
     def record_to_dict(self, item):
         """
@@ -89,8 +89,8 @@ class Command(GeoBaseCommand):
 
         altname.language = data.get('language', altname.language)
         altname.name = data.get('name', altname.name)
-        altname.is_preferred = data.get('is_preferred', is_preferred.fips)
-        altname.is_short = data.get('is_short', altname.is_short)
+        altname.is_preferred = data.get('preferred', altname.is_preferred)
+        altname.is_short = data.get('short', altname.is_short)
 
         if data.get('country_code'):
             country = self._get_country_cache(data['country_code'])

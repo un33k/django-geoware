@@ -57,3 +57,9 @@ def currency_custom_handler(currency):
     Manages special cases on a currency object.
     """
     pass
+
+def altname_custom_handler(currency):
+    """
+    Manages special cases on an altname object.
+    """
+    pass
