@@ -5,7 +5,6 @@ from ..models import Country
 from ..models import Region
 from ..models import Subregion
 from ..models import City
-from ..models import District
 from ..models import Ocean
 from ..models import Language
 from ..models import Currency
@@ -17,7 +16,6 @@ from .country import CountryAdmin
 from .region import RegionAdmin
 from .subregion import SubregionAdmin
 from .city import CityAdmin
-from .district import DistrictAdmin
 from .ocean import OceanAdmin
 from .language import LanguageAdmin
 from .currency import CurrencyAdmin
@@ -32,6 +30,5 @@ admin.site.register(Country, CountryAdmin)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(Subregion, SubregionAdmin)
 admin.site.register(City, CityAdmin)
-admin.site.register(District, DistrictAdmin)
 admin.site.register(Timezone, TimezoneAdmin)
 admin.site.register(Altname, AltnameAdmin)
