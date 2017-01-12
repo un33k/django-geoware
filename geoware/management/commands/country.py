@@ -126,7 +126,7 @@ class Command(GeoBaseCommand):
 
         if data.get('neighbors'):
             country.neighbors.clear()
-            neighbors = _get_countries_by_codes(data['neighbors'])
+            neighbors = self._get_countries_by_codes(data['neighbors'])
             if neighbors:
                 for neighbor in neighbors:
                     country.neighbors.add(neighbor)
@@ -150,6 +150,6 @@ class Command(GeoBaseCommand):
                     except Exception as err:
                         logger.warning("Unable to create country with code {code}".format(code=code))
                         continue
-                countries.append(country)
+                countries.append(instance)
 
         return countries
