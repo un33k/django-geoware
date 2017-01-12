@@ -7,6 +7,7 @@ import progressbar
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 from django.db import transaction
+from django.db import reset_queries
 from django.db import IntegrityError
 
 from ...models import *
