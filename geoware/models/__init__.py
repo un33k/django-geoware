@@ -3,7 +3,6 @@ from .country import Country
 from .region import Region
 from .subregion import Subregion
 from .city import City
-from .district import District
 from .ocean import Ocean
 from .language import Language
 from .currency import Currency
