@@ -26,6 +26,7 @@ class Ocean(AbstractLocation):
         db_table = '{app}-{type}'.format(app=app_label, type='ocean')
         verbose_name = _('LOCATION.OCEAN')
         verbose_name_plural = _('LOCATION.OCEAN#plural')
+        unique_together = (('name'), )
 
     @property
     def parent(self):

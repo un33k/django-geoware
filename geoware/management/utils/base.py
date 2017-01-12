@@ -149,14 +149,15 @@ class GeoBaseCommand(BaseCommand):
             return (None, False)
 
         try:
-            instance, created = klass.objects.get_or_create(**fields)
-        except klass.MultipleObjectsReturned:
-            klass.objects.filter(**fields).delete()
-            instance, created = klass.objects.get_or_create(**fields)
-        except Exception as err:
-            logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(
-                klass=klass, fields=fields, err=err))
-            return (None, False)
+            with transaction.atomic():
+                instance, created = klass.objects.get_or_create(**fields)
+        except IntegrityError:
+            try:
+                instance, created = klass(**fields).save(), True
+            except Exception as err:
+                logger.error("Failed to add {klass}: (fields={fields}) [err={err}]".format(
+                    klass=klass, fields=fields, err=err))
+                return (None, False)
 
         return (instance, created)
 
