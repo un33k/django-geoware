@@ -107,13 +107,12 @@ class Command(GeoBaseCommand):
         city.name_std = data.get('name_std', city.name_std)
         city.elevation = data.get('elevation', city.elevation)
         city.population = data.get('population', city.population)
-        city.country = country
 
         if defs.GEOWARE_USING_GIS:
             city.point = Point(data['latitude'], data['longitude'])
         else:
-            city.lat = data.get('lat', city.lat)
-            city.lng = data.get('lng', city.lng)
+            city.lat = data.get('latitude', city.lat)
+            city.lng = data.get('longitude', city.lng)
 
         if data.get('region_code'):
             fips = '.'.join([data['country_code'], data['region_code']])

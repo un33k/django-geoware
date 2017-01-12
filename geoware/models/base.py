@@ -49,7 +49,7 @@ class AbstractBaseLocation(models.Model):
         default=0
     )
 
-    elevation = models.PositiveIntegerField(
+    elevation = models.IntegerField(
         _('LOCATION.ELEVATION_METERS'),
         default=0,
     )
