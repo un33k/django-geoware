@@ -135,5 +135,6 @@ class Command(GeoBaseCommand):
         city.save()
 
         if data['city_code'] in defs.GEOWARE_CAPITAL_TYPES:
-            city.country.capital = city
-            city.country.save()
+            if city.country:
+                city.country.capital = city
+                city.country.save()
