@@ -58,7 +58,7 @@ class Command(GeoBaseCommand):
                 'iso_n'           : get_str(item, 2),
                 'fips'            : get_str(item, 3),
                 'name'            : get_str(item, 4),
-                'captial'         : get_str(item, 5),
+                'capital'         : get_str(item, 5),
                 'area'            : get_float(item, 6),
                 'population'      : get_int(item, 7),
                 'continent_code'  : get_str(item, 8),
