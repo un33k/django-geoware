@@ -113,8 +113,3 @@ class Command(GeoBaseCommand):
             return self._generic_entries_cache[geoname_id]
         except KeyError:
             return None
-
-
-
-
-

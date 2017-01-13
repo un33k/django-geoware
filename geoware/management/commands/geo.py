@@ -64,14 +64,8 @@ class Command(BaseCommand):
         ),
 
     def handle(self, *args, **options):
-        # if options['download'] or options['load']:
-        #     for cmd in defs.GEOWARE_LOADING_ORDER:
-        #         call_command(cmd.lower(), **options)
-        # else:
-        #     self.print_help("", subcommand='geo')
-
-
-        dldr = FileDownloader()
-        url = dldr.stage('altname')
-        file = dldr.download(options['force'])
-        file = dldr.extract()
+        if options['download'] or options['load']:
+            for cmd in defs.GEOWARE_LOADING_ORDER:
+                call_command(cmd.lower(), **options)
+        else:
+            self.print_help("", subcommand='geo')

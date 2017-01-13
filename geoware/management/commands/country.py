@@ -131,7 +131,6 @@ class Command(GeoBaseCommand):
                 for neighbor in neighbors:
                     country.neighbors.add(neighbor)
 
-
     def _get_countries_by_codes(self, code_list):
         """
         Given a `,` separated string of country codes,

@@ -17,9 +17,8 @@ def region_custom_handler(region):
     """
     Manages special cases on a region object.
     """
-
-    ## FIX for Canadian Province Codes
-    if 'ca' in region.fips.split('.')[0].lower():
+    canadian_province_code = 'ca' in region.fips.split('.')[0].lower()
+    if canadian_province_code:
         code = defs.GEOWARE_CANADA_PROVINCE_CODES.get('region.code')
         if code:
             region.code = code
@@ -37,6 +36,7 @@ def city_custom_handler(city):
     Manages special cases on a city object.
     """
     pass
+
 
 def language_custom_handler(language):
     """
@@ -57,6 +57,7 @@ def currency_custom_handler(currency):
     Manages special cases on a currency object.
     """
     pass
+
 
 def altname_custom_handler(currency):
     """

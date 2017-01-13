@@ -124,7 +124,8 @@ class GeoBaseCommand(BaseCommand):
         row_count = 0
         progress = progressbar.ProgressBar(maxval=total_rows, widgets=self.widgets)
         for item in parse_data(data):
-            row_count += 1; progress.update(row_count)
+            row_count += 1
+            progress.update(row_count)
             try:
                 if not self.is_entry_valid(item):
                     continue
@@ -370,13 +371,11 @@ class GeoBaseCommand(BaseCommand):
         """
         return False
 
-
     def create_or_update_record(self, item):
         """
         Saves or updates an object that corresponds to a row (item).
         """
         pass
-
 
     def record_to_dict(self, item):
         """
@@ -384,13 +383,11 @@ class GeoBaseCommand(BaseCommand):
         """
         return {}
 
-
     def get_query_fields(self):
         """
         Returns query fields for object type.
         """
         return {}
-
 
     def post_download_handler(self):
         """

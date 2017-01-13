@@ -184,4 +184,3 @@ class FileDownloader(object):
     @property
     def extracted_file_path(self):
         return os.path.abspath(os.path.join(self.cache_dir, self.extracted_file_name))
-

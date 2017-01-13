@@ -31,6 +31,7 @@ def load_continents():
         save_object_attrs(instance, data)
         instance.save()
 
+
 def load_oceans(force=False):
     """
     Load the oceans.
