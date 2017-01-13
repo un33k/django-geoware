@@ -105,38 +105,6 @@ class AbstractBaseLocation(models.Model):
     def __str__(self):
         return self.name
 
-    def build_absolute_url(self, overwrite=False, commit=True):
-        if not self.slug:
-            return self.absolute_url
-        if not self.absolute_url or overwrite:
-            self.absolute_url = "/".join([self.parent.get_absolute_url(), self.slug]) if self.parent else self.slug
-            if commit:
-                self.save()
-        return self.absolute_url
-
-    def get_absolute_url(self):
-        if not self.absolute_url:
-            self.build_absolute_url()
-        return self.absolute_url
-
-    def _long_slug(self, forward=True):
-        url = self.get_absolute_url()
-        tokens = url.split('/') if forward else reversed(url.split('/'))
-        return "-".join(tokens)
-
-    @property
-    def long_slug(self):
-        return self._long_slug()
-
-    @property
-    def long_slug_reversed(self):
-        return self._long_slug(forward=False)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        self.build_absolute_url(overwrite=False)
-        super().save(*args, **kwargs)
-
 
 if defs.GEOWARE_USING_GIS:
     class AbstractLocation(AbstractBaseLocation):
