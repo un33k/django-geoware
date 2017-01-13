@@ -48,13 +48,13 @@ How to use
     # Note: all currencies, languages, continents & oceans are automatically loaded
     # when executing any of the above commands
 
-    # Note 2: all locations will have a 'lat', 'lng' fields. If you are using GIS
-    # refer to the advanced users sections for info on how to enable GIS.
+    # Note 2: all locations will have a 'lat', 'lng' fields. If you are using GIS.
+    # Please refer to the `advanced users` sections for info on how to enable GIS.
    ```
 
 Advanced users:
 ====================
-    ```python
+   ```python
     # If you are using GeoDjango with a gis enabled database, then
     # put the following in your configuration to enable GIS in geoware.
     GEOWARE_USING_GIS = True
@@ -67,7 +67,7 @@ Advanced users:
     # update your data from geoname's website.
 
     # Note 2: all locations will have a 'point' fields when gis is enabled.
-    ```
+   ```
 
 Running the tests
 ====================
