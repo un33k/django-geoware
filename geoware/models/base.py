@@ -99,6 +99,11 @@ class AbstractBaseLocation(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        hierarchy = '-'.join(self.hierarchy.reverse())
+        self.slug = slugify(hierarchy)
+        super().save(*args, **kwargs)
+
 
 if defs.GEOWARE_USING_GIS:
     class AbstractLocation(AbstractBaseLocation):

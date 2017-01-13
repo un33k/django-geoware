@@ -52,6 +52,11 @@ class City(AbstractCity):
         verbose_name_plural = _('LOCATION.CITY#plural')
         unique_together = (('name', 'region', 'country'), )
 
+    def save(self, *args, **kwargs):
+        hierarchy = '-'.join(self.hierarchy.reverse())
+        self.slug = slugify(hierarchy)
+        super().save(*args, **kwargs)
+
     @property
     def parent(self):
         if self.district_of and self.district_of.parent:
