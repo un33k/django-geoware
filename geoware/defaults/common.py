@@ -8,7 +8,8 @@ GEOWARE_USING_GIS = getattr(settings, 'GEOWARE_USING_GIS', False)
 if GEOWARE_USING_GIS:
     MIGRATION_MODULES = getattr(settings, 'MIGRATION_MODULES', {})
     if not MIGRATION_MODULES.get('geoware'):
-        raise ImproperlyConfigured('GEOWARE_USING_GIS is True, however, geoware is MIGRATION_MODULES missing from settings')
+        raise ImproperlyConfigured("""GEOWARE_USING_GIS is True, however, \n
+            geoware is not configured in MIGRATION_MODULES""")
 
 GEOWARE_DATA_DIR = getattr(settings, 'GEOWARE_DATA_DIR',
     os.path.abspath(os.path.join(os.path.expanduser("~"), '.geoware')))
