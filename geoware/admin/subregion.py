@@ -22,5 +22,9 @@ class SubregionAdmin(admin.ModelAdmin):
         'region__name',
         'region__country__name'
     ]
-    readonly_fields = ('altnames',)
+    readonly_fields = (
+        'capital',
+        'region',
+        'altnames',
+    )
     list_per_page = 25

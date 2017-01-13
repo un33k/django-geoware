@@ -35,7 +35,6 @@ class Altname(models.Model):
 
     geoname_id = models.CharField(
         db_index=True,
-        unique=True,
         max_length=50,
         null=True,
         blank=True,
@@ -58,6 +57,7 @@ class Altname(models.Model):
         db_table = '{app}-{type}'.format(app=app_label, type='altname')
         verbose_name = _('LOCATION.ALTNAME')
         verbose_name_plural = _('LOCATION.ALTNAME#plural')
+        unique_together = [('geoname_id',)]
 
     def __str__(self):
         return self.name

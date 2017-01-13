@@ -44,8 +44,7 @@ class Command(GeoBaseCommand):
                 if not self.is_altname_link(name_or_link):
                     return is_valid
 
-        if self.verbosity >= 3:
-            logger.warning("Invalid Record: ({item})".format(item=item))
+        logger.warning("Invalid Record: ({item})".format(item=item))
         return False
 
     def get_query_fields(self, data):
@@ -67,8 +66,7 @@ class Command(GeoBaseCommand):
                 'name'              : get_str(item, 3),
             }
         except Exception as err:
-            if self.verbosity >= 2:
-                logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
+            logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
         return data
 
     def create_or_update_record(self, item):
@@ -86,8 +84,7 @@ class Command(GeoBaseCommand):
         if not altname or (not created and not self.overwrite):
             return
 
-        if self.verbosity >= 4:
-            logger.debug("{action} Altname: {item}".format(action="Added" if created else "Updated", item=item))
+        logger.debug("{action} Altname: {item}".format(action="Added" if created else "Updated", item=item))
 
         altname.name = data.get('name', altname.name)
         altname.language = self._get_language_cache(data['code'])

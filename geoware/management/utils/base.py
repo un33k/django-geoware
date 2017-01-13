@@ -39,6 +39,7 @@ class GeoBaseCommand(BaseCommand):
             default=False,
             help='Load the info from the downloaded files into the DB'
         )
+
         parser.add_argument(
             '-f',
             '--force',
@@ -110,7 +111,7 @@ class GeoBaseCommand(BaseCommand):
             self.stdout.write("Unable to find {type} file. Download it first.".format(type=self.cmd_name))
             return
 
-        self.stdout.write("Loading {type} data".format(type=self.cmd_name))
+        self.stdout.write("\n+++ Loading {type} data +++\n".format(type=self.cmd_name))
 
         if self.speed:
             with open(self.dld.extracted_file_path, encoding='utf-8') as afile:
@@ -118,7 +119,8 @@ class GeoBaseCommand(BaseCommand):
                 total_rows = sum(1 for line in data if line and line.lstrip()[0] != '#')
         else:
             data = open(self.dld.extracted_file_path, encoding='utf-8')
-            total_rows = sum(1 for line in open(self.dld.extracted_file_path, encoding='utf-8') if line and line.lstrip()[0] != '#')
+            total_rows = sum(1 for line in open(self.dld.extracted_file_path,
+                encoding='utf-8') if line and line.lstrip()[0] != '#')
 
         loop_counter = 0
         row_count = 0
@@ -130,7 +132,8 @@ class GeoBaseCommand(BaseCommand):
                 if not self.is_entry_valid(item):
                     continue
                 self.create_or_update_record(item)
-            except (UnicodeDecodeError, UnicodeEncodeError) as e:
+            except Exception as err:
+                logger.warning("Failed to process {cmd}. {record}".format(cmd=self.cmd_name, record=item))
                 continue
             if loop_counter == 500:
                 loop_counter = 0

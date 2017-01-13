@@ -69,9 +69,6 @@ class Currency(models.Model):
         default=True,
     )
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='currency')
@@ -82,3 +79,6 @@ class Currency(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify('{name}-{code}'.format(name=self.name, code=self.code))
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name

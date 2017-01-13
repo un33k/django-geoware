@@ -29,6 +29,7 @@ class Command(BaseCommand):
             default=False,
             help='Load the info from the downloaded files into the DB'
         )
+
         parser.add_argument(
             '-f',
             '--force',

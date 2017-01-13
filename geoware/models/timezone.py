@@ -66,14 +66,16 @@ class Timezone(models.Model):
         default=True,
     )
 
-    def __str__(self):
-        return self.name_id
-
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='timezone')
         verbose_name = _('LOCATION.TIMEZONE')
+        verbose_name_plural = _('LOCATION.TIMEZONE#plural')
+        unique_together = [('name_id',)]
 
     def save(self, *args, **kwargs):
-        self.slug = slugify('{name}'.format(name=self.name_id))
+        self.slug = slugify(self.name_id)
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name_id

@@ -33,13 +33,44 @@ How to use
    ```python
     # Add `geoware` to your INSTALLED_APPS in the settings file.
     # Run python manage.py migrate
-    # Read docs and populate your database with the provided utility commands
-   ```
 
+    # `manage.py` without any arguments will show geoware's of available commands.
+    #[geoware]
+    #   country     # down/loads all countries
+    #   timezone    # down/loads all timezones
+    #   region      # down/loads all regions & provinces (admin level 1)
+    #   subregion   # down/loads all subregions (admin level 2)
+    #   city        # down/loads all cities with population greater 1000
+    #   hierarchy   # down/loads hierarchies - cities & districts
+    #   altname     # down/loads names in alternative languages for locations
+    #   geo         # down/loads all of the above commands in proper order
+
+    # Note: all currencies, languages, continents & oceans are automatically loaded
+    # when executing any of the above commands
+
+    # Note 2: all locations will have a 'lat', 'lng' fields. If you are using GIS.
+    # Please refer to the `advanced users` sections for info on how to enable GIS.
+   ```
 
 Advanced users:
 ====================
+   ```python
+    # If you are using GeoDjango with a gis enabled database, then
+    # put the following in your configuration to enable GIS in geoware.
+    GEOWARE_USING_GIS = True
+    MIGRATION_MODULES = {'geoware': 'geoware.migrations_gis'}
 
+    # Add `geoware` to your INSTALLED_APPS in the settings file.
+    # Run python manage.py migrate
+
+    # Note 1: all the commands in the `How to use` sections can be used to load and
+    # update your data from geoname's website.
+
+    # Note 2: all locations will have a 'point' fields when gis is enabled.
+    # All downloaded files are cached in user's home directory under  `.geoware`.
+    # You can overwrite the cache directory by setting `GEOWARE_DATA_DIR` in your
+    # settings.py
+   ```
 
 Running the tests
 ====================
