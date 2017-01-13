@@ -6,6 +6,7 @@ class TimezoneAdmin(admin.ModelAdmin):
         'id',
         'name_id',
         'country',
+        'slug',
         'gmt_offset',
         'dst_offset',
         'raw_offset',

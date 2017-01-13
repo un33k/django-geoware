@@ -7,6 +7,7 @@ class AltnameAdmin(admin.ModelAdmin):
         'geoname_id',
         'ref_geoname_id',
         'name',
+        'slug',
         'is_active',
         'updated_at',
         'created_at',
