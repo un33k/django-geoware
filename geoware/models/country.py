@@ -98,7 +98,7 @@ class Country(AbstractLocation):
         db_table = '{app}-{type}'.format(app=app_label, type='country')
         verbose_name = _('LOCATION.COUNTRY')
         verbose_name_plural = _('LOCATION.COUNTRY#plural')
-        unique_together = (('name', 'code'), )
+        unique_together = (('code'), )
 
     @property
     def parent(self):

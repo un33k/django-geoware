@@ -43,7 +43,7 @@ class Command(GeoBaseCommand):
         """
         Fields to identify a country record.
         """
-        fields = {'code': data['code'], 'name': data['name']}
+        fields = {'code': data['code']}
         return fields
 
     def record_to_dict(self, item):
