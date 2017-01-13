@@ -34,7 +34,7 @@ How to use
     # Add `geoware` to your INSTALLED_APPS in the settings file.
     # Run python manage.py migrate
 
-    # You need to run `manage.py` to a list of available commands.
+    # `manage.py` without any arguments will show geoware's of available commands.
     #[geoware]
     #   country     # loads all countries
     #   timezone    # loads all timezones
