@@ -67,6 +67,9 @@ Advanced users:
     # update your data from geoname's website.
 
     # Note 2: all locations will have a 'point' fields when gis is enabled.
+    # All downloaded files are cached in user's home directory under  `.geoware`.
+    # You can overwrite the cache directory by setting `GEOWARE_DATA_DIR` in your
+    # settings.py
    ```
 
 Running the tests
