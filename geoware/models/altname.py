@@ -33,16 +33,6 @@ class Altname(models.Model):
         null=True
     )
 
-    is_preferred = models.BooleanField(
-        _('LOCATION.ALTNAME.PREFERRED_NAME'),
-        default=True,
-    )
-
-    is_short = models.BooleanField(
-        _('LOCATION.ALTNAME.SHORT'),
-        default=True,
-    )
-
     geoname_id = models.CharField(
         db_index=True,
         unique=True,
@@ -53,7 +43,6 @@ class Altname(models.Model):
 
     ref_geoname_id = models.CharField(
         db_index=True,
-        unique=True,
         max_length=50,
         null=True,
         blank=True,
