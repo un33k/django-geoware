@@ -8,7 +8,6 @@ python:
 env:
   - DJANGO="django==1.10.4"
 
-
 install:
   - pip install $DJANGO
   - pip install -r requirements.txt

@@ -1,3 +1,10 @@
+## 0.1.0
+
+Enhancement - Multiple Migrations:
+
+  - Allow for Non-GIS use
+  - Multiple Migration Directories
+
 ## 0.0.6
 
 Enhancement - Bugfix:
