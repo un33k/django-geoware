@@ -36,14 +36,14 @@ How to use
 
     # `manage.py` without any arguments will show geoware's of available commands.
     #[geoware]
-    #   country     # loads all countries
-    #   timezone    # loads all timezones
-    #   region      # loads all regions & provinces (admin level 1)
-    #   subregion   # loads all subregions (admin level 2)
-    #   city        # loads all cities with population greater 1000
-    #   hierarchy   # loads hierarchies - cities & districts
-    #   altname     # loads names in alternative languages for locations
-    #   geo         # loads all of the above commands in proper order
+    #   country     # down/loads all countries
+    #   timezone    # down/loads all timezones
+    #   region      # down/loads all regions & provinces (admin level 1)
+    #   subregion   # down/loads all subregions (admin level 2)
+    #   city        # down/loads all cities with population greater 1000
+    #   hierarchy   # down/loads hierarchies - cities & districts
+    #   altname     # down/loads names in alternative languages for locations
+    #   geo         # down/loads all of the above commands in proper order
 
     # Note: all currencies, languages, continents & oceans are automatically loaded
     # when executing any of the above commands
