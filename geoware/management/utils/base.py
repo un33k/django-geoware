@@ -111,7 +111,7 @@ class GeoBaseCommand(BaseCommand):
             self.stdout.write("Unable to find {type} file. Download it first.".format(type=self.cmd_name))
             return
 
-        self.stdout.write("Loading {type} data".format(type=self.cmd_name))
+        self.stdout.write("\n+++ Loading {type} data +++\n".format(type=self.cmd_name))
 
         if self.speed:
             with open(self.dld.extracted_file_path, encoding='utf-8') as afile:
@@ -133,8 +133,7 @@ class GeoBaseCommand(BaseCommand):
                     continue
                 self.create_or_update_record(item)
             except Exception as err:
-                if self.verbosity >= 2:
-                    logger.warning("Failed to process {cmd}. {record}".format(cmd=self.cmd_name, record=item))
+                logger.warning("Failed to process {cmd}. {record}".format(cmd=self.cmd_name, record=item))
                 continue
             if loop_counter == 500:
                 loop_counter = 0
