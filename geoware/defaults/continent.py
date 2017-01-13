@@ -18,7 +18,7 @@ GEOWARE_GEONAME_CONTINENT_DATA = [
     },
     {
         'code': 'NA',
-        'name': 'North America ',
+        'name': 'North America',
         'geoname_id': '6255149'
     },
     {
@@ -28,7 +28,7 @@ GEOWARE_GEONAME_CONTINENT_DATA = [
     },
     {
         'code': 'SA',
-        'name': 'South America ',
+        'name': 'South America',
         'geoname_id': '6255150'
     },
     {

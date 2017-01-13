@@ -100,7 +100,7 @@ class AbstractBaseLocation(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        hierarchy = '-'.join(self.hierarchy.reverse())
+        hierarchy = '-'.join(reversed([hi.name for hi in self.hierarchy]))
         self.slug = slugify(hierarchy)
         super().save(*args, **kwargs)
 
