@@ -62,9 +62,6 @@ class Altname(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return self.slug
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)

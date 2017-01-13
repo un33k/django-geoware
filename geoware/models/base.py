@@ -54,13 +54,6 @@ class AbstractBaseLocation(models.Model):
         default=0,
     )
 
-    url = models.URLField(
-        _("LOCATION.URL"),
-        max_length=254,
-        blank=True,
-        null=True
-    )
-
     geoname_id = models.CharField(
         db_index=True,
         unique=True,
@@ -76,14 +69,15 @@ class AbstractBaseLocation(models.Model):
         blank=True,
     )
 
-    info = models.TextField(
-        _('LOCATION.INFO'),
+    url = models.URLField(
+        _('LOCATION.URL'),
+        max_length=254,
+        null=True,
         blank=True,
     )
 
-    absolute_url = models.CharField(
-        _('LOCATION.ABS.URL'),
-        max_length=254,
+    info = models.TextField(
+        _('LOCATION.INFO_DETAILS'),
         null=True,
         blank=True,
     )

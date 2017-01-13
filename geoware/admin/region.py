@@ -14,7 +14,6 @@ class RegionAdmin(admin.ModelAdmin):
         'population',
         'area',
         'url',
-        'absolute_url',
         'is_active',
         'updated_at',
         'created_at',

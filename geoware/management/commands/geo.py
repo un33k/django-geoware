@@ -1,11 +1,9 @@
 import logging
 
 from django.core.management.base import BaseCommand
-from django.utils.translation import ugettext as _
 from django.core.management import call_command
 
 from ... import defaults as defs
-from ...utils.downloader import FileDownloader
 
 logger = logging.getLogger("geoware.cmd.geo")
 
