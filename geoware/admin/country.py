@@ -38,5 +38,8 @@ class CountryAdmin(admin.ModelAdmin):
         'tld',
         'idc',
     ]
-    readonly_fields = ('altnames', 'languages',)
+    readonly_fields = (
+        'capital',
+        'altnames',
+    )
     list_per_page = 25

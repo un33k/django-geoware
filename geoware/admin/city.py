@@ -16,6 +16,7 @@ class CityAdmin(admin.ModelAdmin):
         'elevation',
         'area',
         'timezone',
+        'district_of',
         'url',
         'is_active',
         'updated_at',
@@ -33,5 +34,10 @@ class CityAdmin(admin.ModelAdmin):
         'subregion__name',
         'country__name',
     ]
-    readonly_fields = ('altnames',)
+    readonly_fields = (
+        'district_of',
+        'region',
+        'subregion',
+        'altnames',
+    )
     list_per_page = 25
