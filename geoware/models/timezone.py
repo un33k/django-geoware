@@ -73,10 +73,6 @@ class Timezone(models.Model):
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='timezone')
         verbose_name = _('LOCATION.TIMEZONE')
-        verbose_name_plural = _('LOCATION.TIMEZONE#plural')
-
-    def get_absolute_url(self):
-        return self.slug
 
     def save(self, *args, **kwargs):
         self.slug = slugify('{name}'.format(name=self.name_id))
