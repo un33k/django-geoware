@@ -73,5 +73,5 @@ GEOWARE_LOADING_ORDER = [
     'Region',
     'Subregion',
     'City',
-    'District',
+    'Altname',
 ]
