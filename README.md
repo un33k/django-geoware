@@ -33,13 +33,41 @@ How to use
    ```python
     # Add `geoware` to your INSTALLED_APPS in the settings file.
     # Run python manage.py migrate
-    # Read docs and populate your database with the provided utility commands
-   ```
 
+    # You need to run `manage.py` to a list of available commands.
+    #[geoware]
+    #   country     # loads all countries
+    #   timezone    # loads all timezones
+    #   region      # loads all regions & provinces (admin level 1)
+    #   subregion   # loads all subregions (admin level 2)
+    #   city        # loads all cities with population greater 1000
+    #   hierarchy   # loads hierarchies - cities & districts
+    #   altname     # loads names in alternative languages for locations
+    #   geo         # loads all of the above commands in proper order
+
+    # Note: all currencies, languages, continents & oceans are automatically loaded
+    # when executing any of the above commands
+
+    # Note 2: all locations will have a 'lat', 'lng' fields. If you are using GIS
+    # refer to the advanced users sections for info on how to enable GIS.
+   ```
 
 Advanced users:
 ====================
+    ```python
+    # If you are using GeoDjango with a gis enabled database, then
+    # put the following in your configuration to enable GIS in geoware.
+    GEOWARE_USING_GIS = True
+    MIGRATION_MODULES = {'geoware': 'geoware.migrations_gis'}
 
+    # Add `geoware` to your INSTALLED_APPS in the settings file.
+    # Run python manage.py migrate
+
+    # Note 1: all the commands in the `How to use` sections can be used to load and
+    # update your data from geoname's website.
+
+    # Note 2: all locations will have a 'point' fields when gis is enabled.
+    ```
 
 Running the tests
 ====================
