@@ -20,8 +20,9 @@ logger = logging.getLogger("geoware.cmd.altname")
 class Command(GeoBaseCommand):
     cmd_name = "altname"
 
-    def is_altname_link(self, code, name):
-        if code.strip().lower() == 'link' or any(p in name for p in ['http', 'wikipedia', '//']):
+    def is_altname_link(self, name_or_link):
+        name_or_link = name_or_link.lower()
+        if any(proto in name_or_link for proto in ['http', 'wikipedia', '//']):
             return True
         return False
 
@@ -31,18 +32,20 @@ class Command(GeoBaseCommand):
         """
         is_valid = True
         try:
-            alt_geoid = int(item[0])
+            geoid = int(item[0])
             ref_geoid = int(item[1])
-            code = item[2].strip()
+            code = item[2]
             name_or_link = item[3]
         except:
             is_valid = False
 
-        if is_valid and alt_geoid and ref_geoid and code and name_or_link:
-            if self._get_language_cache(code) or self.is_altname_link(code, name_or_link):
-                return is_valid
+        if is_valid and geoid and ref_geoid and code and name_or_link:
+            if self._get_language_cache(code):
+                if not self.is_altname_link(name_or_link):
+                    return is_valid
 
-        logger.warning("Invalid Record: ({item})".format(item=item))
+        if self.verbosity >= 3:
+            logger.warning("Invalid Record: ({item})".format(item=item))
         return False
 
     def get_query_fields(self, data):
@@ -62,12 +65,10 @@ class Command(GeoBaseCommand):
                 'ref_geoid'         : get_str(item, 1),
                 'code'              : get_str(item, 2),
                 'name'              : get_str(item, 3),
-                'link'              : get_str(item, 3),
-                # 'preferred'         : get_str(item, 4),
-                # 'short'             : get_str(item, 5),
             }
         except Exception as err:
-            logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
+            if self.verbosity >= 2:
+                logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
         return data
 
     def create_or_update_record(self, item):
@@ -85,18 +86,15 @@ class Command(GeoBaseCommand):
         if not altname or (not created and not self.overwrite):
             return
 
-        logger.debug("{action} Altname: {item}".format(action="Added" if created else "Updated", item=item))
+        if self.verbosity >= 4:
+            logger.debug("{action} Altname: {item}".format(action="Added" if created else "Updated", item=item))
 
-        altname.language = data.get('language', altname.language)
         altname.name = data.get('name', altname.name)
-
-        if data.get('country_code'):
-            country = self._get_country_cache(data['country_code'])
-            if country:
-                region.country = country
+        altname.language = self._get_language_cache(data['code'])
 
         altname_custom_handler(altname)
         altname.save()
+        ref_obj.altnames.add(altname)
 
     def post_download_handler(self):
         """

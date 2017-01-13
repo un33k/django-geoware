@@ -89,6 +89,7 @@ class GeoBaseCommand(BaseCommand):
         self.load = self.options['load']
         self.overwrite = self.options['overwrite']
         self.speed = self.options['speed']
+        self.verbosity = self.options['verbosity']
 
         if not self.download and not self.load:
             self.print_help("", subcommand=self.cmd_name.lower())
