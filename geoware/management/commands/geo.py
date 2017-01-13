@@ -40,19 +40,11 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            '-m',
-            '--memory',
-            action='store_true',
-            default=True,
-            help='Optimize for systems with lower system memory. (default)'
-        )
-
-        parser.add_argument(
             '-s',
             '--speed',
             action='store_true',
             default=False,
-            help='Optimize for systems with higher system memory.'
+            help='Optimize for systems with no memory constrains.'
         )
 
         parser.add_argument(
@@ -60,7 +52,7 @@ class Command(BaseCommand):
             '--overwrite',
             action='store_true',
             default=False,
-            help='Overwrite any locally modified data with the new downloaded data.'
+            help='Overwrite any locally modified data with the newly downloaded data.'
         ),
 
     def handle(self, *args, **options):
