@@ -1,140 +1,140 @@
 import os
 import logging
-from optparse import make_option
-from django.core.management.base import BaseCommand
+
 from django.utils.translation import ugettext as _
-from django.db import transaction
-from django.utils.encoding import force_unicode
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.downloader import *
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
-from ...models import (City, Subregion, Region, Country)
-from ... import defaults
+from ...models import Country
+from ...models import Region
+from ...models import Subregion
+from ...models import City
 
-if defaults.GEOWARE_USING_GEO_DJANGO:
+from ... import defaults as defs
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.handler import *
+
+if defs.GEOWARE_USING_GIS:
     from django.contrib.gis.geos import Point
 
 logger = logging.getLogger("geoware.cmd.city")
 
+
 class Command(GeoBaseCommand):
-    cmd_name = "City"
+    cmd_name = "city"
 
     def is_entry_valid(self, item):
+        """
+        Checks for minimum subregion requirements.
+        """
+        is_valid = True
         try:
             geoid = int(item[0])
             name = item[2]
             lat = item[4]
-            lat = item[5]
+            lng = item[5]
+            code = item[7]
             country_code = item[8]
         except:
-            return False
-        return True
+            is_valid = False
 
-    def get_query_kwargs(self, data):
+        if is_valid and name and lat and lng and code and len(country_code) == 2:
+            return is_valid
+
+        logger.warning("Invalid Record: ({item})".format(item=item))
+        return False
+
+    def get_query_fields(self, data):
+        """
+        Fields to identify a city record.
+        """
+        fields = {'name': data['name']}
         country = self._get_country_cache(data['country_code'])
         if country:
-            return {'name': data['name'], 'country': country}
-        return {}
+            fields['country'] = country
+            region = self._get_region_cache(data['region_code'])
+            if region:
+                fields['region'] = region
+        return fields
 
-    def save_or_update_entry(self, item):
-        """ Save or update a given city entry into DB """
-        
-        data = self.entry_to_dict(item)
+    def record_to_dict(self, item):
+        """
+        Given a city record, it returns a dictionary.
+        """
+        data = {}
+        try:
+            data = {
+                'geoid'             : get_str(item, 0),
+                'name_std'          : get_str(item, 1),
+                'name'              : get_str(item, 2),
+                'latitude'          : get_float(item, 4),
+                'longitude'         : get_float(item, 5),
+                'city_code'         : get_str(item, 7),
+                'country_code'      : get_str(item, 8),
+                'region_code'       : get_str(item, 10),
+                'subregion_code'    : get_str(item, 11),
+                'population'        : get_int(item, 14),
+                'elevation'         : get_float(item, 16),
+                'timezone'          : get_str(item, 17),
+            }
+        except Exception as err:
+            logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
+
+        code = data.get('city_code')
+        if not code or code in defs.GEOWARE_INVALID_CITY_TYPES:
+            logger.warning("Invalid {code} {cmd} data. {record}".format(code=code, cmd=self.cmd_name, record=item))
+            data = {}
+
+        return data
+
+    def create_or_update_record(self, item):
+        """
+        Create or update a given entry into DB
+        """
+        data = self.record_to_dict(item)
         if not data:
             return
 
-        city = self.get_geo_object(City, data)
-        if not city:
+        city, created = self.get_geo_object(City, data)
+        if not city or (not created and not self.overwrite):
             return
 
-        if data['city_code'] not in defaults.GEOWARE_CITY_TYPES:
-            return
+        logger.debug("{action} City: {item}".format(action="Added" if created else "Updated", item=item))
 
-        logger.debug("\n****************>>>\n{0}".format(item))
+        city.geoname_id = data.get('geoid')
+        city.name = data.get('name', city.name)
+        city.name_std = data.get('name_std', city.name_std)
+        city.elevation = data.get('elevation', city.elevation)
+        city.population = data.get('population', city.population)
 
-        city.geoname_id = data['geoid']
-        if (not city.name_std) or self.overwrite: city.name_std = data['name_std']
-        if (not city.name) or self.overwrite: city.name = data['name']
-        if defaults.GEOWARE_USING_GEO_DJANGO:
-            if (city.point.x == float(0) and city.point.y == float(0)) or self.overwrite: city.point = Point(data['latitude'], data['longitude'])
+        if defs.GEOWARE_USING_GIS:
+            city.point = Point(data['latitude'], data['longitude'])
         else:
-            if (not city.lat) or self.overwrite: city.lat = data['latitude']
-            if (not city.lng) or self.overwrite: city.lng = data['longitude']
-        if (not city.population) or self.overwrite: city.population = data['population'] if data['population'] > 0 else 0
-        if (not city.elevation) or self.overwrite: city.elevation = data['elevation'] if data['elevation'] > 0 else 0
+            city.lat = data.get('latitude', city.lat)
+            city.lng = data.get('longitude', city.lng)
 
-        if data['country_code']:
-            city.country = self._get_country_cache(data['country_code'])
-        if not city.country:
-            return
-
-        if data['region_code']:
+        if data.get('region_code'):
             fips = '.'.join([data['country_code'], data['region_code']])
             region = self._get_region_cache(fips)
             if region:
                 city.region = region
 
-        if data['subregion_code']:
+        if data.get('subregion_code'):
             fips = '.'.join([data['country_code'], data['region_code'], data['subregion_code']])
-            subregion = self._get_subregion_cache(fips)
+            subregion = self._get_region_cache(fips)
             if subregion:
                 city.subregion = subregion
 
-        if data['timezone']:
+        if data.get('timezone'):
             timezone = self._get_timezone_cache(data['timezone'])
             if timezone:
                 city.timezone = timezone
 
-        city_pre_save_call(city)
+        city_custom_handler(city)
+        city.save()
 
-        success, reason = self.save_to_db(city)
-        if success:
-            logger.debug("Added {0}: {1} ({2})({3})({4})".format(self.cmd_name, city, city.subregion, city.region, city.country))
-            if self.is_capital(data):
+        if data['city_code'] in defs.GEOWARE_CAPITAL_TYPES:
+            if city.country:
                 city.country.capital = city
                 city.country.save()
-        else:
-            logger.error("Failed to add {0}: {1} ({2}) [{3}]".format(self.cmd_name, city, city.country, reason))
-
-
-    def entry_to_dict(self, item):
-        """ Given a list of info for and entry, it returns a dict """
-
-        get_field = lambda x,i: x[i] if len(x)>i else ''
-        try:
-            item = [force_unicode(x) for x in item]
-        except:
-            pass
-        dicts = {}
-        try:
-            dicts = {
-                'geoid'             : get_field(item, 0),
-                'name_std'          : smart_str(get_field(item, 1)),
-                'name'              : smart_str(get_field(item, 2)),
-                'latitude'          : float(get_field(item, 4) if get_field(item, 4) else 0),
-                'longitude'         : float(get_field(item, 5) if get_field(item, 5) else 0),
-                'city_code'         : get_field(item, 7),
-                'country_code'      : get_field(item, 8),
-                'region_code'       : get_field(item, 10),
-                'subregion_code'    : get_field(item, 11),
-                'population'        : float(get_field(item, 14) if get_field(item, 14) else 0),
-                'elevation'         : float(get_field(item, 16) if get_field(item, 16) else 0),
-                'timezone'          : get_field(item, 17),
-            }
-        except Exception, e:
-            logger.warning("Failed to extract {0} data. {1}".format(self.cmd_name, item))
-        return dicts
-
-    def is_capital(self, data):
-        if data['city_code'] in defaults.GEOWARE_CAPITAL_TYPES:
-            return True
-        return False
-
-
-
-
-

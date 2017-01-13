@@ -1,7 +1,7 @@
 from django.contrib import admin
 
+
 class CurrencyAdmin(admin.ModelAdmin):
-    prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
         'code',
@@ -10,7 +10,7 @@ class CurrencyAdmin(admin.ModelAdmin):
         'fractional_unit',
         'fractional_ratio',
         'slug',
-        'url', 
+        'url',
         'is_active',
         'updated_at',
         'created_at',
@@ -21,4 +21,3 @@ class CurrencyAdmin(admin.ModelAdmin):
         'code',
     ]
     list_per_page = 25
-

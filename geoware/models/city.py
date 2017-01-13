@@ -1,33 +1,65 @@
-from django.db import models
-from django.utils.translation import gettext as _
-from base import CityBase
+from django.utils.translation import ugettext as _
 
-__all__ = ['City']
+from .base import models
+from .base import AbstractCity
 
-class City(CityBase):
 
-    country = models.ForeignKey('Country', related_name='%(app_label)s_%(class)s_country', null=True, blank=True)
-    region = models.ForeignKey('Region', related_name='%(app_label)s_%(class)s_region', blank=True, null=True)
-    subregion = models.ForeignKey('Subregion', related_name='%(app_label)s_%(class)s_subregion', blank=True, null=True)
-    timezone = models.ForeignKey('Timezone', related_name='%(app_label)s_%(class)s_timezone', blank=True, null=True)
-    sister = models.ForeignKey('City', help_text=_('Sister Cities'), blank=True, null=True)
+class City(AbstractCity):
+
+    country = models.ForeignKey(
+        'Country',
+        verbose_name=_('LOCATION.CITY.COUNTRY'),
+        related_name='%(app_label)s_%(class)s_country',
+        null=True,
+        blank=True,
+    )
+
+    region = models.ForeignKey(
+        'Region',
+        verbose_name=_('LOCATION.CITY.REGION'),
+        related_name='%(app_label)s_%(class)s_region',
+        blank=True,
+        null=True,
+    )
+
+    subregion = models.ForeignKey(
+        'Subregion',
+        verbose_name=_('LOCATION.CITY.SUBREGION'),
+        related_name='%(app_label)s_%(class)s_subregion',
+        blank=True,
+        null=True,
+    )
+
+    timezone = models.ForeignKey(
+        'Timezone',
+        verbose_name=_('LOCATION.CITY.TIMEZONE'),
+        related_name='%(app_label)s_%(class)s_timezone',
+        blank=True,
+        null=True,
+    )
+
+    district_of = models.ForeignKey(
+        'self',
+        verbose_name=_('LOCATION.CITY.DISTRICT_OF'),
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         app_label = 'geoware'
-        db_table = app_label + '-city'
-        verbose_name = _('city')
-        verbose_name_plural = _('cities')
-        # unique_together = (('name', 'region'),)
+        db_table = '{app}-{type}'.format(app=app_label, type='city')
+        verbose_name = _('LOCATION.CITY')
+        verbose_name_plural = _('LOCATION.CITY#plural')
+        unique_together = (('name', 'region', 'country'), )
 
     @property
     def parent(self):
-        if self.subregion and self.subregion.parent:
+        if self.district_of and self.district_of.parent:
+            return self.district_of
+        elif self.subregion and self.subregion.parent:
             return self.subregion
         elif self.region and self.region.parent:
             return self.region
         elif self.country and self.country.parent:
             return self.country
         return None
-
-
-

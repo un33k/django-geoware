@@ -1,20 +1,19 @@
 from django.contrib import admin
 
+
 class RegionAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
-    prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
         'geoname_id',
-        'name', 
+        'name',
         'slug',
         'code',
         'capital',
         'country',
         'population',
-        'area', 
+        'area',
         'url',
-        'absolute_url',
         'is_active',
         'updated_at',
         'created_at',
@@ -25,4 +24,5 @@ class RegionAdmin(admin.ModelAdmin):
         'country__name',
         'capital__name',
     ]
+    readonly_fields = ('altnames',)
     list_per_page = 25

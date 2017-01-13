@@ -1,12 +1,12 @@
 from django.contrib import admin
 
+
 class CountryAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames', 'neighbours', 'languages',)
-    prepopulated_fields = { 'slug' : ('name',) }
+    filter_horizontal = ('altnames', 'neighbors', 'languages',)
     list_display = (
         'id',
         'geoname_id',
-        'name', 
+        'name',
         'slug',
         'code',
         'iso_3',
@@ -19,9 +19,8 @@ class CountryAdmin(admin.ModelAdmin):
         'idc',
         'tld',
         'population',
-        'area', 
-        'url', 
-        'absolute_url',
+        'area',
+        'url',
         'is_active',
         'updated_at',
         'created_at',
@@ -39,4 +38,5 @@ class CountryAdmin(admin.ModelAdmin):
         'tld',
         'idc',
     ]
+    readonly_fields = ('altnames', 'languages',)
     list_per_page = 25

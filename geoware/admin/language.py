@@ -1,11 +1,11 @@
 from django.contrib import admin
 
+
 class LanguageAdmin(admin.ModelAdmin):
-    prepopulated_fields = { 'slug' : ('name',) }
     list_display = (
         'id',
         'code',
-        'name', 
+        'name',
         'slug',
         'percent',
         'dialect',
@@ -20,5 +20,3 @@ class LanguageAdmin(admin.ModelAdmin):
         'code',
     ]
     list_per_page = 25
-
-

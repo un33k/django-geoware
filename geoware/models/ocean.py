@@ -1,21 +1,33 @@
-from django.db import models
-from base import LocationBase
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext as _
+
+from .base import models
+from .base import AbstractLocation
 
 
-__all__ = ['Ocean']
+class Ocean(AbstractLocation):
+    """
+    Ocean Model Class.
+    """
+    depth = models.PositiveIntegerField(
+        _("LOCATION.OCEAN.DEPTH_MAX"),
+        null=True,
+        blank=True,
+    )
 
-class Ocean(LocationBase):
-
-    depth = models.PositiveIntegerField(_('Greatest Depth'), null=True, blank=True)
-    depth_name = models.CharField(_('Depth Name'), max_length=254, null=True, blank=True)
+    depth_name = models.CharField(
+        _("LOCATION.OCEAN.DEPTH_MAX_NAME"),
+        max_length=254,
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         app_label = 'geoware'
-        db_table = app_label + '-ocean'
+        db_table = '{app}-{type}'.format(app=app_label, type='ocean')
+        verbose_name = _('LOCATION.OCEAN')
+        verbose_name_plural = _('LOCATION.OCEAN#plural')
+        unique_together = (('name'), )
 
     @property
     def parent(self):
         return None
-
-

@@ -1,133 +1,115 @@
 import os
-from optparse import make_option
-from django.core.management.base import BaseCommand
+import logging
+
 from django.utils.translation import ugettext as _
-from django.db import transaction
-from django.utils.encoding import force_unicode
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.downloader import *
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
-from ...models import (Altname, District, City, Subregion, Region, Country)
+from ...models import Country
+from ...models import Region
+from ...models import Subregion
+from ...models import City
+from ...models import Altname
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.handler import *
 
 logger = logging.getLogger("geoware.cmd.altname")
 
-class Command(GeoBaseCommand):
-    cmd_name = "Altname"
 
-    def is_altname_link(self, code, name):
-        has_link_pattern = lambda x: any(k in name for k in ['http', 'wikipedia', '//'])
-        if code.strip().lower() == 'link' or has_link_pattern(name):
+class Command(GeoBaseCommand):
+    cmd_name = "altname"
+
+    def is_altname_link(self, name_or_link):
+        name_or_link = name_or_link.lower()
+        if any(proto in name_or_link for proto in ['http', 'wikipedia', '//']):
             return True
         return False
 
     def is_entry_valid(self, item):
+        """
+        Checks for minimum altname requirements.
+        """
+        is_valid = True
         try:
-            alt_geoid = item[0]
-            entry_geoid = item[1]
-            code = item[2].strip()
+            geoid = int(item[0])
+            ref_geoid = int(item[1])
+            code = item[2]
             name_or_link = item[3]
-            if not self._get_language_cache(code):
-                if not self.is_altname_link(code, name_or_link):
-                    return False
         except:
-            return False
-        return True
+            is_valid = False
 
-    def get_query_kwargs(self, data):
-        return {'geoname_id': data['geoid'], 'ref_geoname_id': data['entry_geoid']}
+        if is_valid and geoid and ref_geoid and code and name_or_link:
+            if self._get_language_cache(code):
+                if not self.is_altname_link(name_or_link):
+                    return is_valid
 
-    def save_or_update_entry(self, item):
+        if self.verbosity >= 3:
+            logger.warning("Invalid Record: ({item})".format(item=item))
+        return False
+
+    def get_query_fields(self, data):
+        """
+        Fields to identify a alt record.
+        """
+        return {'geoname_id': data['geoid'], 'ref_geoname_id': data['ref_geoid']}
+
+    def record_to_dict(self, item):
+        """
+        Given a altname record, it returns a dictionary.
+        """
+        data = {}
+        try:
+            data = {
+                'geoid'             : get_str(item, 0),
+                'ref_geoid'         : get_str(item, 1),
+                'code'              : get_str(item, 2),
+                'name'              : get_str(item, 3),
+            }
+        except Exception as err:
+            if self.verbosity >= 2:
+                logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
+        return data
+
+    def create_or_update_record(self, item):
         """ Save or update a given entry into DB """
 
-        data = self.entry_to_dict(item)
+        data = self.record_to_dict(item)
         if not data:
             return
 
-        entry = self._get_generic_entry_cache(data['entry_geoid'])
-        if not entry:
+        ref_obj = self._get_generic_entry_cache(data['ref_geoid'])
+        if not ref_obj:
             return
 
-        altname = self.get_geo_object(Altname, data)
-        if not altname:
+        altname, created = self.get_geo_object(Altname, data)
+        if not altname or (not created and not self.overwrite):
             return
 
-        logger.debug("\n****************>>>\n{0}".format(item))
+        if self.verbosity >= 4:
+            logger.debug("{action} Altname: {item}".format(action="Added" if created else "Updated", item=item))
 
-        if ((not entry.url) or self.overwrite) and self.is_altname_link(data['code'], data['name']):
-            if 'en.' in data['link']:
-                entry.url = data['link'].strip('http://').strip('https://')
-                entry.save()
-                logger.debug("Added URL {0}: {1} ({2})".format(self.cmd_name, entry, entry.url))
-            return
+        altname.name = data.get('name', altname.name)
+        altname.language = self._get_language_cache(data['code'])
 
-        if (not altname.language) or self.overwrite: altname.language = self._get_language_cache(data['code'])
-        if (not altname.name) or self.overwrite: altname.name = data['name']
-        if (not altname.is_preferred) or self.overwrite: altname.is_preferred = True if data['preferred'] else False
-        if (not altname.is_short) or self.overwrite: altname.is_short = True if data['short'] else False
+        altname_custom_handler(altname)
+        altname.save()
+        ref_obj.altnames.add(altname)
 
-        fix_altname_pre_save(altname)
-
-        success, reason = self.save_to_db(altname)
-        if success:
-            logger.debug("Added {0}: {1} ({2})".format(self.cmd_name, altname, entry))
-            entry.altnames.add(altname)
-        else:
-            logger.error("Failed to add {0}: {1} ({2}) [{3}]".format(self.cmd_name, altname, entry, reason))
-
-
-    def entry_to_dict(self, item):
-        """ Given a list of info for an entry, it returns a dict """
-
-        get_field = lambda x,i: x[i] if len(x)>i else ''
-        try:
-            item = [force_unicode(x) for x in item]
-        except:
-            pass
-        dicts = {}
-        try:
-            dicts = {
-                'geoid'             : get_field(item, 0),
-                'entry_geoid'       : get_field(item, 1),
-                'code'              : get_field(item, 2),
-                'name'              : smart_str(get_field(item, 3)),
-                'link'              : smart_str(get_field(item, 3)),
-                'preferred'         : smart_str(get_field(item, 4)),
-                'short'             : smart_str(get_field(item, 5)),
-            }
-        except Exception, e:
-            logger.warning("Failed to extract {0} data. {1}".format(self.cmd_name, item))
-        return dicts
-
-
-    def post_download_call(self):
-        """ Load into the cache anything that has a geoname_id """
-
+    def post_download_handler(self):
+        """
+        Load into the cache anything that has a geoname_id.
+        """
         if not hasattr(self, '_generic_entries_cache'):
             self._generic_entries_cache = {}
-            for klass in (District, City, Subregion, Region, Country):
+            for klass in (City, Subregion, Region, Country):
                 for entry in klass.objects.all():
                     self._generic_entries_cache[entry.geoname_id] = entry
 
-
     def _get_generic_entry_cache(self, geoname_id):
         if not hasattr(self, '_generic_entries_cache'):
-            self.post_download_call()
+            self.post_download_handler()
         try:
             return self._generic_entries_cache[geoname_id]
-        except:
+        except KeyError:
             return None
-
-
-
-
-
-
-
-
-
-
-

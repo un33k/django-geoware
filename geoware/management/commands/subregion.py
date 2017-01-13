@@ -1,92 +1,93 @@
 import os
-from optparse import make_option
-from django.core.management.base import BaseCommand
+import logging
+
 from django.utils.translation import ugettext as _
-from django.utils.encoding import force_unicode
 from django.utils.encoding import smart_str
 
-from ..base import GeoBaseCommand
-from ...utils.updater import *
-from ...utils.fetcher import *
-from ...utils.fixer import *
-from ...models import (Subregion, Region, Country)
+from ...models import Country
+from ...models import Region
+from ...models import Subregion
+
+from ..utils.base import GeoBaseCommand
+from ..utils.common import *
+from ..utils.handler import *
 
 logger = logging.getLogger("geoware.cmd.subregion")
 
+
 class Command(GeoBaseCommand):
-    cmd_name = "Subregion"
+    cmd_name = "subregion"
 
     def is_entry_valid(self, item):
+        """
+        Checks for minimum subregion requirements.
+        """
+        is_valid = True
         try:
             fips = item[0]
             name = item[2]
             geoid = int(item[3])
         except:
-            return False
-        return True
+            is_valid = False
 
-    def get_query_kwargs(self, data):
+        if is_valid and fips and name:
+            return is_valid
+
+        logger.warning("Invalid Record: ({item})".format(item=item))
+        return False
+
+    def get_query_fields(self, data):
+        """
+        Fields to identify a subregion record.
+        """
         region = self._get_region_cache(data['region_fips'])
         if region:
-            return {'name': data['name'], 'region': region}
+            return {'fips': data['fips'], 'name_std': data['name_std'], 'region': region}
         return {}
 
-    def save_or_update_entry(self, item):
-        """ Save or update a given entry into DB """
+    def record_to_dict(self, item):
+        """
+        Given a region record, it returns a dictionary.
+        """
+        data = {}
+        try:
+            data = {
+                'region_fips'   : '.'.join(get_str(item, 0).split('.')[:2]),
+                'code'          : get_str(item, 0).split('.')[2],
+                'fips'          : get_str(item, 0),
+                'name_std'      : get_str(item, 1),
+                'name'          : get_str(item, 2),
+                'geoid'         : get_str(item, 3),
+            }
+        except Exception as err:
+            logger.warning("Failed to extract {cmd} data. {record} {err}".format(cmd=self.cmd_name, record=item, err=err))
+        return data
 
-        data = self.entry_to_dict(item)
+    def create_or_update_record(self, item):
+        """
+        Create or update a given entry into DB
+        """
+        data = self.record_to_dict(item)
         if not data:
             return
 
-        subregion = self.get_geo_object(Subregion, data)
-        if not subregion:
+        if data.get('region_fips'):
+            region = self._get_region_cache(data['region_fips'])
+            if not region:
+                return
+
+        subregion, created = self.get_geo_object(Subregion, data)
+        if not subregion or (not created and not self.overwrite):
             return
 
-        logger.debug("\n****************>>>\n{0}".format(item))
+        logger.debug("{action} Subregion: {item}".format(action="Added" if created else "Updated", item=item))
 
-        subregion.geoname_id = data['geoid']
-        if (not subregion.code) or self.overwrite: subregion.code = data['code']
-        if (not subregion.name) or self.overwrite: subregion.name = data['name']
-        if (not subregion.name_std) or self.overwrite: subregion.name_std = data['name_std']
-        if (not subregion.fips) or self.overwrite: subregion.fips = data['fips']
+        subregion.geoname_id = data.get('geoid')
+        subregion.code = data.get('code', subregion.code)
+        subregion.name = data.get('name', subregion.name)
+        subregion.fips = data.get('fips', subregion.fips)
+        subregion.name_std = data.get('name_std', region.name_std)
+        subregion.region = region
 
-        if data['region_fips']:
-            subregion.region = self._get_region_cache(data['region_fips'])
-        if not subregion.region:
-            return
-        
-        subregion_pre_save_call(subregion)
-
-        success, reason = self.save_to_db(subregion)
-        if success:
-            logger.debug("Added {0}: {1} ({2})".format(self.cmd_name, subregion, subregion.fips))
-        else:
-            logger.error("Failed to add {0}: {1} ({2}) [{3}]".format(self.cmd_name, subregion, subregion.fips, reason))
-
-    def entry_to_dict(self, item):
-        """ Given a list of info for an entry, it returns a dict """
-
-        get_field = lambda x,i: x[i] if len(x)>i else ''
-        try:
-            item = [force_unicode(x) for x in item]
-        except:
-            pass
-        dicts = {}
-        try:
-            dicts = {
-                'region_fips'       : '.'.join(get_field(item, 0).split('.')[:2]),
-                'code'              : get_field(item, 0).split('.')[2],
-                'fips'              : get_field(item, 0),
-                'name_std'          : smart_str(get_field(item, 1)),
-                'name'              : smart_str(get_field(item, 2)),
-                'geoid'             : get_field(item, 3),
-            }
-        except Exception, e:
-            logger.warning("Failed to extract {0} data. {1}".format(self.cmd_name, item))
-        return dicts
-
-
-
-
-
-
+        subregion_custom_handler(subregion)
+        subregion.save()
