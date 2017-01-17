@@ -3,7 +3,6 @@ from django.contrib import admin
 
 class LanguageAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
         'code',
         'name',
         'slug',
@@ -15,8 +14,8 @@ class LanguageAdmin(admin.ModelAdmin):
         'created_at',
     )
     search_fields = [
-        'id',
         'name',
         'code',
     ]
     list_per_page = 25
+    ordering=('code',)

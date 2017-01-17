@@ -35,32 +35,32 @@ class Country(AbstractLocation):
 
     capital = models.ForeignKey(
         'City',
-        verbose_name=_('LOCATION.CAPTIAL'),
+        verbose_name=_('LOCATION.CAPITAL'),
         related_name='%(app_label)s_%(class)s_capital',
         blank=True,
         null=True,
     )
 
     code = models.CharField(
-        _('LOCATION.CODE.ISO_ALPHA_2'),
+        'ISO 3166-1',
         db_index=True,
         max_length=2,
     )
 
     iso_3 = models.CharField(
-        _('LOCATION.CODE.ISO_ALPHA_3'),
+        'ISO 3166-2',
         db_index=True,
         max_length=3,
     )
 
     iso_n = models.CharField(
-        _('LOCATION.CODE.ISO_NUMERIC'),
+        'M49',
         db_index=True,
         max_length=40,
     )
 
     fips = models.CharField(
-        _('LOCATION.CODE.FIPS'),
+        'FIPS',
         db_index=True,
         max_length=40,
     )

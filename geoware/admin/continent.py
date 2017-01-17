@@ -2,13 +2,12 @@ from django.contrib import admin
 
 
 class ContinentAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames',)
     list_display = (
-        'id',
         'geoname_id',
         'name',
         'slug',
         'code',
+        'iso_n',
         'population',
         'area',
         'url',
@@ -17,8 +16,10 @@ class ContinentAdmin(admin.ModelAdmin):
         'created_at',
     )
     search_fields = [
-        'id',
+        'geoname_id',
         'name',
         'code',
     ]
     list_per_page = 25
+    readonly_fields = ('altnames',)
+    ordering=('name',)

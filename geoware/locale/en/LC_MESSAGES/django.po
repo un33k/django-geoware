@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-13 16:32-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-01-17 10:13-0500\n"
 "Last-Translator: Val Neekman <info@neekware.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1098,12 +1098,12 @@ msgid "LOCATION.CITY.COUNTRY"
 msgstr "Country"
 
 #: models/city.py:19
-msgid "LOCATION.CITY.REGION"
-msgstr "Region"
+msgid "LOCATION.CITY.DIVISION"
+msgstr "Division"
 
 #: models/city.py:27
-msgid "LOCATION.CITY.SUBREGION"
-msgstr "Subregion"
+msgid "LOCATION.CITY.SUBDIVISION"
+msgstr "Subdivision"
 
 #: models/city.py:35
 msgid "LOCATION.CITY.TIMEZONE"
@@ -1119,7 +1119,7 @@ msgstr "City"
 
 #: models/city.py:52
 msgid "LOCATION.CITY#plural"
-msgstr "Cites"
+msgstr "Cities"
 
 #: models/continent.py:12
 msgid "LOCATION.CONTINENT.CODE"
@@ -1150,7 +1150,7 @@ msgid "LOCATION.CURRENCY"
 msgstr "Currency"
 
 #: models/country.py:38
-msgid "LOCATION.CAPTIAL"
+msgid "LOCATION.CAPITAL"
 msgstr "Capital"
 
 #: models/country.py:45
@@ -1289,53 +1289,53 @@ msgstr "Ocean"
 msgid "LOCATION.OCEAN#plural"
 msgstr "Oceans"
 
-#: models/region.py:13
-msgid "LOCATION.REGION.COUNTRY"
+#: models/division.py:13
+msgid "LOCATION.DIVISION.COUNTRY"
 msgstr "Country"
 
-#: models/region.py:21
-msgid "LOCATION.REGION.CAPITAL"
+#: models/division.py:21
+msgid "LOCATION.DIVISION.CAPITAL"
 msgstr "Capital"
 
-#: models/region.py:28
-msgid "LOCATION.REGION.CODE"
+#: models/division.py:28
+msgid "LOCATION.DIVISION.CODE"
 msgstr "Code"
 
-#: models/region.py:35
-msgid "LOCATION.REGION.CODE_FIPS"
+#: models/division.py:35
+msgid "LOCATION.DIVISION.CODE_FIPS"
 msgstr "FIPS Code"
 
-#: models/region.py:44
-msgid "LOCATION.REGION"
-msgstr "Region"
+#: models/division.py:44
+msgid "LOCATION.DIVISION"
+msgstr "Division"
 
-#: models/region.py:45
-msgid "LOCATION.REGION#plural"
-msgstr "Regions"
+#: models/division.py:45
+msgid "LOCATION.DIVISION#plural"
+msgstr "Divisions"
 
-#: models/subregion.py:13
-msgid "LOCATION.SUBREGION.REGION"
-msgstr "Subregion"
+#: models/subdivision.py:13
+msgid "LOCATION.SUBDIVISION.DIVISION"
+msgstr "Division"
 
-#: models/subregion.py:21
-msgid "LOCATION.SUBREGION.CAPITAL"
+#: models/subdivision.py:21
+msgid "LOCATION.SUBDIVISION.CAPITAL"
 msgstr "Capital"
 
-#: models/subregion.py:28
-msgid "LOCATION.SUBREGION.CODE"
+#: models/subdivision.py:28
+msgid "LOCATION.SUBDIVISION.CODE"
 msgstr "Code"
 
-#: models/subregion.py:35
-msgid "LOCATION.SUBREGION.CODE_FIPS"
+#: models/subdivision.py:35
+msgid "LOCATION.SUBDIVISION.CODE_FIPS"
 msgstr "FIPS Code"
 
-#: models/subregion.py:44
-msgid "LOCATION.SUBREGION"
-msgstr "Subregion"
+#: models/subdivision.py:44
+msgid "LOCATION.SUBDIVISION"
+msgstr "Subdivision"
 
-#: models/subregion.py:45
-msgid "LOCATION.SUBREGION#plural"
-msgstr "Subregions"
+#: models/subdivision.py:45
+msgid "LOCATION.SUBDIVISION#plural"
+msgstr "Subdivisions"
 
 #: models/timezone.py:17
 msgid "LOCATION.TIMEZONE.COUNTRY"

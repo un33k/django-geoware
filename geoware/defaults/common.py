@@ -31,12 +31,12 @@ GEOWARE_FILE_DICT = {
         'local': 'countryInfo.txt',
         'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
-    'region': {
+    'division': {
         'remote': 'admin1CodesASCII.txt',
         'local': 'admin1CodesASCII.txt',
         'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
     },
-    'subregion': {
+    'subdivision': {
         'remote': 'admin2Codes.txt',
         'local': 'admin2Codes.txt',
         'url': GEOWARE_BASE_URLS['geonames']['dump'] + '{filename}',
@@ -76,8 +76,8 @@ GEOWARE_FILE_DICT = {
 GEOWARE_LOADING_ORDER = [
     'Country',
     'Timezone',
-    'Region',
-    'Subregion',
+    'Division',
+    'Subdivision',
     'City',
     'Altname',
 ]

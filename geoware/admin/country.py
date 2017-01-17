@@ -4,7 +4,6 @@ from django.contrib import admin
 class CountryAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames', 'neighbors', 'languages',)
     list_display = (
-        'id',
         'geoname_id',
         'name',
         'slug',
@@ -26,7 +25,7 @@ class CountryAdmin(admin.ModelAdmin):
         'created_at',
     )
     search_fields = [
-        'id',
+        'geoname_id',
         'name',
         'code',
         'iso_3',
@@ -43,3 +42,4 @@ class CountryAdmin(admin.ModelAdmin):
         'altnames',
     )
     list_per_page = 25
+    ordering=('name',)

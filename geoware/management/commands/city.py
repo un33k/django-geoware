@@ -5,8 +5,8 @@ from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
 from ...models import Country
-from ...models import Region
-from ...models import Subregion
+from ...models import Division
+from ...models import Subdivision
 from ...models import City
 
 from ... import defaults as defs
@@ -26,7 +26,7 @@ class Command(GeoBaseCommand):
 
     def is_entry_valid(self, item):
         """
-        Checks for minimum subregion requirements.
+        Checks for minimum subdivision requirements.
         """
         is_valid = True
         try:
@@ -53,9 +53,9 @@ class Command(GeoBaseCommand):
         country = self._get_country_cache(data['country_code'])
         if country:
             fields['country'] = country
-            region = self._get_region_cache(data['region_code'])
-            if region:
-                fields['region'] = region
+            division = self._get_division_cache(data['division_code'])
+            if division:
+                fields['division'] = division
         return fields
 
     def record_to_dict(self, item):
@@ -72,8 +72,8 @@ class Command(GeoBaseCommand):
                 'longitude'         : get_float(item, 5),
                 'city_code'         : get_str(item, 7),
                 'country_code'      : get_str(item, 8),
-                'region_code'       : get_str(item, 10),
-                'subregion_code'    : get_str(item, 11),
+                'division_code'     : get_str(item, 10),
+                'subdivision_code'  : get_str(item, 11),
                 'population'        : get_int(item, 14),
                 'elevation'         : get_float(item, 16),
                 'timezone'          : get_str(item, 17),
@@ -114,17 +114,17 @@ class Command(GeoBaseCommand):
             city.lat = data.get('latitude', city.lat)
             city.lng = data.get('longitude', city.lng)
 
-        if data.get('region_code'):
-            fips = '.'.join([data['country_code'], data['region_code']])
-            region = self._get_region_cache(fips)
-            if region:
-                city.region = region
+        if data.get('division_code'):
+            fips = '.'.join([data['country_code'], data['division_code']])
+            division = self._get_division_cache(fips)
+            if division:
+                city.division = division
 
-        if data.get('subregion_code'):
-            fips = '.'.join([data['country_code'], data['region_code'], data['subregion_code']])
-            subregion = self._get_region_cache(fips)
-            if subregion:
-                city.subregion = subregion
+        if data.get('subdivision_code'):
+            fips = '.'.join([data['country_code'], data['division_code'], data['subdivision_code']])
+            subdivision = self._get_division_cache(fips)
+            if subdivision:
+                city.subdivision = subdivision
 
         if data.get('timezone'):
             timezone = self._get_timezone_cache(data['timezone'])

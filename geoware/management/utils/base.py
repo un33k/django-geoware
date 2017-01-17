@@ -218,49 +218,49 @@ class GeoBaseCommand(BaseCommand):
 
         return country
 
-    def _get_region_cache(self, fips):
+    def _get_division_cache(self, fips):
         """
-        Gets region obj from the cache or database.
+        Gets division obj from the cache or database.
         """
-        region = None
-        if not hasattr(self, '_region_cache'):
-            self._region_cache = {}
+        division = None
+        if not hasattr(self, '_division_cache'):
+            self._division_cache = {}
             if self.speed:
-                entries = Region.objects.all()
+                entries = Division.objects.all()
                 for entry in entries:
-                    self._region_cache[entry.fips] = entry
+                    self._division_cache[entry.fips] = entry
         try:
-            region = self._region_cache[fips]
+            division = self._division_cache[fips]
         except KeyError:
             try:
-                self._region_cache[fips] = Region.objects.get(fips=fips)
-                region = self._region_cache[fips]
-            except Region.DoesNotExist:
+                self._division_cache[fips] = Division.objects.get(fips=fips)
+                division = self._division_cache[fips]
+            except Division.DoesNotExist:
                 pass
 
-        return region
+        return division
 
-    def _get_subregion_cache(self, fips):
+    def _get_subdivision_cache(self, fips):
         """
-        Gets subregion obj from the cache or database.
+        Gets subdivision obj from the cache or database.
         """
-        subregion = None
-        if not hasattr(self, '_subregion_cache'):
-            self._subregion_cache = {}
+        subdivision = None
+        if not hasattr(self, '_subdivision_cache'):
+            self._subdivision_cache = {}
             if self.speed:
-                entries = Subregion.objects.all()
+                entries = Subdivision.objects.all()
                 for entry in entries:
-                    self._subregion_cache[entry.fips] = entry
+                    self._subdivision_cache[entry.fips] = entry
         try:
-            subregion = self._subregion_cache[fips]
+            subdivision = self._subdivision_cache[fips]
         except KeyError:
             try:
-                self._subregion_cache[fips] = Subregion.objects.get(fips=fips)
-                subregion = self._subregion_cache[fips]
-            except Subregion.DoesNotExist:
+                self._subdivision_cache[fips] = Subdivision.objects.get(fips=fips)
+                subdivision = self._subdivision_cache[fips]
+            except Subdivision.DoesNotExist:
                 pass
 
-        return subregion
+        return subdivision
 
     def _get_city_cache(self, geoname_id):
         """

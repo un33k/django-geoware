@@ -4,13 +4,13 @@ from .base import models
 from .base import AbstractLocation
 
 
-class Subregion(AbstractLocation):
+class Division(AbstractLocation):
     """
-    Subregion Model Class.
+    Division Model Class.
     """
-    region = models.ForeignKey(
-        'Region',
-        verbose_name=_('LOCATION.SUBREGION.REGION'),
+    country = models.ForeignKey(
+        'Country',
+        verbose_name=_('LOCATION.DIVISION.COUNTRY'),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
@@ -18,21 +18,21 @@ class Subregion(AbstractLocation):
 
     capital = models.ForeignKey(
         'City',
-        verbose_name=_("LOCATION.SUBREGION.CAPITAL"),
+        verbose_name=_("LOCATION.DIVISION.CAPITAL"),
         related_name='%(app_label)s_%(class)s_capital',
         null=True,
         blank=True,
     )
 
     code = models.CharField(
-        _('LOCATION.SUBREGION.CODE'),
+        _('LOCATION.DIVISION.CODE'),
         max_length=40,
         null=True,
         blank=True,
     )
 
     fips = models.CharField(
-        _('LOCATION.SUBREGION.CODE_FIPS'),
+        _('LOCATION.DIVISION.CODE_FIPS'),
         max_length=40,
         null=True,
         blank=True,
@@ -40,11 +40,13 @@ class Subregion(AbstractLocation):
 
     class Meta:
         app_label = 'geoware'
-        db_table = '{app}-{type}'.format(app=app_label, type='subregion')
-        verbose_name = _('LOCATION.SUBREGION')
-        verbose_name_plural = _('LOCATION.SUBREGION#plural')
-        unique_together = [('name', 'fips', 'region')]
+        db_table = '{app}-{type}'.format(app=app_label, type='division')
+        verbose_name = _('LOCATION.DIVISION')
+        verbose_name_plural = _('LOCATION.DIVISION#plural')
+        unique_together = [('fips', 'name_std', 'country')]
 
     @property
     def parent(self):
-        return self.region
+        if self.country:
+            return self.country
+        return None

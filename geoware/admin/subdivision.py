@@ -1,14 +1,13 @@
 from django.contrib import admin
 
 
-class SubregionAdmin(admin.ModelAdmin):
+class SubdivisionAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
     list_display = (
-        'id',
         'geoname_id',
         'name',
         'slug',
-        'region',
+        'division',
         'population',
         'area',
         'url',
@@ -17,14 +16,14 @@ class SubregionAdmin(admin.ModelAdmin):
         'created_at',
     )
     search_fields = [
-        'id',
         'name',
-        'region__name',
-        'region__country__name'
+        'division__name',
+        'division__country__name'
     ]
     readonly_fields = (
         'capital',
-        'region',
+        'division',
         'altnames',
     )
     list_per_page = 25
+    ordering=('division__country__name','division__name','name')
