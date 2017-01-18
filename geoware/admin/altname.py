@@ -18,4 +18,4 @@ class AltnameAdmin(admin.ModelAdmin):
         'language__name',
     ]
     list_per_page = 25
-    ordering=('geoname_id','language__name','name',)
+    ordering=('geoname_id', 'language__name', 'name',)

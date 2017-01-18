@@ -19,4 +19,4 @@ class TimezoneAdmin(admin.ModelAdmin):
         'country__name'
     ]
     list_per_page = 25
-    ordering=('raw_offset','name_id',)
+    ordering=('raw_offset', 'name_id',)

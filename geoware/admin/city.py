@@ -36,4 +36,4 @@ class CityAdmin(admin.ModelAdmin):
         'altnames',
     )
     list_per_page = 25
-    ordering = ('country','name',)
+    ordering = ('country', 'name',)

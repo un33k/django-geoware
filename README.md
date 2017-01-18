@@ -38,8 +38,8 @@ How to use
     #[geoware]
     #   country     # down/loads all countries
     #   timezone    # down/loads all timezones
-    #   region      # down/loads all regions & provinces (admin level 1)
-    #   subregion   # down/loads all subregions (admin level 2)
+    #   division    # down/loads all available divisions (admin level 1)
+    #   subdivision # down/loads all available subdivisions (admin level 2)
     #   city        # down/loads all cities with population greater 1000
     #   hierarchy   # down/loads hierarchies - cities & districts
     #   altname     # down/loads names in alternative languages for locations

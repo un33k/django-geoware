@@ -27,4 +27,4 @@ class DivisionAdmin(admin.ModelAdmin):
         'altnames',
     )
     list_per_page = 25
-    ordering=('country','code',)
+    ordering=('country', 'code',)

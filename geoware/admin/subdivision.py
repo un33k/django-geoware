@@ -26,4 +26,4 @@ class SubdivisionAdmin(admin.ModelAdmin):
         'altnames',
     )
     list_per_page = 25
-    ordering=('division__country__name','division__name','name')
+    ordering=('division__country__name', 'division__name', 'name')
