@@ -21,5 +21,5 @@ class ContinentAdmin(admin.ModelAdmin):
         'code',
     ]
     list_per_page = 25
-    readonly_fields = ('altnames',)
-    ordering=('name',)
+    readonly_fields = ('altnames', )
+    ordering=('name', )

@@ -1,8 +1,15 @@
 from django.contrib import admin
+
+from ..models import City
+from ..forms import CityForm
+
 from .. import defaults as defs
 
 
+@admin.register(City)
 class CityAdmin(admin.ModelAdmin):
+    form = CityForm
+
     filter_horizontal = ('altnames',)
     list_display = (
         'geoname_id',
@@ -30,9 +37,6 @@ class CityAdmin(admin.ModelAdmin):
         'country__name',
     ]
     readonly_fields = (
-        'district_of',
-        'division',
-        'subdivision',
         'altnames',
     )
     list_per_page = 25
