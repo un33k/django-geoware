@@ -1,10 +1,9 @@
 from django.contrib import admin
 
 
-class RegionAdmin(admin.ModelAdmin):
+class DivisionAdmin(admin.ModelAdmin):
     filter_horizontal = ('altnames',)
     list_display = (
-        'id',
         'geoname_id',
         'name',
         'slug',
@@ -19,7 +18,6 @@ class RegionAdmin(admin.ModelAdmin):
         'created_at',
     )
     search_fields = [
-        'id',
         'name',
         'country__name',
         'capital__name',
@@ -29,3 +27,4 @@ class RegionAdmin(admin.ModelAdmin):
         'altnames',
     )
     list_per_page = 25
+    ordering=('country','code',)

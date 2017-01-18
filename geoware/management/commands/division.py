@@ -5,21 +5,21 @@ from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
 from ...models import Country
-from ...models import Region
+from ...models import Division
 
 from ..utils.base import GeoBaseCommand
 from ..utils.common import *
 from ..utils.handler import *
 
-logger = logging.getLogger("geoware.cmd.region")
+logger = logging.getLogger("geoware.cmd.division")
 
 
 class Command(GeoBaseCommand):
-    cmd_name = "region"
+    cmd_name = "division"
 
     def is_entry_valid(self, item):
         """
-        Checks for minimum region requirements.
+        Checks for minimum division requirements.
         """
         is_valid = True
         try:
@@ -37,7 +37,7 @@ class Command(GeoBaseCommand):
 
     def get_query_fields(self, data):
         """
-        Fields to identify a region record.
+        Fields to identify a division record.
         """
         country = self._get_country_cache(data['country_code'])
         if country:
@@ -46,7 +46,7 @@ class Command(GeoBaseCommand):
 
     def record_to_dict(self, item):
         """
-        Given a region record, it returns a dictionary.
+        Given a division record, it returns a dictionary.
         """
         data = {}
         try:
@@ -70,22 +70,22 @@ class Command(GeoBaseCommand):
         if not data:
             return
 
-        region, created = self.get_geo_object(Region, data)
-        if not region or (not created and not self.overwrite):
+        division, created = self.get_geo_object(Division, data)
+        if not division or (not created and not self.overwrite):
             return
 
-        logger.debug("{action} Region: {item}".format(action="Added" if created else "Updated", item=item))
+        logger.debug("{action} Division: {item}".format(action="Added" if created else "Updated", item=item))
 
-        region.geoname_id = data.get('geoid')
-        region.code = data.get('code', region.code)
-        region.name = data.get('name', region.name)
-        region.fips = data.get('fips', region.fips)
-        region.name_std = data.get('name_std', region.name_std)
+        division.geoname_id = data.get('geoid')
+        division.code = data.get('code', division.code)
+        division.name = data.get('name', division.name)
+        division.fips = data.get('fips', division.fips)
+        division.name_std = data.get('name_std', division.name_std)
 
         if data.get('country_code'):
             country = self._get_country_cache(data['country_code'])
             if country:
-                region.country = country
+                division.country = country
 
-        region_custom_handler(region)
-        region.save()
+        division_custom_handler(division)
+        division.save()

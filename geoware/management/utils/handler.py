@@ -13,20 +13,20 @@ def country_custom_handler(country):
         country.jurisdiction = country
 
 
-def region_custom_handler(region):
+def division_custom_handler(division):
     """
-    Manages special cases on a region object.
+    Manages special cases on a division object.
     """
-    canadian_province_code = 'ca' in region.fips.split('.')[0].lower()
+    canadian_province_code = 'ca' in division.fips.split('.')[0].lower()
     if canadian_province_code:
-        code = defs.GEOWARE_CANADA_PROVINCE_CODES.get('region.code')
+        code = defs.GEOWARE_CANADA_PROVINCE_CODES.get('division.code')
         if code:
-            region.code = code
+            division.code = code
 
 
-def subregion_custom_handler(subregion):
+def subdivision_custom_handler(subdivision):
     """
-    Manages special cases on a subregion object.
+    Manages special cases on a subdivision object.
     """
     pass
 

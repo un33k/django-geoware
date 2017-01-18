@@ -14,18 +14,18 @@ class City(AbstractCity):
         blank=True,
     )
 
-    region = models.ForeignKey(
-        'Region',
-        verbose_name=_('LOCATION.CITY.REGION'),
-        related_name='%(app_label)s_%(class)s_region',
+    division = models.ForeignKey(
+        'Division',
+        verbose_name=_('LOCATION.CITY.DIVISION'),
+        related_name='%(app_label)s_%(class)s_division',
         blank=True,
         null=True,
     )
 
-    subregion = models.ForeignKey(
-        'Subregion',
-        verbose_name=_('LOCATION.CITY.SUBREGION'),
-        related_name='%(app_label)s_%(class)s_subregion',
+    subdivision = models.ForeignKey(
+        'Subdivision',
+        verbose_name=_('LOCATION.CITY.SUBDIVISION'),
+        related_name='%(app_label)s_%(class)s_subdivision',
         blank=True,
         null=True,
     )
@@ -50,16 +50,16 @@ class City(AbstractCity):
         db_table = '{app}-{type}'.format(app=app_label, type='city')
         verbose_name = _('LOCATION.CITY')
         verbose_name_plural = _('LOCATION.CITY#plural')
-        unique_together = (('name', 'region', 'country'), )
+        unique_together = (('name', 'division', 'country'), )
 
     @property
     def parent(self):
         if self.district_of and self.district_of.parent:
             return self.district_of
-        elif self.subregion and self.subregion.parent:
-            return self.subregion
-        elif self.region and self.region.parent:
-            return self.region
+        elif self.subdivision and self.subdivision.parent:
+            return self.subdivision
+        elif self.division and self.division.parent:
+            return self.division
         elif self.country and self.country.parent:
             return self.country
         return None

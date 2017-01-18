@@ -3,7 +3,6 @@ from django.contrib import admin
 
 class TimezoneAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
         'name_id',
         'country',
         'slug',
@@ -20,3 +19,4 @@ class TimezoneAdmin(admin.ModelAdmin):
         'country__name'
     ]
     list_per_page = 25
+    ordering=('raw_offset','name_id',)

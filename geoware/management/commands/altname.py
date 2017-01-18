@@ -5,8 +5,8 @@ from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_str
 
 from ...models import Country
-from ...models import Region
-from ...models import Subregion
+from ...models import Division
+from ...models import Subdivision
 from ...models import City
 from ...models import Altname
 
@@ -99,7 +99,7 @@ class Command(GeoBaseCommand):
         """
         if not hasattr(self, '_generic_entries_cache'):
             self._generic_entries_cache = {}
-            for klass in (City, Subregion, Region, Country):
+            for klass in (City, Subdivision, Division, Country):
                 for entry in klass.objects.all():
                     self._generic_entries_cache[entry.geoname_id] = entry
 

@@ -3,7 +3,6 @@ from django.contrib import admin
 
 class CurrencyAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
         'code',
         'name',
         'symbol',
@@ -16,8 +15,8 @@ class CurrencyAdmin(admin.ModelAdmin):
         'created_at',
     )
     search_fields = [
-        'id',
         'name',
         'code',
     ]
     list_per_page = 25
+    ordering=('code',)

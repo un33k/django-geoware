@@ -3,7 +3,6 @@ from django.contrib import admin
 
 class AltnameAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
         'geoname_id',
         'ref_geoname_id',
         'name',
@@ -13,10 +12,10 @@ class AltnameAdmin(admin.ModelAdmin):
         'created_at',
     )
     search_fields = [
-        'id',
         'geoname_id',
         'ref_geoname_id',
         'name',
         'language__name',
     ]
     list_per_page = 25
+    ordering=('geoname_id','language__name','name',)

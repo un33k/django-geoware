@@ -14,6 +14,14 @@ class Continent(AbstractLocation):
         max_length=2,
     )
 
+    iso_n = models.CharField(
+        'M49',
+        db_index=True,
+        max_length=3,
+        null=True,
+        blank=True,
+    )
+
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='continent')
