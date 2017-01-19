@@ -6,6 +6,7 @@ from .subdivision import *
 from .city import *
 from .language import *
 from .currency import *
+from .timezone import *
 
 # from ..models import Currency
 # from ..models import Timezone
