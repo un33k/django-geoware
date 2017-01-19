@@ -2,6 +2,7 @@ from .city import *
 from .continent import *
 from .country import *
 from .division import *
+from .subdivision import *
 
 
 # from django.contrib import admin
