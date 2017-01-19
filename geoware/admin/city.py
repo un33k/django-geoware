@@ -11,17 +11,17 @@ class CityAdmin(admin.ModelAdmin):
     form = CityForm
     list_per_page = 25
     list_display = (
-        'geoname_id',
         'name',
-        'slug',
+        'country',
         'division',
         'subdivision',
-        'country',
         'population',
         'elevation',
         'area',
         'timezone',
         'district_of',
+        'geoname_id',
+        'slug',
         'url',
         'is_active',
         'updated_at',
@@ -34,8 +34,8 @@ class CityAdmin(admin.ModelAdmin):
         'subdivision__name',
         'country__name',
     ]
-    filter_horizontal = ('altnames',)
     readonly_fields = (
+        'geoname_id',
         'altnames',
     )
     ordering = ('country', 'name',)

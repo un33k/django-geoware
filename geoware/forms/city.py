@@ -50,7 +50,7 @@ class CityForm(forms.ModelForm):
                     'data-minimum-input-length': 0,
                 }
             ),
-            'altnames': autocomplete.ModelSelect2(
+            'altnames': autocomplete.ModelSelect2Multiple(
                 url='geoware:altnames-autocomplete',
                 forward=['geoname_id'],
                 attrs={
