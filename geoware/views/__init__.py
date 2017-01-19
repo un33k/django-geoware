@@ -5,3 +5,4 @@ from .city import *
 from .timezone import *
 from .altname import *
 from .currency import *
+from .language import *

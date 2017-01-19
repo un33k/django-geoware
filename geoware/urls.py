@@ -40,4 +40,9 @@ urlpatterns = [
         CurrencyAutocompleteView.as_view(),
         name='currency-autocomplete',
     ),
+    url(
+        r'^language/autocomplete/$',
+        LanguageAutocompleteView.as_view(),
+        name='language-autocomplete',
+    ),
 ]
