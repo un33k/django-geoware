@@ -95,15 +95,15 @@ class FileDownloader(object):
         """
         up2date = self._is_file_up2date()
         if up2date and not force:
-            self.stdout.write("Fetched file from cache ({file}).\n".format(file=self.downloaded_file_name))
+            self.stdout.write("\nFetched file from cache ({file}).\n".format(file=self.downloaded_file_name))
             return self.downloaded_file_path
 
-        self.stdout.write("Downloading file ({file}) from ({host}).\n".format(
+        self.stdout.write("\nDownloading file ({file}) from ({host}).\n".format(
             file=self.remote_file_name, host=urlparse(self.remote_file_path).hostname))
 
         resp = requests.get(self.remote_file_path, stream=True)
         if resp.status_code != requests.codes.ok:
-            self.stdout.write("Download failed with ({status}).\n".format(code=resp.status_code))
+            self.stdout.write("\nDownload failed with ({status}).\n".format(code=resp.status_code))
             return None
 
         size_so_far = 0
@@ -119,7 +119,7 @@ class FileDownloader(object):
                         aFile.write(chunk)
                     pbar.update(size_so_far)
 
-        self.stdout.write("Fetched file from server ({file}).\n".format(file=self.downloaded_file_name))
+        self.stdout.write("\nFetched file from server ({file}).\n".format(file=self.downloaded_file_name))
         return self.downloaded_file_path
 
     def extract(self):
