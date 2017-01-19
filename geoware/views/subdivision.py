@@ -13,7 +13,11 @@ class SubdivisionAutocompleteView(autocomplete.Select2QuerySetView):
 
         qs = Subdivision.objects.all()
 
+        division = self.forwarded.get('division', None)
+        if division:
+            qs = qs.filter(division=division)
+
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs

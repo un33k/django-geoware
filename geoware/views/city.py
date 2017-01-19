@@ -13,7 +13,19 @@ class CityAutocompleteView(autocomplete.Select2QuerySetView):
 
         qs = City.objects.all()
 
+        country = self.forwarded.get('country', None)
+        if country:
+            qs = qs.filter(country=country)
+
+        division = self.forwarded.get('division', None)
+        if division:
+            qs = qs.filter(division=division)
+
+        subdivision = self.forwarded.get('subdivision', None)
+        if division:
+            qs = qs.filter(subdivision=subdivision)
+
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs

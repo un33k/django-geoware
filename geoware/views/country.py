@@ -13,7 +13,11 @@ class CountryAutocompleteView(autocomplete.Select2QuerySetView):
 
         qs = Country.objects.all()
 
+        contenent = self.forwarded.get('contenent', None)
+        if contenent:
+            qs = qs.filter(contenent=contenent)
+
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs

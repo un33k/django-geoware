@@ -1,23 +1,23 @@
 from dal import autocomplete
 
-from ..models import Division
+from ..models import Timezone
 
 
-class DivisionAutocompleteView(autocomplete.Select2QuerySetView):
+class TimezoneAutocompleteView(autocomplete.Select2QuerySetView):
     """
-    Division Autocomplete view.
+    Timezone Autocomplete view.
     """
     def get_queryset(self):
         if not self.request.user.is_authenticated():
-            return Division.objects.none()
+            return Timezone.objects.none()
 
-        qs = Division.objects.all()
+        qs = Timezone.objects.all()
 
         country = self.forwarded.get('country', None)
         if country:
             qs = qs.filter(country=country)
 
         if self.q:
-            qs = qs.filter(name__icontains=self.q)
+            qs = qs.filter(name_id__icontains=self.q)
 
         return qs

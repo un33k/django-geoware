@@ -25,4 +25,14 @@ urlpatterns = [
         CityAutocompleteView.as_view(),
         name='city-autocomplete',
     ),
+    url(
+        r'^timezone/autocomplete/$',
+        TimezoneAutocompleteView.as_view(),
+        name='timezone-autocomplete',
+    ),
+    url(
+        r'^altnames/autocomplete/$',
+        AltnameAutocompleteView.as_view(),
+        name='altnames-autocomplete',
+    ),
 ]

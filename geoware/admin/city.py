@@ -9,8 +9,7 @@ from .. import defaults as defs
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     form = CityForm
-
-    filter_horizontal = ('altnames',)
+    list_per_page = 25
     list_display = (
         'geoname_id',
         'name',
@@ -28,7 +27,6 @@ class CityAdmin(admin.ModelAdmin):
         'updated_at',
         'created_at',
     )
-
     search_fields = [
         'geoname_id',
         'name',
@@ -36,8 +34,8 @@ class CityAdmin(admin.ModelAdmin):
         'subdivision__name',
         'country__name',
     ]
+    filter_horizontal = ('altnames',)
     readonly_fields = (
         'altnames',
     )
-    list_per_page = 25
     ordering = ('country', 'name',)
