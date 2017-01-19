@@ -1,13 +1,19 @@
 from django.contrib import admin
 
+from ..models import Altname
+from ..forms import AltnameForm
 
+
+@admin.register(Altname)
 class AltnameAdmin(admin.ModelAdmin):
+    form = AltnameForm
+    list_per_page = 25
     list_display = (
-        'geoname_id',
         'ref_geoname_id',
         'name',
-        'slug',
+        'geoname_id',
         'is_active',
+        'slug',
         'updated_at',
         'created_at',
     )
@@ -17,5 +23,4 @@ class AltnameAdmin(admin.ModelAdmin):
         'name',
         'language__name',
     ]
-    list_per_page = 25
-    ordering=('geoname_id','language__name','name',)
+    ordering=('ref_geoname_id', 'language__name', 'name',)

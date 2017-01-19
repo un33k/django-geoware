@@ -1,15 +1,21 @@
 from django.contrib import admin
 
+from ..models import Ocean
+from ..forms import OceanForm
 
+
+@admin.register(Ocean)
 class OceanAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames',)
+    form = OceanForm
+    list_per_page = 25
     list_display = (
         'name',
-        'slug',
-        'population',
+        'depth',
+        'depth_name',
         'area',
-        'url',
         'is_active',
+        'slug',
+        'url',
         'updated_at',
         'created_at',
     )
@@ -17,5 +23,4 @@ class OceanAdmin(admin.ModelAdmin):
         'name',
     ]
     readonly_fields = ('altnames',)
-    list_per_page = 25
     ordering=('name',)

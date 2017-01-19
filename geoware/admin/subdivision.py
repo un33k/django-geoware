@@ -1,17 +1,25 @@
 from django.contrib import admin
 
+from ..models import Subdivision
+from ..forms import SubdivisionForm
 
+
+@admin.register(Subdivision)
 class SubdivisionAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames',)
+    form = SubdivisionForm
+    list_per_page = 25
     list_display = (
-        'geoname_id',
         'name',
-        'slug',
         'division',
+        'capital',
+        'code',
+        'fips',
         'population',
         'area',
-        'url',
         'is_active',
+        'geoname_id',
+        'slug',
+        'url',
         'updated_at',
         'created_at',
     )
@@ -21,9 +29,7 @@ class SubdivisionAdmin(admin.ModelAdmin):
         'division__country__name'
     ]
     readonly_fields = (
-        'capital',
-        'division',
+        'geoname_id',
         'altnames',
     )
-    list_per_page = 25
-    ordering=('division__country__name','division__name','name')
+    ordering=('division__country__name', 'division__name', 'name')

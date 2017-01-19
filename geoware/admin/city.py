@@ -1,27 +1,32 @@
 from django.contrib import admin
+
+from ..models import City
+from ..forms import CityForm
+
 from .. import defaults as defs
 
 
+@admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames',)
+    form = CityForm
+    list_per_page = 25
     list_display = (
-        'geoname_id',
         'name',
-        'slug',
+        'country',
         'division',
         'subdivision',
-        'country',
         'population',
         'elevation',
         'area',
         'timezone',
         'district_of',
+        'geoname_id',
+        'slug',
         'url',
         'is_active',
         'updated_at',
         'created_at',
     )
-
     search_fields = [
         'geoname_id',
         'name',
@@ -30,10 +35,7 @@ class CityAdmin(admin.ModelAdmin):
         'country__name',
     ]
     readonly_fields = (
-        'district_of',
-        'division',
-        'subdivision',
+        'geoname_id',
         'altnames',
     )
-    list_per_page = 25
-    ordering = ('country','name',)
+    ordering = ('country', 'name',)

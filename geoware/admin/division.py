@@ -1,19 +1,24 @@
 from django.contrib import admin
 
+from ..models import Division
+from ..forms import DivisionForm
 
+
+@admin.register(Division)
 class DivisionAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames',)
+    form = DivisionForm
+    list_per_page = 25
     list_display = (
-        'geoname_id',
         'name',
-        'slug',
         'code',
-        'capital',
         'country',
+        'capital',
         'population',
         'area',
-        'url',
         'is_active',
+        'geoname_id',
+        'slug',
+        'url',
         'updated_at',
         'created_at',
     )
@@ -23,8 +28,7 @@ class DivisionAdmin(admin.ModelAdmin):
         'capital__name',
     ]
     readonly_fields = (
-        'capital',
+        'geoname_id',
         'altnames',
     )
-    list_per_page = 25
-    ordering=('country','code',)
+    ordering=('country', 'code',)
