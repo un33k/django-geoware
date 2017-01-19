@@ -96,6 +96,8 @@ class GeoBaseCommand(BaseCommand):
             self.print_help("", subcommand=self.cmd_name.lower())
             return
 
+        self.stdout.write("\nProcessing {cmd} data...".format(cmd=self.cmd_name))
+
         if self.download:
             self.dld.download(options['force'])
             self.dld.extract()
@@ -111,7 +113,7 @@ class GeoBaseCommand(BaseCommand):
             self.stdout.write("Unable to find {type} file. Download it first.".format(type=self.cmd_name))
             return
 
-        self.stdout.write("\n+++ Loading {type} data +++\n".format(type=self.cmd_name))
+        self.stdout.write("Loading {type} data...\n".format(type=self.cmd_name))
 
         if self.speed:
             with open(self.dld.extracted_file_path, encoding='utf-8') as afile:
@@ -146,6 +148,7 @@ class GeoBaseCommand(BaseCommand):
         except:
             pass
         self.post_load_handler()
+        self.stdout.write("\n")
 
     def get_geo_object(self, klass, data):
         """

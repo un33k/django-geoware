@@ -58,5 +58,6 @@ class Command(BaseCommand):
         if options['download'] or options['load']:
             for cmd in defs.GEOWARE_LOADING_ORDER + ['Hierarchy']:
                 call_command(cmd.lower(), **options)
+
         else:
             self.print_help("", subcommand='geo')

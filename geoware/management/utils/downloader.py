@@ -95,15 +95,15 @@ class FileDownloader(object):
         """
         up2date = self._is_file_up2date()
         if up2date and not force:
-            self.stdout.write("\nFetched file from cache ({file}).\n".format(file=self.downloaded_file_name))
+            self.stdout.write("Fetched file from cache ({file})\n".format(file=self.downloaded_file_name))
             return self.downloaded_file_path
 
-        self.stdout.write("\nDownloading file ({file}) from ({host}).\n".format(
+        self.stdout.write("Downloading file ({file}) from ({host})\n".format(
             file=self.remote_file_name, host=urlparse(self.remote_file_path).hostname))
 
         resp = requests.get(self.remote_file_path, stream=True)
         if resp.status_code != requests.codes.ok:
-            self.stdout.write("\nDownload failed with ({status}).\n".format(code=resp.status_code))
+            self.stdout.write("Download failed with ({status})\n".format(code=resp.status_code))
             return None
 
         size_so_far = 0
@@ -119,7 +119,7 @@ class FileDownloader(object):
                         aFile.write(chunk)
                     pbar.update(size_so_far)
 
-        self.stdout.write("\nFetched file from server ({file}).\n".format(file=self.downloaded_file_name))
+        self.stdout.write("Fetched file from server ({file})\n".format(file=self.downloaded_file_name))
         return self.downloaded_file_path
 
     def extract(self):
@@ -138,7 +138,7 @@ class FileDownloader(object):
         elif filetype.endswith('.tar.bz2') or file_path.endswith('.tbz'):
             extractor, mode = tarfile.open, 'r:bz2'
         else:
-            self.stdout.write("Unable to extract file ({file}).\n".format(file=self.downloaded_file_name))
+            self.stdout.write("Unable to extract file ({file})\n".format(file=self.downloaded_file_name))
             return None
 
         cwd = os.getcwd()
@@ -148,17 +148,17 @@ class FileDownloader(object):
             try:
                 efile.extractall()
             except Exception as err:
-                self.stdout.write("File failed to extract fully.\n({file})\n".format(file=self.downloaded_file_path))
+                self.stdout.write("File failed to extract fully\n({file})\n".format(file=self.downloaded_file_path))
                 return
             finally:
                 efile.close()
         except Exception as err:
-            self.stdout.write("Unable to extract. Bad or corrupted file.\n({file})\n".format(file=self.downloaded_file_path))
+            self.stdout.write("Unable to extract. Bad or corrupted file\n({file})\n".format(file=self.downloaded_file_path))
             return
         finally:
             os.chdir(cwd)
 
-        self.stdout.write("Extracted file ({file}).\n".format(file=self.extracted_file_name))
+        self.stdout.write("Extracted file ({file})\n".format(file=self.extracted_file_name))
         return self.extracted_file_path
 
     @property
