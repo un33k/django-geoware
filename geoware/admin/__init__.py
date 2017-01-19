@@ -5,8 +5,8 @@ from .division import *
 from .subdivision import *
 from .city import *
 from .language import *
+from .currency import *
 
-# from ..models import Language
 # from ..models import Currency
 # from ..models import Timezone
 # from ..models import Altname
