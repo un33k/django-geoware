@@ -56,7 +56,7 @@ Advanced users:
 ====================
    ```python
     # If you are using GeoDjango with a gis enabled database, then
-    # put the following in your configuration to enable GIS in geoware.
+    # put the following in your `settings.py` to enable GIS in geoware.
     GEOWARE_USING_GIS = True
     MIGRATION_MODULES = {'geoware': 'geoware.migrations_gis'}
 
