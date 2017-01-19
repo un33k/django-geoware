@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 16:32-0500\n"
+"POT-Creation-Date: 2017-01-19 17:14-0500\n"
 "PO-Revision-Date: 2017-01-17 10:13-0500\n"
 "Last-Translator: Val Neekman <info@neekware.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,1366 +17,1366 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: apps.py:11
+#: geoware/apps.py:11
 msgid "GEOWARE.APPLICATION"
 msgstr "Geoware Application"
 
-#: defaults/continent.py:42
+#: geoware/defaults/continent.py:48
 msgid "Africa"
 msgstr ""
 
-#: defaults/continent.py:43
+#: geoware/defaults/continent.py:49
 msgid "Asia"
 msgstr ""
 
-#: defaults/continent.py:44
+#: geoware/defaults/continent.py:50
 msgid "Europe"
 msgstr ""
 
-#: defaults/continent.py:45
+#: geoware/defaults/continent.py:51
 msgid "Oceania"
 msgstr ""
 
-#: defaults/continent.py:46
+#: geoware/defaults/continent.py:52
 msgid "North America"
 msgstr ""
 
-#: defaults/continent.py:47
+#: geoware/defaults/continent.py:53
 msgid "South America"
 msgstr ""
 
-#: defaults/continent.py:48
+#: geoware/defaults/continent.py:54
 msgid "Antarctica"
 msgstr ""
 
-#: defaults/language.py:6
+#: geoware/defaults/language.py:6
 msgid "Afrikaans"
 msgstr ""
 
-#: defaults/language.py:10
+#: geoware/defaults/language.py:10
 msgid "Afrikaans (South Africa)"
 msgstr ""
 
-#: defaults/language.py:14
+#: geoware/defaults/language.py:14
 msgid "Arabic"
 msgstr ""
 
-#: defaults/language.py:18
+#: geoware/defaults/language.py:18
 msgid "Arabic (UAE)"
 msgstr ""
 
-#: defaults/language.py:22
+#: geoware/defaults/language.py:22
 msgid "Arabic (Bahrain)"
 msgstr ""
 
-#: defaults/language.py:26
+#: geoware/defaults/language.py:26
 msgid "Arabic (Algeria)"
 msgstr ""
 
-#: defaults/language.py:30
+#: geoware/defaults/language.py:30
 msgid "Arabic (Egypt)"
 msgstr ""
 
-#: defaults/language.py:34
+#: geoware/defaults/language.py:34
 msgid "Arabic (Iraq)"
 msgstr ""
 
-#: defaults/language.py:38
+#: geoware/defaults/language.py:38
 msgid "Arabic (Jordan)"
 msgstr ""
 
-#: defaults/language.py:42
+#: geoware/defaults/language.py:42
 msgid "Arabic (Kuwait)"
 msgstr ""
 
-#: defaults/language.py:46
+#: geoware/defaults/language.py:46
 msgid "Arabic (Lebanon)"
 msgstr ""
 
-#: defaults/language.py:50
+#: geoware/defaults/language.py:50
 msgid "Arabic (Libya)"
 msgstr ""
 
-#: defaults/language.py:54
+#: geoware/defaults/language.py:54
 msgid "Arabic (Morocco)"
 msgstr ""
 
-#: defaults/language.py:58
+#: geoware/defaults/language.py:58
 msgid "Arabic (Oman)"
 msgstr ""
 
-#: defaults/language.py:62
+#: geoware/defaults/language.py:62
 msgid "Arabic (Qatar)"
 msgstr ""
 
-#: defaults/language.py:66
+#: geoware/defaults/language.py:66
 msgid "Arabic (Saudi Arabia)"
 msgstr ""
 
-#: defaults/language.py:70
+#: geoware/defaults/language.py:70
 msgid "Arabic (Syria)"
 msgstr ""
 
-#: defaults/language.py:74
+#: geoware/defaults/language.py:74
 msgid "Arabic (Tunisia)"
 msgstr ""
 
-#: defaults/language.py:78
+#: geoware/defaults/language.py:78
 msgid "Arabic (Yemen)"
 msgstr ""
 
-#: defaults/language.py:82
+#: geoware/defaults/language.py:82
 msgid "Azeri"
 msgstr ""
 
-#: defaults/language.py:86
+#: geoware/defaults/language.py:86
 msgid "Azeri (Azerbaijan)"
 msgstr ""
 
-#: defaults/language.py:90
+#: geoware/defaults/language.py:90
 msgid "Belarusian"
 msgstr ""
 
-#: defaults/language.py:94
+#: geoware/defaults/language.py:94
 msgid "Belarusian (Belarus)"
 msgstr ""
 
-#: defaults/language.py:98
+#: geoware/defaults/language.py:98
 msgid "Bulgarian"
 msgstr ""
 
-#: defaults/language.py:102
+#: geoware/defaults/language.py:102
 msgid "Bulgarian (Bulgaria)"
 msgstr ""
 
-#: defaults/language.py:106
+#: geoware/defaults/language.py:106
 msgid "Bosnian (Bosnia and Herzegovina)"
 msgstr ""
 
-#: defaults/language.py:110
+#: geoware/defaults/language.py:110
 msgid "Catalan"
 msgstr ""
 
-#: defaults/language.py:114
+#: geoware/defaults/language.py:114
 msgid "Catalan (Spain)"
 msgstr ""
 
-#: defaults/language.py:118
+#: geoware/defaults/language.py:118
 msgid "Czech"
 msgstr ""
 
-#: defaults/language.py:122
+#: geoware/defaults/language.py:122
 msgid "Czech (Czech Republic)"
 msgstr ""
 
-#: defaults/language.py:126
+#: geoware/defaults/language.py:126
 msgid "Welsh"
 msgstr ""
 
-#: defaults/language.py:130
+#: geoware/defaults/language.py:130
 msgid "Welsh (United Kingdom)"
 msgstr ""
 
-#: defaults/language.py:134
+#: geoware/defaults/language.py:134
 msgid "Danish"
 msgstr ""
 
-#: defaults/language.py:138
+#: geoware/defaults/language.py:138
 msgid "Danish (Denmark)"
 msgstr ""
 
-#: defaults/language.py:142
+#: geoware/defaults/language.py:142
 msgid "German"
 msgstr ""
 
-#: defaults/language.py:146
+#: geoware/defaults/language.py:146
 msgid "German (Austria)"
 msgstr ""
 
-#: defaults/language.py:150
+#: geoware/defaults/language.py:150
 msgid "German (Switzerland)"
 msgstr ""
 
-#: defaults/language.py:154
+#: geoware/defaults/language.py:154
 msgid "German (Germany)"
 msgstr ""
 
-#: defaults/language.py:158
+#: geoware/defaults/language.py:158
 msgid "German (Liechtenstein)"
 msgstr ""
 
-#: defaults/language.py:162
+#: geoware/defaults/language.py:162
 msgid "German (Luxembourg)"
 msgstr ""
 
-#: defaults/language.py:166
+#: geoware/defaults/language.py:166
 msgid "Divehi"
 msgstr ""
 
-#: defaults/language.py:170
+#: geoware/defaults/language.py:170
 msgid "Divehi (Maldives)"
 msgstr ""
 
-#: defaults/language.py:174
+#: geoware/defaults/language.py:174
 msgid "Greek"
 msgstr ""
 
-#: defaults/language.py:178
+#: geoware/defaults/language.py:178
 msgid "Greek (Greece)"
 msgstr ""
 
-#: defaults/language.py:182
+#: geoware/defaults/language.py:182
 msgid "English"
 msgstr ""
 
-#: defaults/language.py:186
+#: geoware/defaults/language.py:186
 msgid "English (Australia)"
 msgstr ""
 
-#: defaults/language.py:190
+#: geoware/defaults/language.py:190
 msgid "English (Belize)"
 msgstr ""
 
-#: defaults/language.py:194
+#: geoware/defaults/language.py:194
 msgid "English (Canada)"
 msgstr ""
 
-#: defaults/language.py:198
+#: geoware/defaults/language.py:198
 msgid "English (Caribbean)"
 msgstr ""
 
-#: defaults/language.py:202
+#: geoware/defaults/language.py:202
 msgid "English (United Kingdom)"
 msgstr ""
 
-#: defaults/language.py:206
+#: geoware/defaults/language.py:206
 msgid "English (Ireland)"
 msgstr ""
 
-#: defaults/language.py:210
+#: geoware/defaults/language.py:210
 msgid "English (Jamaica)"
 msgstr ""
 
-#: defaults/language.py:214
+#: geoware/defaults/language.py:214
 msgid "English (New Zealand)"
 msgstr ""
 
-#: defaults/language.py:218
+#: geoware/defaults/language.py:218
 msgid "English (The Philippines)"
 msgstr ""
 
-#: defaults/language.py:222
+#: geoware/defaults/language.py:222
 msgid "English (Trinidad and Tobago)"
 msgstr ""
 
-#: defaults/language.py:226
+#: geoware/defaults/language.py:226
 msgid "English (United States)"
 msgstr ""
 
-#: defaults/language.py:230
+#: geoware/defaults/language.py:230
 msgid "English (Saint Vincent and the Grenadines)"
 msgstr ""
 
-#: defaults/language.py:234
+#: geoware/defaults/language.py:234
 msgid "English (British Virgin Islands)"
 msgstr ""
 
-#: defaults/language.py:238
+#: geoware/defaults/language.py:238
 msgid "English (South Africa)"
 msgstr ""
 
-#: defaults/language.py:242
+#: geoware/defaults/language.py:242
 msgid "English (Zimbabwe)"
 msgstr ""
 
-#: defaults/language.py:246
+#: geoware/defaults/language.py:246
 msgid "Esperanto"
 msgstr ""
 
-#: defaults/language.py:250
+#: geoware/defaults/language.py:250
 msgid "Spanish"
 msgstr ""
 
-#: defaults/language.py:254
+#: geoware/defaults/language.py:254
 msgid "Spanish (Argentina)"
 msgstr ""
 
-#: defaults/language.py:258
+#: geoware/defaults/language.py:258
 msgid "Spanish (Bolivia)"
 msgstr ""
 
-#: defaults/language.py:262
+#: geoware/defaults/language.py:262
 msgid "Spanish (Chile)"
 msgstr ""
 
-#: defaults/language.py:266
+#: geoware/defaults/language.py:266
 msgid "Spanish (Colombia)"
 msgstr ""
 
-#: defaults/language.py:270
+#: geoware/defaults/language.py:270
 msgid "Spanish (Costa Rica)"
 msgstr ""
 
-#: defaults/language.py:274
+#: geoware/defaults/language.py:274
 msgid "Spanish (Dominican Republic)"
 msgstr ""
 
-#: defaults/language.py:278
+#: geoware/defaults/language.py:278
 msgid "Spanish (Ecuador)"
 msgstr ""
 
-#: defaults/language.py:282
+#: geoware/defaults/language.py:282
 msgid "Spanish (Castilian)"
 msgstr ""
 
-#: defaults/language.py:286
+#: geoware/defaults/language.py:286
 msgid "Spanish (Spain)"
 msgstr ""
 
-#: defaults/language.py:290
+#: geoware/defaults/language.py:290
 msgid "Spanish (Guatemala)"
 msgstr ""
 
-#: defaults/language.py:294
+#: geoware/defaults/language.py:294
 msgid "Spanish (Honduras)"
 msgstr ""
 
-#: defaults/language.py:298
+#: geoware/defaults/language.py:298
 msgid "Spanish (Mexico)"
 msgstr ""
 
-#: defaults/language.py:302
+#: geoware/defaults/language.py:302
 msgid "Spanish (Nicaragua)"
 msgstr ""
 
-#: defaults/language.py:306
+#: geoware/defaults/language.py:306
 msgid "Spanish (Panama)"
 msgstr ""
 
-#: defaults/language.py:310
+#: geoware/defaults/language.py:310
 msgid "Spanish (Peru)"
 msgstr ""
 
-#: defaults/language.py:314
+#: geoware/defaults/language.py:314
 msgid "Spanish (Puerto Rico)"
 msgstr ""
 
-#: defaults/language.py:318
+#: geoware/defaults/language.py:318
 msgid "Spanish (Paraguay)"
 msgstr ""
 
-#: defaults/language.py:322
+#: geoware/defaults/language.py:322
 msgid "Spanish (El Salvador)"
 msgstr ""
 
-#: defaults/language.py:326
+#: geoware/defaults/language.py:326
 msgid "Spanish (Uruguay)"
 msgstr ""
 
-#: defaults/language.py:330
+#: geoware/defaults/language.py:330
 msgid "Spanish (Venezuela)"
 msgstr ""
 
-#: defaults/language.py:334
+#: geoware/defaults/language.py:334
 msgid "Estonian"
 msgstr ""
 
-#: defaults/language.py:338
+#: geoware/defaults/language.py:338
 msgid "Estonian (Estonia)"
 msgstr ""
 
-#: defaults/language.py:342
+#: geoware/defaults/language.py:342
 msgid "Basque"
 msgstr ""
 
-#: defaults/language.py:346
+#: geoware/defaults/language.py:346
 msgid "Basque (Spain)"
 msgstr ""
 
-#: defaults/language.py:350
+#: geoware/defaults/language.py:350
 msgid "Farsi"
 msgstr ""
 
-#: defaults/language.py:354
+#: geoware/defaults/language.py:354
 msgid "Farsi (Iran)"
 msgstr ""
 
-#: defaults/language.py:358
+#: geoware/defaults/language.py:358
 msgid "Finnish"
 msgstr ""
 
-#: defaults/language.py:362
+#: geoware/defaults/language.py:362
 msgid "Finnish (Finland)"
 msgstr ""
 
-#: defaults/language.py:366
+#: geoware/defaults/language.py:366
 msgid "Faroese"
 msgstr ""
 
-#: defaults/language.py:370
+#: geoware/defaults/language.py:370
 msgid "Faroese (Faroe Islands)"
 msgstr ""
 
-#: defaults/language.py:374
+#: geoware/defaults/language.py:374
 msgid "French"
 msgstr ""
 
-#: defaults/language.py:378
+#: geoware/defaults/language.py:378
 msgid "French (Belgium)"
 msgstr ""
 
-#: defaults/language.py:382
+#: geoware/defaults/language.py:382
 msgid "French (Canada)"
 msgstr ""
 
-#: defaults/language.py:386
+#: geoware/defaults/language.py:386
 msgid "French (Switzerland)"
 msgstr ""
 
-#: defaults/language.py:390
+#: geoware/defaults/language.py:390
 msgid "French (France)"
 msgstr ""
 
-#: defaults/language.py:394
+#: geoware/defaults/language.py:394
 msgid "French (Luxembourg)"
 msgstr ""
 
-#: defaults/language.py:398
+#: geoware/defaults/language.py:398
 msgid "French (Monaco)"
 msgstr ""
 
-#: defaults/language.py:402
+#: geoware/defaults/language.py:402
 msgid "French (Futuna)"
 msgstr ""
 
-#: defaults/language.py:406
+#: geoware/defaults/language.py:406
 msgid "Futunian (Futuna)"
 msgstr ""
 
-#: defaults/language.py:410
+#: geoware/defaults/language.py:410
 msgid "Galician"
 msgstr ""
 
-#: defaults/language.py:414
+#: geoware/defaults/language.py:414
 msgid "Galician (Spain)"
 msgstr ""
 
-#: defaults/language.py:418
+#: geoware/defaults/language.py:418
 msgid "Gujarati"
 msgstr ""
 
-#: defaults/language.py:422
+#: geoware/defaults/language.py:422
 msgid "Gujarati (India)"
 msgstr ""
 
-#: defaults/language.py:426
+#: geoware/defaults/language.py:426
 msgid "Hebrew"
 msgstr ""
 
-#: defaults/language.py:430
+#: geoware/defaults/language.py:430
 msgid "Hebrew (Israel)"
 msgstr ""
 
-#: defaults/language.py:434
+#: geoware/defaults/language.py:434
 msgid "Hindi"
 msgstr ""
 
-#: defaults/language.py:438
+#: geoware/defaults/language.py:438
 msgid "Hindi (India)"
 msgstr ""
 
-#: defaults/language.py:442
+#: geoware/defaults/language.py:442
 msgid "Croatian"
 msgstr ""
 
-#: defaults/language.py:446
+#: geoware/defaults/language.py:446
 msgid "Croatian (Bosnia and Herzegovina)"
 msgstr ""
 
-#: defaults/language.py:450
+#: geoware/defaults/language.py:450
 msgid "Croatian (Croatia)"
 msgstr ""
 
-#: defaults/language.py:454
+#: geoware/defaults/language.py:454
 msgid "Hungarian"
 msgstr ""
 
-#: defaults/language.py:458
+#: geoware/defaults/language.py:458
 msgid "Hungarian (Hungary)"
 msgstr ""
 
-#: defaults/language.py:462
+#: geoware/defaults/language.py:462
 msgid "Armenian"
 msgstr ""
 
-#: defaults/language.py:466
+#: geoware/defaults/language.py:466
 msgid "Armenian (Armenia)"
 msgstr ""
 
-#: defaults/language.py:470
+#: geoware/defaults/language.py:470
 msgid "Indonesian"
 msgstr ""
 
-#: defaults/language.py:474
+#: geoware/defaults/language.py:474
 msgid "Indonesian (Indonesia)"
 msgstr ""
 
-#: defaults/language.py:478
+#: geoware/defaults/language.py:478
 msgid "Icelandic"
 msgstr ""
 
-#: defaults/language.py:482
+#: geoware/defaults/language.py:482
 msgid "Icelandic (Iceland)"
 msgstr ""
 
-#: defaults/language.py:486
+#: geoware/defaults/language.py:486
 msgid "Italian"
 msgstr ""
 
-#: defaults/language.py:490
+#: geoware/defaults/language.py:490
 msgid "Italian (Switzerland)"
 msgstr ""
 
-#: defaults/language.py:494
+#: geoware/defaults/language.py:494
 msgid "Italian (Italy)"
 msgstr ""
 
-#: defaults/language.py:498
+#: geoware/defaults/language.py:498
 msgid "Japanese"
 msgstr ""
 
-#: defaults/language.py:502
+#: geoware/defaults/language.py:502
 msgid "Japanese (Japan)"
 msgstr ""
 
-#: defaults/language.py:506
+#: geoware/defaults/language.py:506
 msgid "Georgian"
 msgstr ""
 
-#: defaults/language.py:510
+#: geoware/defaults/language.py:510
 msgid "Georgian (Georgia)"
 msgstr ""
 
-#: defaults/language.py:514
+#: geoware/defaults/language.py:514
 msgid "Kazakh"
 msgstr ""
 
-#: defaults/language.py:518
+#: geoware/defaults/language.py:518
 msgid "Kazakh (Kazakhstan)"
 msgstr ""
 
-#: defaults/language.py:522
+#: geoware/defaults/language.py:522
 msgid "Kannada"
 msgstr ""
 
-#: defaults/language.py:526
+#: geoware/defaults/language.py:526
 msgid "Kannada (India)"
 msgstr ""
 
-#: defaults/language.py:530
+#: geoware/defaults/language.py:530
 msgid "Korean"
 msgstr ""
 
-#: defaults/language.py:534
+#: geoware/defaults/language.py:534
 msgid "Korean (Korea)"
 msgstr ""
 
-#: defaults/language.py:538
+#: geoware/defaults/language.py:538
 msgid "Konkani"
 msgstr ""
 
-#: defaults/language.py:542
+#: geoware/defaults/language.py:542
 msgid "Konkani (India)"
 msgstr ""
 
-#: defaults/language.py:546
+#: geoware/defaults/language.py:546
 msgid "Kyrgyz"
 msgstr ""
 
-#: defaults/language.py:550
+#: geoware/defaults/language.py:550
 msgid "Kyrgyz (Kyrgyzstan)"
 msgstr ""
 
-#: defaults/language.py:554
+#: geoware/defaults/language.py:554
 msgid "Lithuanian"
 msgstr ""
 
-#: defaults/language.py:558
+#: geoware/defaults/language.py:558
 msgid "Lithuanian (Lithuania)"
 msgstr ""
 
-#: defaults/language.py:562
+#: geoware/defaults/language.py:562
 msgid "Latvian"
 msgstr ""
 
-#: defaults/language.py:566
+#: geoware/defaults/language.py:566
 msgid "Latvian (Latvia)"
 msgstr ""
 
-#: defaults/language.py:570
+#: geoware/defaults/language.py:570
 msgid "Maori"
 msgstr ""
 
-#: defaults/language.py:574
+#: geoware/defaults/language.py:574
 msgid "Maori (New Zealand)"
 msgstr ""
 
-#: defaults/language.py:578
+#: geoware/defaults/language.py:578
 msgid "Macedonian"
 msgstr ""
 
-#: defaults/language.py:582
+#: geoware/defaults/language.py:582
 msgid "Macedonian (Republic of Macedonia)"
 msgstr ""
 
-#: defaults/language.py:586
+#: geoware/defaults/language.py:586
 msgid "Mongolian"
 msgstr ""
 
-#: defaults/language.py:590
+#: geoware/defaults/language.py:590
 msgid "Mongolian (Mongolia)"
 msgstr ""
 
-#: defaults/language.py:594
+#: geoware/defaults/language.py:594
 msgid "Marathi"
 msgstr ""
 
-#: defaults/language.py:598
+#: geoware/defaults/language.py:598
 msgid "Marathi (India)"
 msgstr ""
 
-#: defaults/language.py:602
+#: geoware/defaults/language.py:602
 msgid "Malay"
 msgstr ""
 
-#: defaults/language.py:606
+#: geoware/defaults/language.py:606
 msgid "Malay (Brunei Darussalam)"
 msgstr ""
 
-#: defaults/language.py:610
+#: geoware/defaults/language.py:610
 msgid "Malay (Malaysia)"
 msgstr ""
 
-#: defaults/language.py:614
+#: geoware/defaults/language.py:614
 msgid "Maltese"
 msgstr ""
 
-#: defaults/language.py:618
+#: geoware/defaults/language.py:618
 msgid "Maltese (Malta)"
 msgstr ""
 
-#: defaults/language.py:622
+#: geoware/defaults/language.py:622
 msgid "Norwegian Bokmal"
 msgstr ""
 
-#: defaults/language.py:626
+#: geoware/defaults/language.py:626
 msgid "Norwegian Bokmal (Norway)"
 msgstr ""
 
-#: defaults/language.py:630
+#: geoware/defaults/language.py:630
 msgid "Dutch"
 msgstr ""
 
-#: defaults/language.py:634
+#: geoware/defaults/language.py:634
 msgid "Dutch (Belgium)"
 msgstr ""
 
-#: defaults/language.py:638
+#: geoware/defaults/language.py:638
 msgid "Dutch (Netherlands)"
 msgstr ""
 
-#: defaults/language.py:642
+#: geoware/defaults/language.py:642
 msgid "Norwegian Nynorsk (Norway)"
 msgstr ""
 
-#: defaults/language.py:646
+#: geoware/defaults/language.py:646
 msgid "Northern Sotho"
 msgstr ""
 
-#: defaults/language.py:650
+#: geoware/defaults/language.py:650
 msgid "Northern Sotho (South Africa)"
 msgstr ""
 
-#: defaults/language.py:654
+#: geoware/defaults/language.py:654
 msgid "Punjabi"
 msgstr ""
 
-#: defaults/language.py:658
+#: geoware/defaults/language.py:658
 msgid "Punjabi (India)"
 msgstr ""
 
-#: defaults/language.py:662
+#: geoware/defaults/language.py:662
 msgid "Polish"
 msgstr ""
 
-#: defaults/language.py:666
+#: geoware/defaults/language.py:666
 msgid "Polish (Poland)"
 msgstr ""
 
-#: defaults/language.py:670
+#: geoware/defaults/language.py:670
 msgid "Pashto"
 msgstr ""
 
-#: defaults/language.py:674
+#: geoware/defaults/language.py:674
 msgid "Pashto (Afghanistan)"
 msgstr ""
 
-#: defaults/language.py:678
+#: geoware/defaults/language.py:678
 msgid "Portuguese"
 msgstr ""
 
-#: defaults/language.py:682
+#: geoware/defaults/language.py:682
 msgid "Portuguese (Brazil)"
 msgstr ""
 
-#: defaults/language.py:686
+#: geoware/defaults/language.py:686
 msgid "Portuguese (Portugal)"
 msgstr ""
 
-#: defaults/language.py:690
+#: geoware/defaults/language.py:690
 msgid "Quechua"
 msgstr ""
 
-#: defaults/language.py:694
+#: geoware/defaults/language.py:694
 msgid "Quechua (Bolivia)"
 msgstr ""
 
-#: defaults/language.py:698
+#: geoware/defaults/language.py:698
 msgid "Quechua (Ecuador)"
 msgstr ""
 
-#: defaults/language.py:702
+#: geoware/defaults/language.py:702
 msgid "Quechua (Peru)"
 msgstr ""
 
-#: defaults/language.py:706
+#: geoware/defaults/language.py:706
 msgid "Romanian"
 msgstr ""
 
-#: defaults/language.py:710
+#: geoware/defaults/language.py:710
 msgid "Romanian (Romania)"
 msgstr ""
 
-#: defaults/language.py:714
+#: geoware/defaults/language.py:714
 msgid "Russian"
 msgstr ""
 
-#: defaults/language.py:718
+#: geoware/defaults/language.py:718
 msgid "Russian (Russia)"
 msgstr ""
 
-#: defaults/language.py:722
+#: geoware/defaults/language.py:722
 msgid "Sanskrit"
 msgstr ""
 
-#: defaults/language.py:726
+#: geoware/defaults/language.py:726
 msgid "Sanskrit (India)"
 msgstr ""
 
-#: defaults/language.py:730
+#: geoware/defaults/language.py:730
 msgid "Sami (Northern)"
 msgstr ""
 
-#: defaults/language.py:734
+#: geoware/defaults/language.py:734
 msgid "Sami (Finland)"
 msgstr ""
 
-#: defaults/language.py:738
+#: geoware/defaults/language.py:738
 msgid "Sami (Norway)"
 msgstr ""
 
-#: defaults/language.py:742
+#: geoware/defaults/language.py:742
 msgid "Sami (Sweden)"
 msgstr ""
 
-#: defaults/language.py:746
+#: geoware/defaults/language.py:746
 msgid "Slovak"
 msgstr ""
 
-#: defaults/language.py:750
+#: geoware/defaults/language.py:750
 msgid "Slovak (Slovakia)"
 msgstr ""
 
-#: defaults/language.py:754
+#: geoware/defaults/language.py:754
 msgid "Slovenian"
 msgstr ""
 
-#: defaults/language.py:758
+#: geoware/defaults/language.py:758
 msgid "Slovenian (Slovenia)"
 msgstr ""
 
-#: defaults/language.py:762
+#: geoware/defaults/language.py:762
 msgid "Albanian"
 msgstr ""
 
-#: defaults/language.py:766
+#: geoware/defaults/language.py:766
 msgid "Albanian (Albania)"
 msgstr ""
 
-#: defaults/language.py:770
+#: geoware/defaults/language.py:770
 msgid "Serbian (Bosnia and Herzegovina)"
 msgstr ""
 
-#: defaults/language.py:774
+#: geoware/defaults/language.py:774
 msgid "Serbian (Serbia and Montenegro)"
 msgstr ""
 
-#: defaults/language.py:778
+#: geoware/defaults/language.py:778
 msgid "Swedish"
 msgstr ""
 
-#: defaults/language.py:782
+#: geoware/defaults/language.py:782
 msgid "Swedish (Finland)"
 msgstr ""
 
-#: defaults/language.py:786
+#: geoware/defaults/language.py:786
 msgid "Swedish (Sweden)"
 msgstr ""
 
-#: defaults/language.py:790
+#: geoware/defaults/language.py:790
 msgid "Swahili"
 msgstr ""
 
-#: defaults/language.py:794
+#: geoware/defaults/language.py:794
 msgid "Swahili (Kenya)"
 msgstr ""
 
-#: defaults/language.py:798
+#: geoware/defaults/language.py:798
 msgid "Syriac"
 msgstr ""
 
-#: defaults/language.py:802
+#: geoware/defaults/language.py:802
 msgid "Syriac (Syria)"
 msgstr ""
 
-#: defaults/language.py:806
+#: geoware/defaults/language.py:806
 msgid "Tamil"
 msgstr ""
 
-#: defaults/language.py:810
+#: geoware/defaults/language.py:810
 msgid "Tamil (India)"
 msgstr ""
 
-#: defaults/language.py:814
+#: geoware/defaults/language.py:814
 msgid "Telugu"
 msgstr ""
 
-#: defaults/language.py:818
+#: geoware/defaults/language.py:818
 msgid "Telugu (India)"
 msgstr ""
 
-#: defaults/language.py:822
+#: geoware/defaults/language.py:822
 msgid "Thai"
 msgstr ""
 
-#: defaults/language.py:826
+#: geoware/defaults/language.py:826
 msgid "Thai (Thailand)"
 msgstr ""
 
-#: defaults/language.py:830
+#: geoware/defaults/language.py:830
 msgid "Tagalog"
 msgstr ""
 
-#: defaults/language.py:834
+#: geoware/defaults/language.py:834
 msgid "Tagalog (The Philippines)"
 msgstr ""
 
-#: defaults/language.py:838
+#: geoware/defaults/language.py:838
 msgid "Tswana"
 msgstr ""
 
-#: defaults/language.py:842
+#: geoware/defaults/language.py:842
 msgid "Tswana (South Africa)"
 msgstr ""
 
-#: defaults/language.py:846
+#: geoware/defaults/language.py:846
 msgid "Turkish"
 msgstr ""
 
-#: defaults/language.py:850
+#: geoware/defaults/language.py:850
 msgid "Turkish (Turkey)"
 msgstr ""
 
-#: defaults/language.py:854
+#: geoware/defaults/language.py:854
 msgid "Tatar"
 msgstr ""
 
-#: defaults/language.py:858
+#: geoware/defaults/language.py:858
 msgid "Tatar (Russia)"
 msgstr ""
 
-#: defaults/language.py:862
+#: geoware/defaults/language.py:862
 msgid "Tsonga"
 msgstr ""
 
-#: defaults/language.py:866
+#: geoware/defaults/language.py:866
 msgid "Ukrainian"
 msgstr ""
 
-#: defaults/language.py:870
+#: geoware/defaults/language.py:870
 msgid "Ukrainian (Ukraine)"
 msgstr ""
 
-#: defaults/language.py:874
+#: geoware/defaults/language.py:874
 msgid "Urdu"
 msgstr ""
 
-#: defaults/language.py:878
+#: geoware/defaults/language.py:878
 msgid "Urdu (Pakistan)"
 msgstr ""
 
-#: defaults/language.py:882
+#: geoware/defaults/language.py:882
 msgid "Uzbek (Latin)"
 msgstr ""
 
-#: defaults/language.py:886
+#: geoware/defaults/language.py:886
 msgid "Uzbek (Uzbekistan)"
 msgstr ""
 
-#: defaults/language.py:890
+#: geoware/defaults/language.py:890
 msgid "Vietnamese"
 msgstr ""
 
-#: defaults/language.py:894
+#: geoware/defaults/language.py:894
 msgid "Vietnamese (Viet Nam)"
 msgstr ""
 
-#: defaults/language.py:898
+#: geoware/defaults/language.py:898
 msgid "Wallisian (Noumea)"
 msgstr ""
 
-#: defaults/language.py:902
+#: geoware/defaults/language.py:902
 msgid "Xhosa"
 msgstr ""
 
-#: defaults/language.py:906
+#: geoware/defaults/language.py:906
 msgid "Xhosa (South Africa)"
 msgstr ""
 
-#: defaults/language.py:910
+#: geoware/defaults/language.py:910
 msgid "Chinese"
 msgstr ""
 
-#: defaults/language.py:914
+#: geoware/defaults/language.py:914
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: defaults/language.py:918
+#: geoware/defaults/language.py:918
 msgid "Chinese (Hong Kong)"
 msgstr ""
 
-#: defaults/language.py:922
+#: geoware/defaults/language.py:922
 msgid "Chinese (Macau)"
 msgstr ""
 
-#: defaults/language.py:926
+#: geoware/defaults/language.py:926
 msgid "Chinese (Singapore)"
 msgstr ""
 
-#: defaults/language.py:930
+#: geoware/defaults/language.py:930
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: defaults/language.py:934
+#: geoware/defaults/language.py:934
 msgid "Zulu"
 msgstr ""
 
-#: defaults/language.py:938
+#: geoware/defaults/language.py:938
 msgid "Zulu (South Africa)"
 msgstr ""
 
-#: defaults/ocean.py:27
+#: geoware/defaults/ocean.py:27
 msgid "Arctic"
 msgstr ""
 
-#: defaults/ocean.py:28
+#: geoware/defaults/ocean.py:28
 msgid "Atlantic"
 msgstr ""
 
-#: defaults/ocean.py:29
+#: geoware/defaults/ocean.py:29
 msgid "Indian"
 msgstr ""
 
-#: defaults/ocean.py:30
+#: geoware/defaults/ocean.py:30
 msgid "Pacific"
 msgstr ""
 
-#: defaults/ocean.py:31
+#: geoware/defaults/ocean.py:31
 msgid "Southern"
 msgstr ""
 
-#: models/altname.py:17
-msgid "LOCATION.ALTNAME.LAGUAGUE"
-msgstr "Language"
-
-#: models/altname.py:24
-msgid "LOCATION.ALTNAME.NAME"
-msgstr "Name"
-
-#: models/altname.py:30
-msgid "LOCATION.ALTNAME.SLUG"
-msgstr "Slug"
-
-#: models/altname.py:51
-msgid "LOCATION.ALTNAME.ACTIVE"
-msgstr "Active"
-
-#: models/altname.py:58 models/base.py:67
-msgid "LOCATION.ALTNAME"
-msgstr "Alternative Name"
-
-#: models/altname.py:59
-msgid "LOCATION.ALTNAME#plural"
-msgstr "Alternative Names"
-
-#: models/base.py:23
-msgid "FIELDS.NAME"
-msgstr "Name"
-
-#: models/base.py:29
-msgid "LOCATION.SLUG"
-msgstr "Slug"
-
-#: models/base.py:36
-msgid "LOCATION.NAME_STD.FIELD"
-msgstr "Standard Name"
-
-#: models/base.py:43
-msgid "LOCATION.AREA_SQUARE_KM"
-msgstr "Area (km^2)"
-
-#: models/base.py:48
-msgid "LOCATION.POPULATION"
-msgstr "Population"
-
-#: models/base.py:53
-msgid "LOCATION.ELEVATION_METERS"
-msgstr "Elevation (m)"
-
-#: models/base.py:73
-msgid "LOCATION.URL"
-msgstr "URL"
-
-#: models/base.py:80
-msgid "LOCATION.INFO_DETAILS"
-msgstr "Details"
-
-#: models/base.py:86
-msgid "LOCATION.ACTIVE"
-msgstr "Active"
-
-#: models/base.py:127
-msgid "LOCATION.CITY.BOUNDING.BOX.WEST"
-msgstr "Bounding Box (West)"
-
-#: models/base.py:132
-msgid "LOCATION.CITY.BOUNDING.BOX.NORTH"
-msgstr "Bounding Box (North)"
-
-#: models/base.py:137
-msgid "LOCATION.CITY.BOUNDING.BOX.EAST"
-msgstr "Bounding Box (East)"
-
-#: models/base.py:142
-msgid "LOCATION.CITY.BOUNDING.BOX.SOUTH"
-msgstr "Bounding Box (South)"
-
-#: models/base.py:153
-msgid "LOCATION.CITY.POINT"
-msgstr "Point"
-
-#: models/base.py:162
-msgid "LOCATION.CITY.LATITUDE"
-msgstr "Latitude"
-
-#: models/base.py:167
-msgid "LOCATION.CITY.LONGITUDE"
-msgstr "Longitude"
-
-#: models/city.py:11
-msgid "LOCATION.CITY.COUNTRY"
-msgstr "Country"
-
-#: models/city.py:19
-msgid "LOCATION.CITY.DIVISION"
-msgstr "Division"
-
-#: models/city.py:27
-msgid "LOCATION.CITY.SUBDIVISION"
-msgstr "Subdivision"
-
-#: models/city.py:35
-msgid "LOCATION.CITY.TIMEZONE"
-msgstr "Timezone"
-
-#: models/city.py:43
-msgid "LOCATION.CITY.DISTRICT_OF"
-msgstr "District Of"
-
-#: models/city.py:51
-msgid "LOCATION.CITY"
-msgstr "City"
-
-#: models/city.py:52
-msgid "LOCATION.CITY#plural"
-msgstr "Cities"
-
-#: models/continent.py:12
-msgid "LOCATION.CONTINENT.CODE"
-msgstr "Code"
-
-#: models/continent.py:20
-msgid "LOCATION.CONTINENT"
-msgstr "Continent"
-
-#: models/continent.py:21
-msgid "LOCATION.CONTINENT#plural"
-msgstr "Continents"
-
-#: models/country.py:13
-msgid "LOCATION.COUNTRY.CONTINENT"
-msgstr "Continent"
-
-#: models/country.py:21
-msgid "LOCATION.COUNTRY.JURISDICTION"
-msgstr "Jurisdiction"
-
-#: models/country.py:25
-msgid "LOCATION.COUNTRY.SOVEREIGNTY"
-msgstr "Sovereignty"
-
-#: models/country.py:30 models/currency.py:75
-msgid "LOCATION.CURRENCY"
-msgstr "Currency"
-
-#: models/country.py:38
-msgid "LOCATION.CAPITAL"
-msgstr "Capital"
-
-#: models/country.py:45
-msgid "LOCATION.CODE.ISO_ALPHA_2"
-msgstr "ISO Alpha 2"
-
-#: models/country.py:51
-msgid "LOCATION.CODE.ISO_ALPHA_3"
-msgstr "ISO Alpha 3"
-
-#: models/country.py:57
-msgid "LOCATION.CODE.ISO_NUMERIC"
-msgstr "ISO Numeric"
-
-#: models/country.py:63
-msgid "LOCATION.CODE.FIPS"
-msgstr "FIPS Code"
-
-#: models/country.py:69
-msgid "LOCATION.CODE.INTERNATIONAL_DIALING"
-msgstr "International Dialing"
-
-#: models/country.py:76
-msgid "LOCATION.CODE.TOP_LEVEL_DOMAIN"
-msgstr "Top Level Domain"
-
-#: models/country.py:84
-msgid "LOCATION.NEIGHBORS"
-msgstr "Neighbors"
-
-#: models/country.py:91
-msgid "LOCATION.LANGUAGUES"
-msgstr "Languages"
-
-#: models/country.py:99
-msgid "LOCATION.COUNTRY"
-msgstr "Country"
-
-#: models/country.py:100
-msgid "LOCATION.COUNTRY#plural"
-msgstr "Countries"
-
-#: models/currency.py:16
-msgid "LOCATION.CURRENCY.NAME"
-msgstr "Name"
-
-#: models/currency.py:23
-msgid "LOCATION.CURRENCY.SLUG"
-msgstr "Slug"
-
-#: models/currency.py:30
-msgid "LOCATION.CURRENCY.CODE"
-msgstr "Code"
-
-#: models/currency.py:36
-msgid "LOCATION.CURRENCY.SYMBOL"
-msgstr "Symbol"
-
-#: models/currency.py:43
-msgid "LOCATION.CURRENCY.FRACTIONAL_UNIT"
-msgstr "Fractional Unit"
-
-#: models/currency.py:50
-msgid "LOCATION.CURRENCY.FRACTIONAL_RATIO"
-msgstr "Fractional Ratio"
-
-#: models/currency.py:55
-msgid "LOCATION.CURRENCY.URL"
-msgstr "URL"
-
-#: models/currency.py:62
-msgid "LOCATION.CURRENCY.INFO_DETAILS"
-msgstr "Details"
-
-#: models/currency.py:68
-msgid "LOCATION.CURRENCY.ACTIVE"
-msgstr "Active"
-
-#: models/currency.py:76
-msgid "LOCATION.CURRENCY#plural"
-msgstr "Currency"
-
-#: models/language.py:16
-msgid "LOCATION.LANGUAGE.NAME"
-msgstr "Name"
-
-#: models/language.py:23
-msgid "LOCATION.LANGUAGE.SLUG"
-msgstr "Slug"
-
-#: models/language.py:30
-msgid "LOCATION.LANGUAGE.CODE"
-msgstr "Code"
-
-#: models/language.py:36
-msgid "LOCATION.LANGUAGE.WORLDWIDE_PERCENTAGE"
-msgstr "Worldwide Percentage"
-
-#: models/language.py:42
-msgid "LOCATION.LANGUAGE.DIALECT"
-msgstr "Dialect"
-
-#: models/language.py:49
-msgid "LOCATION.LANGUAGE.URL"
-msgstr "URL"
-
-#: models/language.py:56
-msgid "LOCATION.LANGUAGE.INFO_DETAILS"
-msgstr "Details"
-
-#: models/language.py:62
-msgid "LOCATION.LANGUAGE.ACTIVE"
-msgstr "Active"
-
-#: models/language.py:69
-msgid "LOCATION.LANGUAGE"
-msgstr "Language"
-
-#: models/language.py:70
-msgid "LOCATION.LANGUAGE#plural"
-msgstr "Languages"
-
-#: models/ocean.py:12
-msgid "LOCATION.OCEAN.DEPTH_MAX"
-msgstr "Max Depth"
-
-#: models/ocean.py:18
-msgid "LOCATION.OCEAN.DEPTH_MAX_NAME"
-msgstr "Max Depth Name"
-
-#: models/ocean.py:27
-msgid "LOCATION.OCEAN"
-msgstr "Ocean"
-
-#: models/ocean.py:28
-msgid "LOCATION.OCEAN#plural"
-msgstr "Oceans"
-
-#: models/division.py:13
-msgid "LOCATION.DIVISION.COUNTRY"
-msgstr "Country"
-
-#: models/division.py:21
-msgid "LOCATION.DIVISION.CAPITAL"
-msgstr "Capital"
-
-#: models/division.py:28
-msgid "LOCATION.DIVISION.CODE"
-msgstr "Code"
-
-#: models/division.py:35
-msgid "LOCATION.DIVISION.CODE_FIPS"
-msgstr "FIPS Code"
-
-#: models/division.py:44
+#: geoware/forms/altname.py:20 geoware/forms/city.py:28
+#: geoware/forms/subdivision.py:22 geoware/models/division.py:44
 msgid "LOCATION.DIVISION"
 msgstr "Division"
 
-#: models/division.py:45
-msgid "LOCATION.DIVISION#plural"
-msgstr "Divisions"
+#: geoware/forms/city.py:20 geoware/forms/division.py:21
+#: geoware/models/country.py:99
+msgid "LOCATION.COUNTRY"
+msgstr "Country"
 
-#: models/subdivision.py:13
-msgid "LOCATION.SUBDIVISION.DIVISION"
-msgstr "Division"
-
-#: models/subdivision.py:21
-msgid "LOCATION.SUBDIVISION.CAPITAL"
-msgstr "Capital"
-
-#: models/subdivision.py:28
-msgid "LOCATION.SUBDIVISION.CODE"
-msgstr "Code"
-
-#: models/subdivision.py:35
-msgid "LOCATION.SUBDIVISION.CODE_FIPS"
-msgstr "FIPS Code"
-
-#: models/subdivision.py:44
+#: geoware/forms/city.py:36 geoware/models/subdivision.py:44
 msgid "LOCATION.SUBDIVISION"
 msgstr "Subdivision"
 
-#: models/subdivision.py:45
-msgid "LOCATION.SUBDIVISION#plural"
-msgstr "Subdivisions"
+#: geoware/forms/city.py:44 geoware/models/city.py:43
+msgid "LOCATION.CITY.DISTRICT_OF"
+msgstr "District Of"
 
-#: models/timezone.py:17
-msgid "LOCATION.TIMEZONE.COUNTRY"
-msgstr "Country"
-
-#: models/timezone.py:24
-msgid "LOCATION.TIMEZONE.ID"
-msgstr "Timezone ID"
-
-#: models/timezone.py:30
-msgid "LOCATION.TIMEZONE.SLUG"
-msgstr "Slug"
-
-#: models/timezone.py:37
-msgid "LOCATION.TIMEZONE.OFFSET_GMT_JAN_1"
-msgstr "GMT Offset (Jan 1)"
-
-#: models/timezone.py:42
-msgid "LOCATION.TIMEZONE.OFFSET_DST_JUL_1"
-msgstr "DST Offset (Jul 1)"
-
-#: models/timezone.py:47
-msgid "LOCATION.TIMEZONE.OFFSET_RAW"
-msgstr "Raw Offset"
-
-#: models/timezone.py:52
-msgid "LOCATION.TIMEZONE.URL"
-msgstr "URL"
-
-#: models/timezone.py:59
-msgid "LOCATION.TIMEZONE.INFO_DETAILS"
-msgstr "Details"
-
-#: models/timezone.py:65
-msgid "LOCATION.TIMEZONE.ACTIVE"
-msgstr "Active"
-
-#: models/timezone.py:72
+#: geoware/forms/city.py:52 geoware/models/timezone.py:72
 msgid "LOCATION.TIMEZONE"
 msgstr "Timezone"
 
-#: models/timezone.py:73
+#: geoware/forms/city.py:60 geoware/models/altname.py:58
+#: geoware/models/base.py:67
+msgid "LOCATION.ALTNAME"
+msgstr "Alternative Name"
+
+#: geoware/forms/country.py:21 geoware/models/country.py:21
+msgid "LOCATION.COUNTRY.JURISDICTION"
+msgstr "Jurisdiction"
+
+#: geoware/forms/country.py:28 geoware/models/country.py:30
+#: geoware/models/currency.py:75
+msgid "LOCATION.CURRENCY"
+msgstr "Currency"
+
+#: geoware/forms/country.py:36 geoware/forms/division.py:29
+#: geoware/forms/subdivision.py:30 geoware/models/country.py:38
+msgid "LOCATION.CAPITAL"
+msgstr "Capital"
+
+#: geoware/models/altname.py:17
+msgid "LOCATION.ALTNAME.LAGUAGUE"
+msgstr "Language"
+
+#: geoware/models/altname.py:24
+msgid "LOCATION.ALTNAME.NAME"
+msgstr "Name"
+
+#: geoware/models/altname.py:30
+msgid "LOCATION.ALTNAME.SLUG"
+msgstr "Slug"
+
+#: geoware/models/altname.py:51
+msgid "LOCATION.ALTNAME.ACTIVE"
+msgstr "Active"
+
+#: geoware/models/altname.py:59
+msgid "LOCATION.ALTNAME#plural"
+msgstr "Alternative Names"
+
+#: geoware/models/base.py:23
+msgid "FIELDS.NAME"
+msgstr "Name"
+
+#: geoware/models/base.py:29
+msgid "LOCATION.SLUG"
+msgstr "Slug"
+
+#: geoware/models/base.py:36
+msgid "LOCATION.NAME_STD.FIELD"
+msgstr "Standard Name"
+
+#: geoware/models/base.py:43
+msgid "LOCATION.AREA_SQUARE_KM"
+msgstr "Area (km^2)"
+
+#: geoware/models/base.py:48
+msgid "LOCATION.POPULATION"
+msgstr "Population"
+
+#: geoware/models/base.py:53
+msgid "LOCATION.ELEVATION_METERS"
+msgstr "Elevation (m)"
+
+#: geoware/models/base.py:73
+msgid "LOCATION.URL"
+msgstr "URL"
+
+#: geoware/models/base.py:80
+msgid "LOCATION.INFO_DETAILS"
+msgstr "Details"
+
+#: geoware/models/base.py:86
+msgid "LOCATION.ACTIVE"
+msgstr "Active"
+
+#: geoware/models/base.py:127
+msgid "LOCATION.CITY.BOUNDING.BOX.WEST"
+msgstr "Bounding Box (West)"
+
+#: geoware/models/base.py:132
+msgid "LOCATION.CITY.BOUNDING.BOX.NORTH"
+msgstr "Bounding Box (North)"
+
+#: geoware/models/base.py:137
+msgid "LOCATION.CITY.BOUNDING.BOX.EAST"
+msgstr "Bounding Box (East)"
+
+#: geoware/models/base.py:142
+msgid "LOCATION.CITY.BOUNDING.BOX.SOUTH"
+msgstr "Bounding Box (South)"
+
+#: geoware/models/base.py:153
+msgid "LOCATION.CITY.POINT"
+msgstr "Point"
+
+#: geoware/models/base.py:162
+msgid "LOCATION.CITY.LATITUDE"
+msgstr "Latitude"
+
+#: geoware/models/base.py:167
+msgid "LOCATION.CITY.LONGITUDE"
+msgstr "Longitude"
+
+#: geoware/models/city.py:11
+msgid "LOCATION.CITY.COUNTRY"
+msgstr "Country"
+
+#: geoware/models/city.py:19
+msgid "LOCATION.CITY.DIVISION"
+msgstr "Division"
+
+#: geoware/models/city.py:27
+msgid "LOCATION.CITY.SUBDIVISION"
+msgstr "Subdivision"
+
+#: geoware/models/city.py:35
+msgid "LOCATION.CITY.TIMEZONE"
+msgstr "Timezone"
+
+#: geoware/models/city.py:51
+msgid "LOCATION.CITY"
+msgstr "City"
+
+#: geoware/models/city.py:52
+msgid "LOCATION.CITY#plural"
+msgstr "Cities"
+
+#: geoware/models/continent.py:12
+msgid "LOCATION.CONTINENT.CODE"
+msgstr "Code"
+
+#: geoware/models/continent.py:28
+msgid "LOCATION.CONTINENT"
+msgstr "Continent"
+
+#: geoware/models/continent.py:29
+msgid "LOCATION.CONTINENT#plural"
+msgstr "Continents"
+
+#: geoware/models/country.py:13
+msgid "LOCATION.COUNTRY.CONTINENT"
+msgstr "Continent"
+
+#: geoware/models/country.py:25
+msgid "LOCATION.COUNTRY.SOVEREIGNTY"
+msgstr "Sovereignty"
+
+#: geoware/models/country.py:69
+msgid "LOCATION.CODE.INTERNATIONAL_DIALING"
+msgstr "International Dialing"
+
+#: geoware/models/country.py:76
+msgid "LOCATION.CODE.TOP_LEVEL_DOMAIN"
+msgstr "Top Level Domain"
+
+#: geoware/models/country.py:84
+msgid "LOCATION.NEIGHBORS"
+msgstr "Neighbors"
+
+#: geoware/models/country.py:91
+msgid "LOCATION.LANGUAGUES"
+msgstr "Languages"
+
+#: geoware/models/country.py:100
+msgid "LOCATION.COUNTRY#plural"
+msgstr "Countries"
+
+#: geoware/models/currency.py:16
+msgid "LOCATION.CURRENCY.NAME"
+msgstr "Name"
+
+#: geoware/models/currency.py:23
+msgid "LOCATION.CURRENCY.SLUG"
+msgstr "Slug"
+
+#: geoware/models/currency.py:30
+msgid "LOCATION.CURRENCY.CODE"
+msgstr "Code"
+
+#: geoware/models/currency.py:36
+msgid "LOCATION.CURRENCY.SYMBOL"
+msgstr "Symbol"
+
+#: geoware/models/currency.py:43
+msgid "LOCATION.CURRENCY.FRACTIONAL_UNIT"
+msgstr "Fractional Unit"
+
+#: geoware/models/currency.py:50
+msgid "LOCATION.CURRENCY.FRACTIONAL_RATIO"
+msgstr "Fractional Ratio"
+
+#: geoware/models/currency.py:55
+msgid "LOCATION.CURRENCY.URL"
+msgstr "URL"
+
+#: geoware/models/currency.py:62
+msgid "LOCATION.CURRENCY.INFO_DETAILS"
+msgstr "Details"
+
+#: geoware/models/currency.py:68
+msgid "LOCATION.CURRENCY.ACTIVE"
+msgstr "Active"
+
+#: geoware/models/currency.py:76
+msgid "LOCATION.CURRENCY#plural"
+msgstr "Currency"
+
+#: geoware/models/division.py:13
+msgid "LOCATION.DIVISION.COUNTRY"
+msgstr "Country"
+
+#: geoware/models/division.py:21
+msgid "LOCATION.DIVISION.CAPITAL"
+msgstr "Capital"
+
+#: geoware/models/division.py:28
+msgid "LOCATION.DIVISION.CODE"
+msgstr "Code"
+
+#: geoware/models/division.py:35
+msgid "LOCATION.DIVISION.CODE_FIPS"
+msgstr "FIPS Code"
+
+#: geoware/models/division.py:45
+msgid "LOCATION.DIVISION#plural"
+msgstr "Divisions"
+
+#: geoware/models/language.py:16
+msgid "LOCATION.LANGUAGE.NAME"
+msgstr "Name"
+
+#: geoware/models/language.py:23
+msgid "LOCATION.LANGUAGE.SLUG"
+msgstr "Slug"
+
+#: geoware/models/language.py:30
+msgid "LOCATION.LANGUAGE.CODE"
+msgstr "Code"
+
+#: geoware/models/language.py:36
+msgid "LOCATION.LANGUAGE.WORLDWIDE_PERCENTAGE"
+msgstr "Worldwide Percentage"
+
+#: geoware/models/language.py:42
+msgid "LOCATION.LANGUAGE.DIALECT"
+msgstr "Dialect"
+
+#: geoware/models/language.py:49
+msgid "LOCATION.LANGUAGE.URL"
+msgstr "URL"
+
+#: geoware/models/language.py:56
+msgid "LOCATION.LANGUAGE.INFO_DETAILS"
+msgstr "Details"
+
+#: geoware/models/language.py:62
+msgid "LOCATION.LANGUAGE.ACTIVE"
+msgstr "Active"
+
+#: geoware/models/language.py:69
+msgid "LOCATION.LANGUAGE"
+msgstr "Language"
+
+#: geoware/models/language.py:70
+msgid "LOCATION.LANGUAGE#plural"
+msgstr "Languages"
+
+#: geoware/models/ocean.py:12
+msgid "LOCATION.OCEAN.DEPTH_MAX"
+msgstr "Max Depth"
+
+#: geoware/models/ocean.py:18
+msgid "LOCATION.OCEAN.DEPTH_MAX_NAME"
+msgstr "Max Depth Name"
+
+#: geoware/models/ocean.py:27
+msgid "LOCATION.OCEAN"
+msgstr "Ocean"
+
+#: geoware/models/ocean.py:28
+msgid "LOCATION.OCEAN#plural"
+msgstr "Oceans"
+
+#: geoware/models/subdivision.py:13
+msgid "LOCATION.SUBDIVISION.DIVISION"
+msgstr "Division"
+
+#: geoware/models/subdivision.py:21
+msgid "LOCATION.SUBDIVISION.CAPITAL"
+msgstr "Capital"
+
+#: geoware/models/subdivision.py:28
+msgid "LOCATION.SUBDIVISION.CODE"
+msgstr "Code"
+
+#: geoware/models/subdivision.py:45
+msgid "LOCATION.SUBDIVISION#plural"
+msgstr "Subdivisions"
+
+#: geoware/models/timezone.py:17
+msgid "LOCATION.TIMEZONE.COUNTRY"
+msgstr "Country"
+
+#: geoware/models/timezone.py:24
+msgid "LOCATION.TIMEZONE.ID"
+msgstr "Timezone ID"
+
+#: geoware/models/timezone.py:30
+msgid "LOCATION.TIMEZONE.SLUG"
+msgstr "Slug"
+
+#: geoware/models/timezone.py:37
+msgid "LOCATION.TIMEZONE.OFFSET_GMT_JAN_1"
+msgstr "GMT Offset (Jan 1)"
+
+#: geoware/models/timezone.py:42
+msgid "LOCATION.TIMEZONE.OFFSET_DST_JUL_1"
+msgstr "DST Offset (Jul 1)"
+
+#: geoware/models/timezone.py:47
+msgid "LOCATION.TIMEZONE.OFFSET_RAW"
+msgstr "Raw Offset"
+
+#: geoware/models/timezone.py:52
+msgid "LOCATION.TIMEZONE.URL"
+msgstr "URL"
+
+#: geoware/models/timezone.py:59
+msgid "LOCATION.TIMEZONE.INFO_DETAILS"
+msgstr "Details"
+
+#: geoware/models/timezone.py:65
+msgid "LOCATION.TIMEZONE.ACTIVE"
+msgstr "Active"
+
+#: geoware/models/timezone.py:73
 msgid "LOCATION.TIMEZONE#plural"
 msgstr "Timezone"
+
+#~ msgid "LOCATION.CODE.ISO_ALPHA_2"
+#~ msgstr "ISO Alpha 2"
+
+#~ msgid "LOCATION.CODE.ISO_ALPHA_3"
+#~ msgstr "ISO Alpha 3"
+
+#~ msgid "LOCATION.CODE.ISO_NUMERIC"
+#~ msgstr "ISO Numeric"
+
+#~ msgid "LOCATION.CODE.FIPS"
+#~ msgstr "FIPS Code"
+
+#~ msgid "LOCATION.SUBDIVISION.CODE_FIPS"
+#~ msgstr "FIPS Code"
