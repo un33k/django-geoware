@@ -1,8 +1,9 @@
-from .city import *
+from .ocean import *
 from .continent import *
 from .country import *
 from .division import *
 from .subdivision import *
+from .city import *
 
 
 # from django.contrib import admin
