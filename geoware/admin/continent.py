@@ -1,17 +1,20 @@
 from django.contrib import admin
 
+from ..models import Continent
 
+
+@admin.register(Continent)
 class ContinentAdmin(admin.ModelAdmin):
     list_display = (
-        'geoname_id',
         'name',
-        'slug',
         'code',
         'iso_n',
         'population',
         'area',
-        'url',
         'is_active',
+        'slug',
+        'geoname_id',
+        'url',
         'updated_at',
         'created_at',
     )
@@ -21,5 +24,5 @@ class ContinentAdmin(admin.ModelAdmin):
         'code',
     ]
     list_per_page = 25
-    readonly_fields = ('altnames', )
+    readonly_fields = ('geoname_id', 'altnames', )
     ordering=('name', )

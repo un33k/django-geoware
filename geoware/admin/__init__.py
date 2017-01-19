@@ -1,4 +1,5 @@
 from .city import *
+from .continent import *
 
 
 # from django.contrib import admin
