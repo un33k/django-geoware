@@ -4,3 +4,4 @@ from .subdivision import *
 from .city import *
 from .timezone import *
 from .altname import *
+from .currency import *

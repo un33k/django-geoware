@@ -7,6 +7,9 @@ from ..models import City
 
 
 class CityForm(forms.ModelForm):
+    """
+    Custom City Form.
+    """
     class Meta:
         model = City
         fields = ('__all__')

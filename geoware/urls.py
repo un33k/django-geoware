@@ -35,4 +35,9 @@ urlpatterns = [
         AltnameAutocompleteView.as_view(),
         name='altnames-autocomplete',
     ),
+    url(
+        r'^currency/autocomplete/$',
+        CurrencyAutocompleteView.as_view(),
+        name='currency-autocomplete',
+    ),
 ]

@@ -5,6 +5,7 @@ from ..models import Continent
 
 @admin.register(Continent)
 class ContinentAdmin(admin.ModelAdmin):
+    list_per_page = 25
     list_display = (
         'name',
         'code',
@@ -12,8 +13,8 @@ class ContinentAdmin(admin.ModelAdmin):
         'population',
         'area',
         'is_active',
-        'slug',
         'geoname_id',
+        'slug',
         'url',
         'updated_at',
         'created_at',
@@ -23,6 +24,5 @@ class ContinentAdmin(admin.ModelAdmin):
         'name',
         'code',
     ]
-    list_per_page = 25
     readonly_fields = ('geoname_id', 'altnames', )
     ordering=('name', )

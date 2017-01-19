@@ -1,26 +1,31 @@
 from django.contrib import admin
 
+from ..models import Country
+from ..forms import CountryForm
 
+
+@admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
-    filter_horizontal = ('altnames', 'neighbors', 'languages',)
+    form = CountryForm
+    list_per_page = 25
     list_display = (
-        'geoname_id',
         'name',
-        'slug',
         'code',
+        'continent',
+        'capital',
+        'currency',
         'iso_3',
         'iso_n',
         'fips',
-        'capital',
-        'currency',
-        'continent',
         'jurisdiction',
         'idc',
         'tld',
         'population',
         'area',
-        'url',
         'is_active',
+        'geoname_id',
+        'slug',
+        'url',
         'updated_at',
         'created_at',
     )
@@ -37,9 +42,9 @@ class CountryAdmin(admin.ModelAdmin):
         'tld',
         'idc',
     ]
+    filter_horizontal = ('neighbors', 'languages',)
     readonly_fields = (
-        'capital',
+        'geoname_id',
         'altnames',
     )
-    list_per_page = 25
     ordering=('name',)
