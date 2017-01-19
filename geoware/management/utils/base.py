@@ -1,7 +1,6 @@
 import os
 import sys
 import logging
-import resource
 import progressbar
 
 from django.core.management.base import BaseCommand
@@ -74,6 +73,7 @@ class GeoBaseCommand(BaseCommand):
         load_languages()
 
         self.widgets = [
+            MemoryUsage(),
             progressbar.ETA(),
             ' |Processed: ',
             progressbar.Counter(),

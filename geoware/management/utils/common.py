@@ -1,5 +1,7 @@
 import os
 import sys
+import resource
+from progressbar.widgets import SamplesMixin
 
 from django.utils.encoding import smart_str
 
@@ -49,3 +51,14 @@ def get_str(item, index):
     except:
         pass
     return value
+
+
+class MemoryUsage(SamplesMixin):
+    '''
+    Widget for showing the amount of memory used by a command.
+    '''
+    def __call__(self, progress, data):
+        value = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+        value = value // 1000000
+        output = 'Mem Usage: {mem} MB |'.format(mem=value)
+        return output
