@@ -11,6 +11,7 @@ class AltnameAdmin(admin.ModelAdmin):
     list_display = (
         'ref_geoname_id',
         'name',
+        'language',
         'geoname_id',
         'is_active',
         'slug',
