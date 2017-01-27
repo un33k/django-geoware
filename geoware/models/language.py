@@ -13,61 +13,61 @@ class Language(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     name = models.CharField(
-        _("LOCATION.LANGUAGE.NAME"),
+        _("Name"),
         max_length=254,
         null=True,
         blank=True,
     )
 
     slug = models.CharField(
-        _('LOCATION.LANGUAGE.SLUG'),
+        _('Slug'),
         max_length=254,
         null=True,
         blank=True,
     )
 
     code = models.CharField(
-        _("LOCATION.LANGUAGE.CODE"),
+        _("Code"),
         db_index=True,
         max_length=40,
     )
 
     percent = models.FloatField(
-        _("LOCATION.LANGUAGE.WORLDWIDE_PERCENTAGE"),
+        _("Worldwide Percentage"),
         null=True,
         blank=True,
     )
 
     dialect = models.CharField(
-        _("LOCATION.LANGUAGE.DIALECT"),
+        _("Dialect"),
         max_length=254,
         null=True,
         blank=True,
     )
 
     url = models.URLField(
-        _('LOCATION.LANGUAGE.URL'),
+        _('URL'),
         max_length=254,
         null=True,
         blank=True,
     )
 
     info = models.TextField(
-        _('LOCATION.LANGUAGE.INFO_DETAILS'),
+        _('Details'),
         null=True,
         blank=True,
     )
 
     is_active = models.BooleanField(
-        _('LOCATION.LANGUAGE.ACTIVE'),
+        _('Active'),
         default=True,
     )
 
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='language')
-        verbose_name = _('LOCATION.LANGUAGE')
-        verbose_name_plural = _('LOCATION.LANGUAGE#plural')
+        verbose_name = _('Language')
+        verbose_name_plural = _('Languages')
         unique_together = (('name', 'code'), )
 
     def save(self, *args, **kwargs):

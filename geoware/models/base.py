@@ -20,37 +20,37 @@ class AbstractBaseLocation(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     name = models.CharField(
-        _('FIELDS.NAME'),
+        _('Name'),
         db_index=True,
         max_length=254,
     )
 
     slug = models.CharField(
-        _('LOCATION.SLUG'),
+        _('Slug'),
         max_length=254,
         blank=True,
         null=True
     )
 
     name_std = models.CharField(
-        _('LOCATION.NAME_STD.FIELD'),
+        _('Standard Name'),
         max_length=254,
         blank=True,
         null=True,
     )
 
     area = models.PositiveIntegerField(
-        _('LOCATION.AREA_SQUARE_KM'),
+        _('Area (Square KM)'),
         default=0,
     )
 
     population = models.PositiveIntegerField(
-        _('LOCATION.POPULATION'),
+        _('Population'),
         default=0
     )
 
     elevation = models.IntegerField(
-        _('LOCATION.ELEVATION_METERS'),
+        _('Elevation'),
         default=0,
     )
 
@@ -64,26 +64,26 @@ class AbstractBaseLocation(models.Model):
 
     altnames = models.ManyToManyField(
         'Altname',
-        verbose_name=_('LOCATION.ALTNAME'),
+        verbose_name=_('Altname'),
         related_name='%(app_label)s_%(class)s_altnames',
         blank=True,
     )
 
     url = models.URLField(
-        _('LOCATION.URL'),
+        _('URL'),
         max_length=254,
         null=True,
         blank=True,
     )
 
     info = models.TextField(
-        _('LOCATION.INFO_DETAILS'),
+        _('Details'),
         null=True,
         blank=True,
     )
 
     is_active = models.BooleanField(
-        _('LOCATION.ACTIVE'),
+        _('Active'),
         default=True,
     )
 
@@ -124,22 +124,22 @@ class AbstractBaseCity(AbstractLocation):
     Base Abstract for all cities.
     """
     bbw = models.FloatField(
-        _("LOCATION.CITY.BOUNDING.BOX.WEST"),
+        _("Bounding Box West"),
         default=0.0,
     )
 
     bbn = models.FloatField(
-        _("LOCATION.CITY.BOUNDING.BOX.NORTH"),
+        _("Bounding Box North"),
         default=0.0,
     )
 
     bbe = models.FloatField(
-        _("LOCATION.CITY.BOUNDING.BOX.EAST"),
+        _("Bounding Box East"),
         default=0.0,
     )
 
     bbs = models.FloatField(
-        _("LOCATION.CITY.BOUNDING.BOX.SOUTH"),
+        _("Bounding Box South"),
         default=0.0,
     )
 
@@ -150,7 +150,7 @@ class AbstractBaseCity(AbstractLocation):
 if defs.GEOWARE_USING_GIS:
     class AbstractCity(AbstractBaseCity):
         point = models.PointField(
-            _('LOCATION.CITY.POINT'),
+            _('Point'),
             default='POINT(0.0 0.0)',
         )
 
@@ -159,12 +159,12 @@ if defs.GEOWARE_USING_GIS:
 else:
     class AbstractCity(AbstractBaseCity):
         lat = models.FloatField(
-            _('LOCATION.CITY.LATITUDE'),
+            _('Latitude'),
             default=0.0,
         )
 
         lng = models.FloatField(
-            _('LOCATION.CITY.LONGITUDE'),
+            _('Longitude'),
             default=0.0,
         )
 

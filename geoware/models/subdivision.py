@@ -10,7 +10,7 @@ class Subdivision(AbstractLocation):
     """
     division = models.ForeignKey(
         'Division',
-        verbose_name=_('LOCATION.SUBDIVISION.DIVISION'),
+        verbose_name=_('Division'),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
@@ -18,14 +18,14 @@ class Subdivision(AbstractLocation):
 
     capital = models.ForeignKey(
         'City',
-        verbose_name=_("LOCATION.SUBDIVISION.CAPITAL"),
+        verbose_name=_("Capital"),
         related_name='%(app_label)s_%(class)s_capital',
         null=True,
         blank=True,
     )
 
     code = models.CharField(
-        _('LOCATION.SUBDIVISION.CODE'),
+        _('Code'),
         max_length=40,
         null=True,
         blank=True,
@@ -41,8 +41,8 @@ class Subdivision(AbstractLocation):
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='subdivision')
-        verbose_name = _('LOCATION.SUBDIVISION')
-        verbose_name_plural = _('LOCATION.SUBDIVISION#plural')
+        verbose_name = _('Subdivision')
+        verbose_name_plural = _('Subdivisions')
         unique_together = [('name', 'fips', 'division')]
 
     @property

@@ -8,7 +8,7 @@ class City(AbstractCity):
 
     country = models.ForeignKey(
         'Country',
-        verbose_name=_('LOCATION.CITY.COUNTRY'),
+        verbose_name=_('Country'),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
@@ -16,7 +16,7 @@ class City(AbstractCity):
 
     division = models.ForeignKey(
         'Division',
-        verbose_name=_('LOCATION.CITY.DIVISION'),
+        verbose_name=_('Division'),
         related_name='%(app_label)s_%(class)s_division',
         blank=True,
         null=True,
@@ -24,7 +24,7 @@ class City(AbstractCity):
 
     subdivision = models.ForeignKey(
         'Subdivision',
-        verbose_name=_('LOCATION.CITY.SUBDIVISION'),
+        verbose_name=_('Subdivision'),
         related_name='%(app_label)s_%(class)s_subdivision',
         blank=True,
         null=True,
@@ -32,7 +32,7 @@ class City(AbstractCity):
 
     timezone = models.ForeignKey(
         'Timezone',
-        verbose_name=_('LOCATION.CITY.TIMEZONE'),
+        verbose_name=_('Timezone'),
         related_name='%(app_label)s_%(class)s_timezone',
         blank=True,
         null=True,
@@ -40,7 +40,7 @@ class City(AbstractCity):
 
     district_of = models.ForeignKey(
         'self',
-        verbose_name=_('LOCATION.CITY.DISTRICT_OF'),
+        verbose_name=_('District Of'),
         blank=True,
         null=True,
     )
@@ -48,8 +48,8 @@ class City(AbstractCity):
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='city')
-        verbose_name = _('LOCATION.CITY')
-        verbose_name_plural = _('LOCATION.CITY#plural')
+        verbose_name = _('City')
+        verbose_name_plural = _('Cities')
         unique_together = (('name', 'division', 'country'), )
 
     @property

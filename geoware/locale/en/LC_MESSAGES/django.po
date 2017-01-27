@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-19 17:14-0500\n"
-"PO-Revision-Date: 2017-01-17 10:13-0500\n"
+"POT-Creation-Date: 2017-01-27 10:30-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Val Neekman <info@neekware.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: geoware/apps.py:11
 msgid "GEOWARE.APPLICATION"
-msgstr "Geoware Application"
+msgstr ""
 
 #: geoware/defaults/continent.py:48
 msgid "Africa"
@@ -1006,377 +1006,272 @@ msgid "Southern"
 msgstr ""
 
 #: geoware/forms/altname.py:20 geoware/forms/city.py:28
-#: geoware/forms/subdivision.py:22 geoware/models/division.py:44
+#: geoware/forms/subdivision.py:22
 msgid "LOCATION.DIVISION"
-msgstr "Division"
+msgstr ""
 
 #: geoware/forms/city.py:20 geoware/forms/division.py:21
-#: geoware/models/country.py:99
 msgid "LOCATION.COUNTRY"
-msgstr "Country"
+msgstr ""
 
-#: geoware/forms/city.py:36 geoware/models/subdivision.py:44
+#: geoware/forms/city.py:36
 msgid "LOCATION.SUBDIVISION"
-msgstr "Subdivision"
+msgstr ""
 
-#: geoware/forms/city.py:44 geoware/models/city.py:43
+#: geoware/forms/city.py:44
 msgid "LOCATION.CITY.DISTRICT_OF"
-msgstr "District Of"
+msgstr ""
 
-#: geoware/forms/city.py:52 geoware/models/timezone.py:72
+#: geoware/forms/city.py:52
 msgid "LOCATION.TIMEZONE"
-msgstr "Timezone"
+msgstr ""
 
-#: geoware/forms/city.py:60 geoware/models/altname.py:58
-#: geoware/models/base.py:67
+#: geoware/forms/city.py:60
 msgid "LOCATION.ALTNAME"
-msgstr "Alternative Name"
+msgstr ""
 
-#: geoware/forms/country.py:21 geoware/models/country.py:21
+#: geoware/forms/country.py:21
 msgid "LOCATION.COUNTRY.JURISDICTION"
-msgstr "Jurisdiction"
+msgstr ""
 
-#: geoware/forms/country.py:28 geoware/models/country.py:30
-#: geoware/models/currency.py:75
+#: geoware/forms/country.py:28
 msgid "LOCATION.CURRENCY"
-msgstr "Currency"
+msgstr ""
 
 #: geoware/forms/country.py:36 geoware/forms/division.py:29
-#: geoware/forms/subdivision.py:30 geoware/models/country.py:38
+#: geoware/forms/subdivision.py:30
 msgid "LOCATION.CAPITAL"
-msgstr "Capital"
+msgstr ""
 
-#: geoware/models/altname.py:17
-msgid "LOCATION.ALTNAME.LAGUAGUE"
-msgstr "Language"
+#: geoware/models/altname.py:17 geoware/models/language.py:69
+msgid "Language"
+msgstr ""
 
-#: geoware/models/altname.py:24
-msgid "LOCATION.ALTNAME.NAME"
-msgstr "Name"
+#: geoware/models/altname.py:24 geoware/models/base.py:23
+#: geoware/models/currency.py:16 geoware/models/language.py:16
+#: geoware/models/timezone.py:24
+msgid "Name"
+msgstr ""
 
-#: geoware/models/altname.py:30
-msgid "LOCATION.ALTNAME.SLUG"
-msgstr "Slug"
+#: geoware/models/altname.py:30 geoware/models/base.py:29
+#: geoware/models/currency.py:23 geoware/models/language.py:23
+#: geoware/models/timezone.py:30
+msgid "Slug"
+msgstr ""
 
-#: geoware/models/altname.py:51
-msgid "LOCATION.ALTNAME.ACTIVE"
-msgstr "Active"
+#: geoware/models/altname.py:51 geoware/models/base.py:86
+#: geoware/models/currency.py:68 geoware/models/language.py:62
+#: geoware/models/timezone.py:65
+msgid "Active"
+msgstr ""
+
+#: geoware/models/altname.py:58 geoware/models/base.py:67
+msgid "Altname"
+msgstr ""
 
 #: geoware/models/altname.py:59
-msgid "LOCATION.ALTNAME#plural"
-msgstr "Alternative Names"
-
-#: geoware/models/base.py:23
-msgid "FIELDS.NAME"
-msgstr "Name"
-
-#: geoware/models/base.py:29
-msgid "LOCATION.SLUG"
-msgstr "Slug"
+msgid "Altnames"
+msgstr ""
 
 #: geoware/models/base.py:36
-msgid "LOCATION.NAME_STD.FIELD"
-msgstr "Standard Name"
+msgid "Standard Name"
+msgstr ""
 
 #: geoware/models/base.py:43
-msgid "LOCATION.AREA_SQUARE_KM"
-msgstr "Area (km^2)"
+msgid "Area (Square KM)"
+msgstr ""
 
 #: geoware/models/base.py:48
-msgid "LOCATION.POPULATION"
-msgstr "Population"
+msgid "Population"
+msgstr ""
 
 #: geoware/models/base.py:53
-msgid "LOCATION.ELEVATION_METERS"
-msgstr "Elevation (m)"
+msgid "Elevation"
+msgstr ""
 
-#: geoware/models/base.py:73
-msgid "LOCATION.URL"
-msgstr "URL"
+#: geoware/models/base.py:73 geoware/models/currency.py:55
+#: geoware/models/language.py:49 geoware/models/timezone.py:52
+msgid "URL"
+msgstr ""
 
-#: geoware/models/base.py:80
-msgid "LOCATION.INFO_DETAILS"
-msgstr "Details"
-
-#: geoware/models/base.py:86
-msgid "LOCATION.ACTIVE"
-msgstr "Active"
+#: geoware/models/base.py:80 geoware/models/currency.py:62
+#: geoware/models/language.py:56 geoware/models/timezone.py:59
+msgid "Details"
+msgstr ""
 
 #: geoware/models/base.py:127
-msgid "LOCATION.CITY.BOUNDING.BOX.WEST"
-msgstr "Bounding Box (West)"
+msgid "Bounding Box West"
+msgstr ""
 
 #: geoware/models/base.py:132
-msgid "LOCATION.CITY.BOUNDING.BOX.NORTH"
-msgstr "Bounding Box (North)"
+msgid "Bounding Box North"
+msgstr ""
 
 #: geoware/models/base.py:137
-msgid "LOCATION.CITY.BOUNDING.BOX.EAST"
-msgstr "Bounding Box (East)"
+msgid "Bounding Box East"
+msgstr ""
 
 #: geoware/models/base.py:142
-msgid "LOCATION.CITY.BOUNDING.BOX.SOUTH"
-msgstr "Bounding Box (South)"
+msgid "Bounding Box South"
+msgstr ""
 
 #: geoware/models/base.py:153
-msgid "LOCATION.CITY.POINT"
-msgstr "Point"
+msgid "Point"
+msgstr ""
 
 #: geoware/models/base.py:162
-msgid "LOCATION.CITY.LATITUDE"
-msgstr "Latitude"
+msgid "Latitude"
+msgstr ""
 
 #: geoware/models/base.py:167
-msgid "LOCATION.CITY.LONGITUDE"
-msgstr "Longitude"
+msgid "Longitude"
+msgstr ""
 
-#: geoware/models/city.py:11
-msgid "LOCATION.CITY.COUNTRY"
-msgstr "Country"
+#: geoware/models/city.py:11 geoware/models/country.py:99
+#: geoware/models/division.py:13 geoware/models/timezone.py:17
+msgid "Country"
+msgstr ""
 
-#: geoware/models/city.py:19
-msgid "LOCATION.CITY.DIVISION"
-msgstr "Division"
+#: geoware/models/city.py:19 geoware/models/division.py:44
+#: geoware/models/subdivision.py:13
+msgid "Division"
+msgstr ""
 
-#: geoware/models/city.py:27
-msgid "LOCATION.CITY.SUBDIVISION"
-msgstr "Subdivision"
+#: geoware/models/city.py:27 geoware/models/subdivision.py:44
+msgid "Subdivision"
+msgstr ""
 
-#: geoware/models/city.py:35
-msgid "LOCATION.CITY.TIMEZONE"
-msgstr "Timezone"
+#: geoware/models/city.py:35 geoware/models/timezone.py:72
+msgid "Timezone"
+msgstr ""
+
+#: geoware/models/city.py:43
+msgid "District Of"
+msgstr ""
 
 #: geoware/models/city.py:51
-msgid "LOCATION.CITY"
-msgstr "City"
+msgid "City"
+msgstr ""
 
 #: geoware/models/city.py:52
-msgid "LOCATION.CITY#plural"
-msgstr "Cities"
+msgid "Cities"
+msgstr ""
 
-#: geoware/models/continent.py:12
-msgid "LOCATION.CONTINENT.CODE"
-msgstr "Code"
+#: geoware/models/continent.py:12 geoware/models/currency.py:30
+#: geoware/models/division.py:28 geoware/models/language.py:30
+#: geoware/models/subdivision.py:28
+msgid "Code"
+msgstr ""
 
-#: geoware/models/continent.py:28
-msgid "LOCATION.CONTINENT"
-msgstr "Continent"
+#: geoware/models/continent.py:28 geoware/models/country.py:13
+msgid "Continent"
+msgstr ""
 
 #: geoware/models/continent.py:29
-msgid "LOCATION.CONTINENT#plural"
-msgstr "Continents"
+msgid "Continents"
+msgstr ""
 
-#: geoware/models/country.py:13
-msgid "LOCATION.COUNTRY.CONTINENT"
-msgstr "Continent"
+#: geoware/models/country.py:21
+msgid "Jurisdiction"
+msgstr ""
 
 #: geoware/models/country.py:25
-msgid "LOCATION.COUNTRY.SOVEREIGNTY"
-msgstr "Sovereignty"
+msgid "Sovereignty"
+msgstr ""
+
+#: geoware/models/country.py:30 geoware/models/currency.py:75
+msgid "Currency"
+msgstr ""
+
+#: geoware/models/country.py:38 geoware/models/division.py:21
+#: geoware/models/subdivision.py:21
+msgid "Capital"
+msgstr ""
 
 #: geoware/models/country.py:69
-msgid "LOCATION.CODE.INTERNATIONAL_DIALING"
-msgstr "International Dialing"
+msgid "International Dialing Code"
+msgstr ""
 
 #: geoware/models/country.py:76
-msgid "LOCATION.CODE.TOP_LEVEL_DOMAIN"
-msgstr "Top Level Domain"
+msgid "Top Level Domain"
+msgstr ""
 
 #: geoware/models/country.py:84
-msgid "LOCATION.NEIGHBORS"
-msgstr "Neighbors"
+msgid "Neighbors"
+msgstr ""
 
-#: geoware/models/country.py:91
-msgid "LOCATION.LANGUAGUES"
-msgstr "Languages"
+#: geoware/models/country.py:91 geoware/models/language.py:70
+msgid "Languages"
+msgstr ""
 
 #: geoware/models/country.py:100
-msgid "LOCATION.COUNTRY#plural"
-msgstr "Countries"
-
-#: geoware/models/currency.py:16
-msgid "LOCATION.CURRENCY.NAME"
-msgstr "Name"
-
-#: geoware/models/currency.py:23
-msgid "LOCATION.CURRENCY.SLUG"
-msgstr "Slug"
-
-#: geoware/models/currency.py:30
-msgid "LOCATION.CURRENCY.CODE"
-msgstr "Code"
+msgid "Countries"
+msgstr ""
 
 #: geoware/models/currency.py:36
-msgid "LOCATION.CURRENCY.SYMBOL"
-msgstr "Symbol"
+msgid "Symbol"
+msgstr ""
 
 #: geoware/models/currency.py:43
-msgid "LOCATION.CURRENCY.FRACTIONAL_UNIT"
-msgstr "Fractional Unit"
+msgid "Fractional Unit"
+msgstr ""
 
 #: geoware/models/currency.py:50
-msgid "LOCATION.CURRENCY.FRACTIONAL_RATIO"
-msgstr "Fractional Ratio"
-
-#: geoware/models/currency.py:55
-msgid "LOCATION.CURRENCY.URL"
-msgstr "URL"
-
-#: geoware/models/currency.py:62
-msgid "LOCATION.CURRENCY.INFO_DETAILS"
-msgstr "Details"
-
-#: geoware/models/currency.py:68
-msgid "LOCATION.CURRENCY.ACTIVE"
-msgstr "Active"
+msgid "Fractional Ration"
+msgstr ""
 
 #: geoware/models/currency.py:76
-msgid "LOCATION.CURRENCY#plural"
-msgstr "Currency"
-
-#: geoware/models/division.py:13
-msgid "LOCATION.DIVISION.COUNTRY"
-msgstr "Country"
-
-#: geoware/models/division.py:21
-msgid "LOCATION.DIVISION.CAPITAL"
-msgstr "Capital"
-
-#: geoware/models/division.py:28
-msgid "LOCATION.DIVISION.CODE"
-msgstr "Code"
+msgid "Currencies"
+msgstr ""
 
 #: geoware/models/division.py:35
-msgid "LOCATION.DIVISION.CODE_FIPS"
-msgstr "FIPS Code"
+msgid "FIPS"
+msgstr ""
 
 #: geoware/models/division.py:45
-msgid "LOCATION.DIVISION#plural"
-msgstr "Divisions"
-
-#: geoware/models/language.py:16
-msgid "LOCATION.LANGUAGE.NAME"
-msgstr "Name"
-
-#: geoware/models/language.py:23
-msgid "LOCATION.LANGUAGE.SLUG"
-msgstr "Slug"
-
-#: geoware/models/language.py:30
-msgid "LOCATION.LANGUAGE.CODE"
-msgstr "Code"
+msgid "Divisions"
+msgstr ""
 
 #: geoware/models/language.py:36
-msgid "LOCATION.LANGUAGE.WORLDWIDE_PERCENTAGE"
-msgstr "Worldwide Percentage"
+msgid "Worldwide Percentage"
+msgstr ""
 
 #: geoware/models/language.py:42
-msgid "LOCATION.LANGUAGE.DIALECT"
-msgstr "Dialect"
-
-#: geoware/models/language.py:49
-msgid "LOCATION.LANGUAGE.URL"
-msgstr "URL"
-
-#: geoware/models/language.py:56
-msgid "LOCATION.LANGUAGE.INFO_DETAILS"
-msgstr "Details"
-
-#: geoware/models/language.py:62
-msgid "LOCATION.LANGUAGE.ACTIVE"
-msgstr "Active"
-
-#: geoware/models/language.py:69
-msgid "LOCATION.LANGUAGE"
-msgstr "Language"
-
-#: geoware/models/language.py:70
-msgid "LOCATION.LANGUAGE#plural"
-msgstr "Languages"
+msgid "Dialect"
+msgstr ""
 
 #: geoware/models/ocean.py:12
-msgid "LOCATION.OCEAN.DEPTH_MAX"
-msgstr "Max Depth"
+msgid "Depth"
+msgstr ""
 
 #: geoware/models/ocean.py:18
-msgid "LOCATION.OCEAN.DEPTH_MAX_NAME"
-msgstr "Max Depth Name"
+msgid "Depth Name"
+msgstr ""
 
 #: geoware/models/ocean.py:27
-msgid "LOCATION.OCEAN"
-msgstr "Ocean"
+msgid "Ocean"
+msgstr ""
 
 #: geoware/models/ocean.py:28
-msgid "LOCATION.OCEAN#plural"
-msgstr "Oceans"
-
-#: geoware/models/subdivision.py:13
-msgid "LOCATION.SUBDIVISION.DIVISION"
-msgstr "Division"
-
-#: geoware/models/subdivision.py:21
-msgid "LOCATION.SUBDIVISION.CAPITAL"
-msgstr "Capital"
-
-#: geoware/models/subdivision.py:28
-msgid "LOCATION.SUBDIVISION.CODE"
-msgstr "Code"
+msgid "Oceans"
+msgstr ""
 
 #: geoware/models/subdivision.py:45
-msgid "LOCATION.SUBDIVISION#plural"
-msgstr "Subdivisions"
-
-#: geoware/models/timezone.py:17
-msgid "LOCATION.TIMEZONE.COUNTRY"
-msgstr "Country"
-
-#: geoware/models/timezone.py:24
-msgid "LOCATION.TIMEZONE.ID"
-msgstr "Timezone ID"
-
-#: geoware/models/timezone.py:30
-msgid "LOCATION.TIMEZONE.SLUG"
-msgstr "Slug"
+msgid "Subdivisions"
+msgstr ""
 
 #: geoware/models/timezone.py:37
-msgid "LOCATION.TIMEZONE.OFFSET_GMT_JAN_1"
-msgstr "GMT Offset (Jan 1)"
+msgid "GMT Offset (Jan 1)"
+msgstr ""
 
 #: geoware/models/timezone.py:42
-msgid "LOCATION.TIMEZONE.OFFSET_DST_JUL_1"
-msgstr "DST Offset (Jul 1)"
+msgid "DST Offset (Jul 1)"
+msgstr ""
 
 #: geoware/models/timezone.py:47
-msgid "LOCATION.TIMEZONE.OFFSET_RAW"
-msgstr "Raw Offset"
-
-#: geoware/models/timezone.py:52
-msgid "LOCATION.TIMEZONE.URL"
-msgstr "URL"
-
-#: geoware/models/timezone.py:59
-msgid "LOCATION.TIMEZONE.INFO_DETAILS"
-msgstr "Details"
-
-#: geoware/models/timezone.py:65
-msgid "LOCATION.TIMEZONE.ACTIVE"
-msgstr "Active"
+msgid "Raw Offset"
+msgstr ""
 
 #: geoware/models/timezone.py:73
-msgid "LOCATION.TIMEZONE#plural"
-msgstr "Timezone"
-
-#~ msgid "LOCATION.CODE.ISO_ALPHA_2"
-#~ msgstr "ISO Alpha 2"
-
-#~ msgid "LOCATION.CODE.ISO_ALPHA_3"
-#~ msgstr "ISO Alpha 3"
-
-#~ msgid "LOCATION.CODE.ISO_NUMERIC"
-#~ msgstr "ISO Numeric"
-
-#~ msgid "LOCATION.CODE.FIPS"
-#~ msgstr "FIPS Code"
-
-#~ msgid "LOCATION.SUBDIVISION.CODE_FIPS"
-#~ msgstr "FIPS Code"
+msgid "Timezones"
+msgstr ""

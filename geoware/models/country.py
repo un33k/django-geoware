@@ -10,7 +10,7 @@ class Country(AbstractLocation):
     """
     continent = models.ForeignKey(
         'Continent',
-        verbose_name=_('LOCATION.COUNTRY.CONTINENT'),
+        verbose_name=_('Continent'),
         related_name='%(app_label)s_%(class)s_continent',
         null=True,
         blank=True,
@@ -18,16 +18,16 @@ class Country(AbstractLocation):
 
     jurisdiction = models.ForeignKey(
         'Country',
-        verbose_name=_('LOCATION.COUNTRY.JURISDICTION'),
+        verbose_name=_('Jurisdiction'),
         related_name='%(app_label)s_%(class)s_jurisdiction',
         blank=True,
         null=True,
-        help_text=_('LOCATION.COUNTRY.SOVEREIGNTY'),
+        help_text=_('Sovereignty'),
     )
 
     currency = models.ForeignKey(
         'Currency',
-        verbose_name=_('LOCATION.CURRENCY'),
+        verbose_name=_('Currency'),
         related_name='%(app_label)s_%(class)s_currency',
         blank=True,
         null=True,
@@ -35,7 +35,7 @@ class Country(AbstractLocation):
 
     capital = models.ForeignKey(
         'City',
-        verbose_name=_('LOCATION.CAPITAL'),
+        verbose_name=_('Capital'),
         related_name='%(app_label)s_%(class)s_capital',
         blank=True,
         null=True,
@@ -66,14 +66,14 @@ class Country(AbstractLocation):
     )
 
     idc = models.CharField(
-        _('LOCATION.CODE.INTERNATIONAL_DIALING'),
+        _('International Dialing Code'),
         max_length=40,
         null=True,
         blank=True,
     )
 
     tld = models.CharField(
-        _('LOCATION.CODE.TOP_LEVEL_DOMAIN'),
+        _('Top Level Domain'),
         max_length=2,
         null=True,
         blank=True,
@@ -81,14 +81,14 @@ class Country(AbstractLocation):
 
     neighbors = models.ManyToManyField(
         'self',
-        verbose_name=_('LOCATION.NEIGHBORS'),
+        verbose_name=_('Neighbors'),
         related_name='%(app_label)s_%(class)s_neighbors',
         blank=True,
     )
 
     languages = models.ManyToManyField(
         'Language',
-        verbose_name=_('LOCATION.LANGUAGUES'),
+        verbose_name=_('Languages'),
         related_name='%(app_label)s_%(class)s_languagues',
         blank=True,
     )
@@ -96,8 +96,8 @@ class Country(AbstractLocation):
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='country')
-        verbose_name = _('LOCATION.COUNTRY')
-        verbose_name_plural = _('LOCATION.COUNTRY#plural')
+        verbose_name = _('Country')
+        verbose_name_plural = _('Countries')
         unique_together = (('code'), )
 
     @property

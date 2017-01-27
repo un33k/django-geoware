@@ -14,63 +14,63 @@ class Timezone(models.Model):
 
     country = models.ForeignKey(
         "Country",
-        verbose_name=_("LOCATION.TIMEZONE.COUNTRY"),
+        verbose_name=_("Country"),
         related_name='%(app_label)s_%(class)s_country',
         null=True,
         blank=True,
     )
 
     name_id = models.CharField(
-        _("LOCATION.TIMEZONE.ID"),
+        _("Name"),
         db_index=True,
         max_length=254,
     )
 
     slug = models.CharField(
-        _('LOCATION.TIMEZONE.SLUG'),
+        _('Slug'),
         max_length=254,
         null=True,
         blank=True,
     )
 
     gmt_offset = models.FloatField(
-        _("LOCATION.TIMEZONE.OFFSET_GMT_JAN_1"),
+        _("GMT Offset (Jan 1)"),
         default=0.0,
     )
 
     dst_offset = models.FloatField(
-        _("LOCATION.TIMEZONE.OFFSET_DST_JUL_1"),
+        _("DST Offset (Jul 1)"),
         default=0.0,
     )
 
     raw_offset = models.FloatField(
-        _("LOCATION.TIMEZONE.OFFSET_RAW"),
+        _("Raw Offset"),
         default=0.0,
     )
 
     url = models.URLField(
-        _('LOCATION.TIMEZONE.URL'),
+        _('URL'),
         max_length=254,
         null=True,
         blank=True,
     )
 
     info = models.TextField(
-        _('LOCATION.TIMEZONE.INFO_DETAILS'),
+        _('Details'),
         null=True,
         blank=True,
     )
 
     is_active = models.BooleanField(
-        _('LOCATION.TIMEZONE.ACTIVE'),
+        _('Active'),
         default=True,
     )
 
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='timezone')
-        verbose_name = _('LOCATION.TIMEZONE')
-        verbose_name_plural = _('LOCATION.TIMEZONE#plural')
+        verbose_name = _('Timezone')
+        verbose_name_plural = _('Timezones')
         unique_together = [('name_id',)]
 
     def save(self, *args, **kwargs):

@@ -9,7 +9,7 @@ class Continent(AbstractLocation):
     Continent Model Class.
     """
     code = models.CharField(
-        _("LOCATION.CONTINENT.CODE"),
+        _("Code"),
         db_index=True,
         max_length=2,
     )
@@ -25,8 +25,8 @@ class Continent(AbstractLocation):
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='continent')
-        verbose_name = _('LOCATION.CONTINENT')
-        verbose_name_plural = _('LOCATION.CONTINENT#plural')
+        verbose_name = _('Continent')
+        verbose_name_plural = _('Continents')
         unique_together = [('name', 'code')]
 
     @property

@@ -14,20 +14,20 @@ class Altname(models.Model):
 
     language = models.ForeignKey(
         'Language',
-        verbose_name=_('LOCATION.ALTNAME.LAGUAGUE'),
+        verbose_name=_('Language'),
         related_name='%(app_label)s_%(class)s_language',
         null=True,
         blank=True,
     )
 
     name = models.CharField(
-        _('LOCATION.ALTNAME.NAME'),
+        _('Name'),
         db_index=True,
         max_length=254,
     )
 
     slug = models.CharField(
-        _('LOCATION.ALTNAME.SLUG'),
+        _('Slug'),
         max_length=254,
         blank=True,
         null=True
@@ -48,15 +48,15 @@ class Altname(models.Model):
     )
 
     is_active = models.BooleanField(
-        _('LOCATION.ALTNAME.ACTIVE'),
+        _('Active'),
         default=True,
     )
 
     class Meta:
         app_label = 'geoware'
         db_table = '{app}-{type}'.format(app=app_label, type='altname')
-        verbose_name = _('LOCATION.ALTNAME')
-        verbose_name_plural = _('LOCATION.ALTNAME#plural')
+        verbose_name = _('Altname')
+        verbose_name_plural = _('Altnames')
         unique_together = [('geoname_id',)]
 
     def __str__(self):
