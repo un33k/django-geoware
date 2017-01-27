@@ -73,10 +73,10 @@ GEOWARE_CURRENCY_DATA = {
     },
     "AZN": {
         "code": "AZN",
-        "fractional_ratio": 0,
-        "fractional_unit": "",
+        "fractional_ratio": 100,
+        "fractional_unit": "Qəpik",
         "name": "New Manat (Azerbaijan)",
-        "symbol": ""
+        "symbol": "₼"
     },
     "BAM": {
         "code": "BAM",
@@ -241,10 +241,10 @@ GEOWARE_CURRENCY_DATA = {
     },
     "CUP": {
         "code": "CUP",
-        "fractional_ratio": 0,
-        "fractional_unit": "",
+        "fractional_ratio": 100,
+        "fractional_unit": "Centavo",
         "name": "Peso (Cuba)",
-        "symbol": ""
+        "symbol": "$"
     },
     "CVE": {
         "code": "CVE",
@@ -346,10 +346,10 @@ GEOWARE_CURRENCY_DATA = {
     },
     "GGP": {
         "code": "GGP",
-        "fractional_ratio": 0,
-        "fractional_unit": "",
+        "fractional_ratio": 100,
+        "fractional_unit": "Penny",
         "name": "Pound (Guernsey)",
-        "symbol": ""
+        "symbol": "£"
     },
     "GHS": {
         "code": "GHS",
@@ -444,10 +444,10 @@ GEOWARE_CURRENCY_DATA = {
     },
     "IMP": {
         "code": "IMP",
-        "fractional_ratio": 0,
-        "fractional_unit": "",
+        "fractional_ratio": 100,
+        "fractional_unit": "Pence",
         "name": "Pound (Isle of Man)",
-        "symbol": ""
+        "symbol": "£"
     },
     "INR": {
         "code": "INR",
@@ -479,10 +479,10 @@ GEOWARE_CURRENCY_DATA = {
     },
     "JEP": {
         "code": "JEP",
-        "fractional_ratio": 0,
-        "fractional_unit": "",
+        "fractional_ratio": 100,
+        "fractional_unit": "Pence",
         "name": "Pound (Jersey)",
-        "symbol": ""
+        "symbol": "£"
     },
     "JMD": {
         "code": "JMD",
