@@ -8,4 +8,4 @@ class AppConfig(DjangoAppConfig):
     Configuration entry point for the geoware app.
     """
     label = name = 'geoware'
-    verbose_name = _("GEOWARE.APPLICATION")
+    verbose_name = _("Geoware")
