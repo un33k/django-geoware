@@ -83,7 +83,7 @@ GEOWARE_CURRENCY_DATA = {
         "fractional_ratio": 100,
         "fractional_unit": "Fening",
         "name": "Convertible Marka (Bosnia and Herzegovina)",
-        "symbol": "KM or КМ"
+        "symbol": "KM"
     },
     "BBD": {
         "code": "BBD",
@@ -216,7 +216,7 @@ GEOWARE_CURRENCY_DATA = {
         "fractional_ratio": 100,
         "fractional_unit": "Fen",
         "name": "Yuan Renminbi (China)",
-        "symbol": "¥ or 元"
+        "symbol": "¥"
     },
     "COP": {
         "code": "COP",
@@ -251,7 +251,7 @@ GEOWARE_CURRENCY_DATA = {
         "fractional_ratio": 100,
         "fractional_unit": "Centavo",
         "name": "Escudo (Cape Verde)",
-        "symbol": "Esc or $"
+        "symbol": "$"
     },
     "CZK": {
         "code": "CZK",
@@ -293,7 +293,7 @@ GEOWARE_CURRENCY_DATA = {
         "fractional_ratio": 100,
         "fractional_unit": "Piastre",
         "name": "Pound (Egypt)",
-        "symbol": "£ or ج.م"
+        "symbol": "£"
     },
     "ERN": {
         "code": "ERN",
@@ -839,7 +839,7 @@ GEOWARE_CURRENCY_DATA = {
         "fractional_ratio": 100,
         "fractional_unit": "Para",
         "name": "Dinar (Serbia)",
-        "symbol": "дин. or din."
+        "symbol": "РСД"
     },
     "RUB": {
         "code": "RUB",
@@ -958,7 +958,7 @@ GEOWARE_CURRENCY_DATA = {
         "fractional_ratio": 100,
         "fractional_unit": "Piastre",
         "name": "Pound (Syria)",
-        "symbol": "£ or ل.س"
+        "symbol": "£"
     },
     "SZL": {
         "code": "SZL",
