@@ -26,7 +26,8 @@ class CityAdmin(admin.ModelAdmin):
         'is_active',
         'updated_at',
         'created_at',
-    )
+    ) + defs.GEOWARE_COORDINATES_FORMAT
+
     search_fields = [
         'geoname_id',
         'name',

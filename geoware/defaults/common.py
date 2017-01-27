@@ -4,8 +4,11 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ImproperlyConfigured
 
+GEOWARE_COORDINATES_FORMAT = ('lng', 'lng',)
+
 GEOWARE_USING_GIS = getattr(settings, 'GEOWARE_USING_GIS', False)
 if GEOWARE_USING_GIS:
+    GEOWARE_COORDINATES_FORMAT = ('point')
     MIGRATION_MODULES = getattr(settings, 'MIGRATION_MODULES', {})
     if not MIGRATION_MODULES.get('geoware'):
         raise ImproperlyConfigured("""GEOWARE_USING_GIS is True, however, \n
